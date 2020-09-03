@@ -1,4 +1,5 @@
 ﻿using NAudio;
+using Soundboard.Classes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,6 +15,8 @@ namespace Soundboard
 {
     public partial class frmSound : Form
     {
+        private SoundRepository SoundData;
+        private String SoundPath;
         public frmSound()
         {
             InitializeComponent();
@@ -62,6 +65,23 @@ namespace Soundboard
                 var capabilities = NAudio.Wave.WaveOut.GetCapabilities(deviceId);
                 cboxSoundDevices.Items.Add(capabilities.ProductName);
             }
+
+            SoundPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\Sounds";
+
+            //Acquire the sound data
+            refreshSoundData();
+
+            
+        }
+
+        /// <summary>
+        /// Reacquires the list of sound files in the data repository
+        /// </summary>
+        private void refreshSoundData()
+        {
+            SoundFileFactory fileCreator = new SoundFileFactory(System.IO.Directory.GetFiles(SoundPath, "*.mp3"));
+            SoundData = new SoundRepository(fileCreator.constructSoundFiles());
+
         }
     }
 }

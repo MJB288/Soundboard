@@ -49,6 +49,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\SoundFile.cs" />
+    <Compile Include="Classes\SoundFileFactory.cs" />
+    <Compile Include="Classes\SoundRepository.cs" />
     <Compile Include="Soundboard.cs">
       <SubType>Form</SubType>
     </Compile>

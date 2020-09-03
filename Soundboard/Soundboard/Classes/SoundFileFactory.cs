@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NAudio.Wave;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -27,7 +28,15 @@ namespace Soundboard.Classes
             //Now iterate through each filepath
             foreach (String filePath in FilePaths)
             {
-                
+                //Split the filepath 
+                String[] fileSplit = filePath.Split('\\');
+                SoundFile newFile = new SoundFile(fileSplit[fileSplit.Count() - 1], filePath, fileSplit[fileSplit.Count() - 2]);
+                //Check if we have an existing group or not
+                if (!soundData.ContainsKey(newFile.groupName))
+                {
+                    soundData[newFile.groupName] = new List<SoundFile>();
+                }
+                soundData[newFile.groupName].Add(newFile);
             }
             return soundData;
         }

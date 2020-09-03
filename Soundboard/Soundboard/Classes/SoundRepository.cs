@@ -8,5 +8,18 @@ namespace Soundboard.Classes
 {
     class SoundRepository
     {
+        //Holds all of the sound data
+        private Dictionary<String, List<SoundFile>> SoundFiles;
+        
+
+        public SoundRepository()
+        {
+
+        }
+
+        public SoundRepository(Dictionary<String, List<SoundFile>> fileData)
+        {
+            SoundFiles = fileData;
+        }
     }
 }
