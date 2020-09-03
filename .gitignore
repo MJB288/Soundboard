@@ -348,3 +348,7 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+#Since I will be using a sample of sound files some of which may be copy wrighted - gitignore mp3 files to prevent auto commit
+*.mp3
+*.wav
