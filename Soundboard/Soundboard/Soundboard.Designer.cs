@@ -37,6 +37,7 @@
             this.lblDeviceSelection = new System.Windows.Forms.Label();
             this.cboxGroups = new System.Windows.Forms.ComboBox();
             this.lblTest = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnPlay
@@ -55,9 +56,9 @@
             this.clmName,
             this.clmLength});
             this.lviewSounds.HideSelection = false;
-            this.lviewSounds.Location = new System.Drawing.Point(31, 42);
+            this.lviewSounds.Location = new System.Drawing.Point(22, 169);
             this.lviewSounds.Name = "lviewSounds";
-            this.lviewSounds.Size = new System.Drawing.Size(169, 202);
+            this.lviewSounds.Size = new System.Drawing.Size(242, 202);
             this.lviewSounds.TabIndex = 1;
             this.lviewSounds.UseCompatibleStateImageBehavior = false;
             this.lviewSounds.View = System.Windows.Forms.View.Details;
@@ -66,6 +67,7 @@
             // clmName
             // 
             this.clmName.Text = "Name";
+            this.clmName.Width = 130;
             // 
             // clmLength
             // 
@@ -106,7 +108,7 @@
             // cboxGroups
             // 
             this.cboxGroups.FormattingEnabled = true;
-            this.cboxGroups.Location = new System.Drawing.Point(229, 223);
+            this.cboxGroups.Location = new System.Drawing.Point(100, 142);
             this.cboxGroups.Name = "cboxGroups";
             this.cboxGroups.Size = new System.Drawing.Size(121, 21);
             this.cboxGroups.TabIndex = 5;
@@ -121,11 +123,21 @@
             this.lblTest.TabIndex = 6;
             this.lblTest.Text = "Test";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(58, 145);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(42, 13);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Group :";
+            // 
             // frmSound
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.lblTest);
             this.Controls.Add(this.cboxGroups);
             this.Controls.Add(this.lblDeviceSelection);
@@ -152,6 +164,7 @@
         private System.Windows.Forms.Label lblDeviceSelection;
         private System.Windows.Forms.ComboBox cboxGroups;
         private System.Windows.Forms.Label lblTest;
+        private System.Windows.Forms.Label label1;
     }
 }
 

@@ -30,21 +30,23 @@ namespace Soundboard
             //WMPLib.WindowsMediaPlayer player = new WMPLib.WindowsMediaPlayer();
             //player.URL = "hellothere.mp3";
             //            player.playerApplication.
-            using (FileStream fs = new FileStream("hellothere.wav", FileMode.Open, FileAccess.Write, FileShare.ReadWrite))
-            {
-                var waveReader = new NAudio.Wave.WaveFileReader("hellothere1.wav");
-                var waveIn = new NAudio.Wave.WaveIn();
-                var waveOut = new NAudio.Wave.WaveOut();
+            /* using (FileStream fs = new FileStream("hellothere.wav", FileMode.Open, FileAccess.Write, FileShare.ReadWrite))
+             {
+                 var waveReader = new NAudio.Wave.WaveFileReader("hellothere1.wav");
+                 var waveIn = new NAudio.Wave.WaveIn();
+                 
 
-                waveIn.DeviceNumber = 0;
-                waveOut.DeviceNumber = cboxSoundDevices.SelectedIndex;
-                
-                var test = new NAudio.Wave.Mp3FileReader("hellothere.mp3");
-                waveOut.Init(test);
-                waveOut.Play();
-            }
+                 waveIn.DeviceNumber = 0;
+                 waveOut.DeviceNumber = cboxSoundDevices.SelectedIndex;
 
-            
+                 var test = new NAudio.Wave.Mp3FileReader("hellothere.mp3");
+                 waveOut.Init(test);
+                 waveOut.Play();
+             }*/
+            var waveOut = new NAudio.Wave.WaveOut();
+            var test = new NAudio.Wave.Mp3FileReader((String)lviewSounds.SelectedItems[0].Tag);
+            waveOut.Init(test);
+            waveOut.Play();
 
             
             //NAudio.Wave.DirectSoundOut.
@@ -109,6 +111,7 @@ namespace Soundboard
             {
                 String[] itemArray = {soundFile.soundName, "0"};
                 ListViewItem lviewItem = new ListViewItem(itemArray);
+                lviewItem.Tag = soundFile.filePath;
                 lviewSounds.Items.Add(lviewItem);
             }
 
