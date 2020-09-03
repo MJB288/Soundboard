@@ -43,6 +43,7 @@ namespace Soundboard
             soundName = name;
             filePath = path;
             //this.duration = duration;
+            this.groupName = groupName;
         }
     }
 }

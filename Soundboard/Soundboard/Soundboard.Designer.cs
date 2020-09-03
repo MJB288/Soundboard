@@ -35,6 +35,8 @@
             this.btnStop = new System.Windows.Forms.Button();
             this.cboxSoundDevices = new System.Windows.Forms.ComboBox();
             this.lblDeviceSelection = new System.Windows.Forms.Label();
+            this.cboxGroups = new System.Windows.Forms.ComboBox();
+            this.lblTest = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnPlay
@@ -101,11 +103,31 @@
             this.lblDeviceSelection.TabIndex = 4;
             this.lblDeviceSelection.Text = "Output Device Selection : ";
             // 
+            // cboxGroups
+            // 
+            this.cboxGroups.FormattingEnabled = true;
+            this.cboxGroups.Location = new System.Drawing.Point(229, 223);
+            this.cboxGroups.Name = "cboxGroups";
+            this.cboxGroups.Size = new System.Drawing.Size(121, 21);
+            this.cboxGroups.TabIndex = 5;
+            this.cboxGroups.SelectedIndexChanged += new System.EventHandler(this.cboxGroups_SelectedIndexChanged);
+            // 
+            // lblTest
+            // 
+            this.lblTest.AutoSize = true;
+            this.lblTest.Location = new System.Drawing.Point(438, 129);
+            this.lblTest.Name = "lblTest";
+            this.lblTest.Size = new System.Drawing.Size(28, 13);
+            this.lblTest.TabIndex = 6;
+            this.lblTest.Text = "Test";
+            // 
             // frmSound
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lblTest);
+            this.Controls.Add(this.cboxGroups);
             this.Controls.Add(this.lblDeviceSelection);
             this.Controls.Add(this.cboxSoundDevices);
             this.Controls.Add(this.btnStop);
@@ -128,6 +150,8 @@
         private System.Windows.Forms.Button btnStop;
         private System.Windows.Forms.ComboBox cboxSoundDevices;
         private System.Windows.Forms.Label lblDeviceSelection;
+        private System.Windows.Forms.ComboBox cboxGroups;
+        private System.Windows.Forms.Label lblTest;
     }
 }
 

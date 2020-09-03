@@ -9,7 +9,7 @@ namespace Soundboard.Classes
     class SoundRepository
     {
         //Holds all of the sound data
-        private Dictionary<String, List<SoundFile>> SoundFiles;
+        public Dictionary<String, List<SoundFile>> SoundFiles;
         
 
         public SoundRepository()
@@ -20,6 +20,11 @@ namespace Soundboard.Classes
         public SoundRepository(Dictionary<String, List<SoundFile>> fileData)
         {
             SoundFiles = fileData;
+        }
+
+        public String[] getGroupNames()
+        {
+            return SoundFiles.Keys.ToArray();
         }
     }
 }

@@ -79,8 +79,38 @@ namespace Soundboard
         /// </summary>
         private void refreshSoundData()
         {
-            SoundFileFactory fileCreator = new SoundFileFactory(System.IO.Directory.GetFiles(SoundPath, "*.mp3"));
+            //foreach(System.IO.Directory.GetFiles(SoundPath, "*.mp3"))
+            lblTest.Text = System.IO.Directory.GetFiles(SoundPath, "*.mp3").ToString();
+            SoundFileFactory fileCreator = new SoundFileFactory(System.IO.Directory.GetFiles(SoundPath, "*.mp3", SearchOption.AllDirectories));
             SoundData = new SoundRepository(fileCreator.constructSoundFiles());
+            //lblTest.Text = SoundData.SoundFiles.Keys.ToString
+            try
+            {
+                cboxGroups.Items.AddRange(SoundData.getGroupNames());
+                //While the rest of this code doesn't throw an exception - don't want to execute if no files
+                cboxGroups.SelectedIndex = 0;
+            }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show("Error - unable to find files in directory :\n" + SoundPath, "Files Not Found");
+            }
+        }
+
+        private void cboxGroups_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lviewSounds.Items.Clear();
+            //Incase the combobox is cleared - don't fire any code or more exceptions will happen
+            if(cboxGroups.SelectedIndex < 0)
+            {
+                return;
+            }
+
+            foreach(SoundFile soundFile in SoundData.SoundFiles[cboxGroups.SelectedItem.ToString()])
+            {
+                String[] itemArray = {soundFile.soundName, "0"};
+                ListViewItem lviewItem = new ListViewItem(itemArray);
+                lviewSounds.Items.Add(lviewItem);
+            }
 
         }
     }
