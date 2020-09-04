@@ -1,4 +1,5 @@
 ﻿using NAudio;
+using NAudio.Wave;
 using Soundboard.Classes;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace Soundboard
     {
         private SoundRepository SoundData;
         private String SoundPath;
+        private WaveOut MainPlayer;
         public frmSound()
         {
             InitializeComponent();
@@ -43,10 +45,15 @@ namespace Soundboard
                  waveOut.Init(test);
                  waveOut.Play();
              }*/
-            var waveOut = new NAudio.Wave.WaveOut();
-            var test = new NAudio.Wave.Mp3FileReader((String)lviewSounds.SelectedItems[0].Tag);
-            waveOut.Init(test);
-            waveOut.Play();
+            if(lviewSounds.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("No item is selected!", "Play Error");
+                return;
+            }
+            MainPlayer = new NAudio.Wave.WaveOut();
+            Mp3FileReader mp3Reader = new NAudio.Wave.Mp3FileReader((String)lviewSounds.SelectedItems[0].Tag);
+            MainPlayer.Init(mp3Reader);
+            MainPlayer.Play();
 
             
             //NAudio.Wave.DirectSoundOut.
@@ -109,12 +116,24 @@ namespace Soundboard
 
             foreach(SoundFile soundFile in SoundData.SoundFiles[cboxGroups.SelectedItem.ToString()])
             {
-                String[] itemArray = {soundFile.soundName, "0"};
+                StringBuilder noMp3Name = new StringBuilder(soundFile.soundName);
+                noMp3Name.Remove(noMp3Name.Length - 4, 4);
+                String[] itemArray = { noMp3Name.ToString(), "0"};
                 ListViewItem lviewItem = new ListViewItem(itemArray);
                 lviewItem.Tag = soundFile.filePath;
                 lviewSounds.Items.Add(lviewItem);
+                
             }
+            lviewSounds.Items[0].Selected = true;
+        }
 
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+            if(MainPlayer == null || MainPlayer.PlaybackState == PlaybackState.Stopped)
+            {
+                return;
+            }
+            MainPlayer.Stop();
         }
     }
 }
