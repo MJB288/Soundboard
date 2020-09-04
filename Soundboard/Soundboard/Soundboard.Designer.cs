@@ -38,6 +38,7 @@
             this.cboxGroups = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tbarVolume = new System.Windows.Forms.TrackBar();
+            this.btnRefresh = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.tbarVolume)).BeginInit();
             this.SuspendLayout();
             // 
@@ -57,7 +58,7 @@
             this.clmName,
             this.clmLength});
             this.lviewSounds.HideSelection = false;
-            this.lviewSounds.Location = new System.Drawing.Point(22, 169);
+            this.lviewSounds.Location = new System.Drawing.Point(22, 104);
             this.lviewSounds.Name = "lviewSounds";
             this.lviewSounds.Size = new System.Drawing.Size(242, 202);
             this.lviewSounds.TabIndex = 1;
@@ -110,7 +111,7 @@
             // cboxGroups
             // 
             this.cboxGroups.FormattingEnabled = true;
-            this.cboxGroups.Location = new System.Drawing.Point(100, 142);
+            this.cboxGroups.Location = new System.Drawing.Point(100, 77);
             this.cboxGroups.Name = "cboxGroups";
             this.cboxGroups.Size = new System.Drawing.Size(121, 21);
             this.cboxGroups.TabIndex = 5;
@@ -119,7 +120,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(58, 145);
+            this.label1.Location = new System.Drawing.Point(58, 80);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(42, 13);
             this.label1.TabIndex = 7;
@@ -134,11 +135,22 @@
             this.tbarVolume.TabIndex = 8;
             this.tbarVolume.Scroll += new System.EventHandler(this.tbarVolume_Scroll);
             // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Location = new System.Drawing.Point(220, 13);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(75, 23);
+            this.btnRefresh.TabIndex = 9;
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
             // frmSound
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(632, 389);
+            this.ClientSize = new System.Drawing.Size(632, 333);
+            this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.tbarVolume);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cboxGroups);
@@ -168,6 +180,7 @@
         private System.Windows.Forms.ComboBox cboxGroups;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TrackBar tbarVolume;
+        private System.Windows.Forms.Button btnRefresh;
     }
 }
 

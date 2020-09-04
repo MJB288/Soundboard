@@ -56,9 +56,19 @@ namespace Soundboard
             }
             MainPlayer.DeviceNumber = cboxSoundDevices.SelectedIndex;
             //MainPlayer.Volume = .01f * (float)tbarVolume.Value;
-            Mp3FileReader mp3Reader = new NAudio.Wave.Mp3FileReader((String)lviewSounds.SelectedItems[0].Tag);
-            MainPlayer.Init(mp3Reader);
-            MainPlayer.Play();
+            
+            if(lviewSounds.SelectedItems[0].Tag.ToString()[lviewSounds.SelectedItems[0].Tag.ToString().Length - 1] == '3')
+            {
+                Mp3FileReader mp3Reader = new NAudio.Wave.Mp3FileReader((String)lviewSounds.SelectedItems[0].Tag);
+                MainPlayer.Init(mp3Reader);
+                MainPlayer.Play();
+            }
+            else if(lviewSounds.SelectedItems[0].Tag.ToString().ToLower()[lviewSounds.SelectedItems[0].Tag.ToString().Length - 1] == 'v')
+            {
+                WaveFileReader wavReader = new NAudio.Wave.WaveFileReader((String)lviewSounds.SelectedItems[0].Tag);
+                MainPlayer.Init(wavReader);
+                MainPlayer.Play();
+            }
             
             
             //NAudio.Wave.DirectSoundOut.
@@ -88,6 +98,7 @@ namespace Soundboard
 
             MainPlayer = new NAudio.Wave.WaveOut();
             tbarVolume.Value = 50;
+            MainPlayer.Volume = 0.01f * tbarVolume.Value;
         }
 
         /// <summary>
@@ -95,8 +106,10 @@ namespace Soundboard
         /// </summary>
         private void refreshSoundData()
         {
+            cboxGroups.Items.Clear();
             //foreach(System.IO.Directory.GetFiles(SoundPath, "*.mp3"))
-            SoundFileFactory fileCreator = new SoundFileFactory(System.IO.Directory.GetFiles(SoundPath, "*.mp3", SearchOption.AllDirectories));
+            String[] filePaths = System.IO.Directory.GetFiles(SoundPath, "*", SearchOption.AllDirectories).Where(file => file.Contains(".mp3") || file.Contains(".wav")).ToArray();
+            SoundFileFactory fileCreator = new SoundFileFactory(filePaths);
             SoundData = new SoundRepository(fileCreator.constructSoundFiles());
             //lblTest.Text = SoundData.SoundFiles.Keys.ToString
             try
@@ -145,6 +158,11 @@ namespace Soundboard
         private void tbarVolume_Scroll(object sender, EventArgs e)
         {
             MainPlayer.Volume = .01f * tbarVolume.Value;
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            refreshSoundData();
         }
     }
 }
