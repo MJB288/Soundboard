@@ -50,11 +50,15 @@ namespace Soundboard
                 MessageBox.Show("No item is selected!", "Play Error");
                 return;
             }
-            MainPlayer = new NAudio.Wave.WaveOut();
+            if(MainPlayer.PlaybackState == PlaybackState.Paused || MainPlayer.PlaybackState == PlaybackState.Playing)
+            {
+                MainPlayer.Stop();
+            }
+            MainPlayer.DeviceNumber = cboxSoundDevices.SelectedIndex;
             Mp3FileReader mp3Reader = new NAudio.Wave.Mp3FileReader((String)lviewSounds.SelectedItems[0].Tag);
             MainPlayer.Init(mp3Reader);
             MainPlayer.Play();
-
+            
             
             //NAudio.Wave.DirectSoundOut.
 //            var device = new MMDeviceEnumerator();
@@ -80,7 +84,7 @@ namespace Soundboard
             //Acquire the sound data
             refreshSoundData();
 
-            
+            MainPlayer = new NAudio.Wave.WaveOut();
         }
 
         /// <summary>
