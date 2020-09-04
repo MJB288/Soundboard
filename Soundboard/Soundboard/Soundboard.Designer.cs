@@ -36,8 +36,9 @@
             this.cboxSoundDevices = new System.Windows.Forms.ComboBox();
             this.lblDeviceSelection = new System.Windows.Forms.Label();
             this.cboxGroups = new System.Windows.Forms.ComboBox();
-            this.lblTest = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.tbarVolume = new System.Windows.Forms.TrackBar();
+            ((System.ComponentModel.ISupportInitialize)(this.tbarVolume)).BeginInit();
             this.SuspendLayout();
             // 
             // btnPlay
@@ -92,7 +93,7 @@
             "3",
             "4",
             "5"});
-            this.cboxSoundDevices.Location = new System.Drawing.Point(362, 58);
+            this.cboxSoundDevices.Location = new System.Drawing.Point(311, 60);
             this.cboxSoundDevices.Name = "cboxSoundDevices";
             this.cboxSoundDevices.Size = new System.Drawing.Size(299, 21);
             this.cboxSoundDevices.TabIndex = 3;
@@ -100,7 +101,7 @@
             // lblDeviceSelection
             // 
             this.lblDeviceSelection.AutoSize = true;
-            this.lblDeviceSelection.Location = new System.Drawing.Point(463, 42);
+            this.lblDeviceSelection.Location = new System.Drawing.Point(412, 44);
             this.lblDeviceSelection.Name = "lblDeviceSelection";
             this.lblDeviceSelection.Size = new System.Drawing.Size(132, 13);
             this.lblDeviceSelection.TabIndex = 4;
@@ -115,15 +116,6 @@
             this.cboxGroups.TabIndex = 5;
             this.cboxGroups.SelectedIndexChanged += new System.EventHandler(this.cboxGroups_SelectedIndexChanged);
             // 
-            // lblTest
-            // 
-            this.lblTest.AutoSize = true;
-            this.lblTest.Location = new System.Drawing.Point(438, 129);
-            this.lblTest.Name = "lblTest";
-            this.lblTest.Size = new System.Drawing.Size(28, 13);
-            this.lblTest.TabIndex = 6;
-            this.lblTest.Text = "Test";
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -133,13 +125,22 @@
             this.label1.TabIndex = 7;
             this.label1.Text = "Group :";
             // 
+            // tbarVolume
+            // 
+            this.tbarVolume.Location = new System.Drawing.Point(322, 189);
+            this.tbarVolume.Maximum = 100;
+            this.tbarVolume.Name = "tbarVolume";
+            this.tbarVolume.Size = new System.Drawing.Size(121, 45);
+            this.tbarVolume.TabIndex = 8;
+            this.tbarVolume.Scroll += new System.EventHandler(this.tbarVolume_Scroll);
+            // 
             // frmSound
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(632, 389);
+            this.Controls.Add(this.tbarVolume);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.lblTest);
             this.Controls.Add(this.cboxGroups);
             this.Controls.Add(this.lblDeviceSelection);
             this.Controls.Add(this.cboxSoundDevices);
@@ -149,6 +150,7 @@
             this.Name = "frmSound";
             this.Text = "Soundboard";
             this.Load += new System.EventHandler(this.frmSound_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.tbarVolume)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -164,8 +166,8 @@
         private System.Windows.Forms.ComboBox cboxSoundDevices;
         private System.Windows.Forms.Label lblDeviceSelection;
         private System.Windows.Forms.ComboBox cboxGroups;
-        private System.Windows.Forms.Label lblTest;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TrackBar tbarVolume;
     }
 }
 

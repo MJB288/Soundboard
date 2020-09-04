@@ -55,6 +55,7 @@ namespace Soundboard
                 MainPlayer.Stop();
             }
             MainPlayer.DeviceNumber = cboxSoundDevices.SelectedIndex;
+            //MainPlayer.Volume = .01f * (float)tbarVolume.Value;
             Mp3FileReader mp3Reader = new NAudio.Wave.Mp3FileReader((String)lviewSounds.SelectedItems[0].Tag);
             MainPlayer.Init(mp3Reader);
             MainPlayer.Play();
@@ -78,6 +79,7 @@ namespace Soundboard
                 var capabilities = NAudio.Wave.WaveOut.GetCapabilities(deviceId);
                 cboxSoundDevices.Items.Add(capabilities.ProductName);
             }
+            cboxSoundDevices.SelectedIndex = 0;
 
             SoundPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\Sounds";
 
@@ -85,6 +87,7 @@ namespace Soundboard
             refreshSoundData();
 
             MainPlayer = new NAudio.Wave.WaveOut();
+            tbarVolume.Value = 50;
         }
 
         /// <summary>
@@ -93,7 +96,6 @@ namespace Soundboard
         private void refreshSoundData()
         {
             //foreach(System.IO.Directory.GetFiles(SoundPath, "*.mp3"))
-            lblTest.Text = System.IO.Directory.GetFiles(SoundPath, "*.mp3").ToString();
             SoundFileFactory fileCreator = new SoundFileFactory(System.IO.Directory.GetFiles(SoundPath, "*.mp3", SearchOption.AllDirectories));
             SoundData = new SoundRepository(fileCreator.constructSoundFiles());
             //lblTest.Text = SoundData.SoundFiles.Keys.ToString
@@ -138,6 +140,11 @@ namespace Soundboard
                 return;
             }
             MainPlayer.Stop();
+        }
+
+        private void tbarVolume_Scroll(object sender, EventArgs e)
+        {
+            MainPlayer.Volume = .01f * tbarVolume.Value;
         }
     }
 }
