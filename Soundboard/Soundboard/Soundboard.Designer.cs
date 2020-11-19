@@ -39,6 +39,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tbarVolume = new System.Windows.Forms.TrackBar();
             this.btnRefresh = new System.Windows.Forms.Button();
+            this.cboxInputDevices = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btnRecord = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.tbarVolume)).BeginInit();
             this.SuspendLayout();
             // 
@@ -94,7 +97,7 @@
             "3",
             "4",
             "5"});
-            this.cboxSoundDevices.Location = new System.Drawing.Point(311, 60);
+            this.cboxSoundDevices.Location = new System.Drawing.Point(307, 120);
             this.cboxSoundDevices.Name = "cboxSoundDevices";
             this.cboxSoundDevices.Size = new System.Drawing.Size(299, 21);
             this.cboxSoundDevices.TabIndex = 3;
@@ -102,7 +105,7 @@
             // lblDeviceSelection
             // 
             this.lblDeviceSelection.AutoSize = true;
-            this.lblDeviceSelection.Location = new System.Drawing.Point(412, 44);
+            this.lblDeviceSelection.Location = new System.Drawing.Point(408, 104);
             this.lblDeviceSelection.Name = "lblDeviceSelection";
             this.lblDeviceSelection.Size = new System.Drawing.Size(132, 13);
             this.lblDeviceSelection.TabIndex = 4;
@@ -128,7 +131,7 @@
             // 
             // tbarVolume
             // 
-            this.tbarVolume.Location = new System.Drawing.Point(322, 189);
+            this.tbarVolume.Location = new System.Drawing.Point(307, 12);
             this.tbarVolume.Maximum = 100;
             this.tbarVolume.Name = "tbarVolume";
             this.tbarVolume.Size = new System.Drawing.Size(121, 45);
@@ -145,11 +148,47 @@
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
+            // cboxInputDevices
+            // 
+            this.cboxInputDevices.FormattingEnabled = true;
+            this.cboxInputDevices.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"});
+            this.cboxInputDevices.Location = new System.Drawing.Point(307, 183);
+            this.cboxInputDevices.Name = "cboxInputDevices";
+            this.cboxInputDevices.Size = new System.Drawing.Size(299, 21);
+            this.cboxInputDevices.TabIndex = 10;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(408, 167);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(124, 13);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "Input Device Selection : ";
+            // 
+            // btnRecord
+            // 
+            this.btnRecord.Location = new System.Drawing.Point(411, 63);
+            this.btnRecord.Name = "btnRecord";
+            this.btnRecord.Size = new System.Drawing.Size(75, 23);
+            this.btnRecord.TabIndex = 12;
+            this.btnRecord.Text = "Record";
+            this.btnRecord.UseVisualStyleBackColor = true;
+            this.btnRecord.Click += new System.EventHandler(this.btnRecord_Click);
+            // 
             // frmSound
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(632, 333);
+            this.Controls.Add(this.btnRecord);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.cboxInputDevices);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.tbarVolume);
             this.Controls.Add(this.label1);
@@ -181,6 +220,9 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TrackBar tbarVolume;
         private System.Windows.Forms.Button btnRefresh;
+        private System.Windows.Forms.ComboBox cboxInputDevices;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnRecord;
     }
 }
 

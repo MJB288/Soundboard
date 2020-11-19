@@ -2,6 +2,7 @@
 using NAudio.Wave;
 using Soundboard.Classes;
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -19,9 +20,11 @@ namespace Soundboard
         private SoundRepository SoundData;
         private String SoundPath;
         private WaveOut MainPlayer;
+        private Boolean Recording;
         public frmSound()
         {
             InitializeComponent();
+            Recording = false;
         }
 
         private void btnPlay_Click(object sender, EventArgs e)
@@ -91,6 +94,8 @@ namespace Soundboard
             }
             cboxSoundDevices.SelectedIndex = 0;
 
+            loadInputDevices();
+
             SoundPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\Sounds";
 
             //Acquire the sound data
@@ -99,6 +104,36 @@ namespace Soundboard
             MainPlayer = new NAudio.Wave.WaveOut();
             tbarVolume.Value = 50;
             MainPlayer.Volume = 0.01f * tbarVolume.Value;
+
+            //loadSoundDevices(NAudio.Wave.WaveIn.DeviceCount, NAudio.Wave.WaveIn)
+        }
+
+        private object getCapability(bool input, int deviceID)
+        {
+            if (input)
+            {
+                return NAudio.Wave.WaveIn.GetCapabilities(deviceID);
+            }
+            else
+            {
+                return NAudio.Wave.WaveOut.GetCapabilities(deviceID);
+            }
+        }
+
+        /*private void loadSoundDevices(int deviceCount, NAudio)
+        {
+
+        }*/
+
+        private void loadInputDevices()
+        {
+            cboxInputDevices.Items.Clear();
+            for(int deviceId = 0; deviceId < NAudio.Wave.WaveIn.DeviceCount; deviceId++)
+            {
+                var capabilities = NAudio.Wave.WaveIn.GetCapabilities(deviceId);
+                cboxInputDevices.Items.Add(capabilities.ProductName);
+            }
+            cboxInputDevices.SelectedIndex = 0;
         }
 
         /// <summary>
@@ -163,6 +198,21 @@ namespace Soundboard
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             refreshSoundData();
+        }
+
+        private void btnRecord_Click(object sender, EventArgs e)
+        {
+            //Only this button can access this boolean at the moment, so no locks are needed
+            Recording = !Recording;
+            //Change Behavior based off of the new boolean, not the previous boolean
+            if (Recording)
+            {
+                btnRecord.BackColor = Color.Red;
+            }
+            else
+            {
+                btnRecord.BackColor = Color.Gray;
+            }
         }
     }
 }
