@@ -22,6 +22,7 @@ namespace Soundboard
         private String SoundPath;
         private WaveOut MainPlayer;
         private Boolean Recording;
+        private WaveIn AudioRecorderW;
         private WasapiLoopbackCapture AudioRecorder;
         private WaveFileWriter AudioWriter;
 
@@ -94,7 +95,8 @@ namespace Soundboard
             loadOutputDevices();
 
             SoundPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\Sounds";
-
+            //Instatiate the Recording Folder if necessary
+            System.IO.Directory.CreateDirectory(SoundPath + "\\Recording");
             //Acquire the sound data
             refreshSoundData();
 
@@ -177,12 +179,17 @@ namespace Soundboard
                 return;
             }
 
+            //Fill out the list of SoundFiles based on the group that has been selected
             foreach(SoundFile soundFile in SoundData.SoundFiles[cboxGroups.SelectedItem.ToString()])
             {
+                //Remove the .mp3 Extension (or .wav since that format is now current supported)
                 StringBuilder noMp3Name = new StringBuilder(soundFile.soundName);
                 noMp3Name.Remove(noMp3Name.Length - 4, 4);
+                //Create a string array of attributes
                 String[] itemArray = { noMp3Name.ToString(), "0"};
+                //Convert the attributes into a List View format
                 ListViewItem lviewItem = new ListViewItem(itemArray);
+                //And then add them to the path
                 lviewItem.Tag = soundFile.filePath;
                 lviewSounds.Items.Add(lviewItem);
                 
@@ -218,18 +225,59 @@ namespace Soundboard
             {
                 btnRecord.BackColor = Color.Red;
                 //Instatiate the recorder and the file writer
-                String RecordingPath = SoundPath + "\\Recording\\Test.mp3";
-                
+                String RecordingPath = SoundPath + "\\Recording\\Test.wav";
+
+                //Instatiate the WaveIn
+                AudioRecorderW = new WaveIn();
+                AudioRecorderW.DeviceNumber = cboxInputDevices.SelectedIndex;
+                AudioWriter = new WaveFileWriter(RecordingPath, AudioRecorderW.WaveFormat);
+                AudioRecorderW.DataAvailable += (s, audioArgs) =>
+                {
+                    AudioWriter.Write(audioArgs.Buffer, 0, audioArgs.BytesRecorded);
+                };
+                AudioRecorderW.RecordingStopped += (s, a) =>
+                {
+                    AudioWriter.Dispose();
+                    AudioRecorderW.Dispose();
+                    AudioWriter = null;
+                };
+
+                //MMDevice selectedDevice = getSelectedRecordingDevice();
                 //Instatiate the Recording device
-                AudioRecorder = new WasapiLoopbackCapture(getSelectedRecordingDevice());
-                AudioWriter = new WaveFileWriter(RecordingPath, AudioRecorder.WaveFormat);
+                //AudioRecorder = new WasapiLoopbackCapture(selectedDevice);
+                /*AudioWriter = new WaveFileWriter(RecordingPath, AudioRecorder.WaveFormat);
+                
+                //Add Event handlers since the recording is not of set length
+                //First - Recording the Audio as it Comes in
+                AudioRecorder.DataAvailable += (s, newAudio) =>
+                {
+                    AudioWriter.Write(newAudio.Buffer, 0, newAudio.BytesRecorded);
+                };
+                //Next - when the user stops the Recording
+                AudioRecorder.RecordingStopped += (s, a) =>
+                {
+                    //Properly clean up the memory used
+                    AudioRecorder.Dispose();
+                    AudioWriter.Dispose();
+                    AudioWriter = null;
+                };*/
+
+                //Finally - after setting all of that up - Start recording
+                //AudioRecorder.StartRecording();
+                AudioRecorderW.StartRecording();
             }
             else
             {
                 btnRecord.BackColor = Color.Gray;
+                //Thanks to the event handlers setup in the Start Recording section - only one method needs to be called
+                AudioRecorderW.StopRecording();
             }
         }
 
+        /// <summary>
+        /// Gets the Recording device currently selected by the user and returns it as an MMDevice Object for Wasapi purposes
+        /// </summary>
+        /// <returns></returns>
         private MMDevice getSelectedRecordingDevice()
         {
             var deviceEnumerator = new MMDeviceEnumerator();
