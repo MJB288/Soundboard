@@ -42,6 +42,7 @@
             this.cboxInputDevices = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btnRecord = new System.Windows.Forms.Button();
+            this.btnPlayback = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.tbarVolume)).BeginInit();
             this.SuspendLayout();
             // 
@@ -173,7 +174,7 @@
             // 
             // btnRecord
             // 
-            this.btnRecord.Location = new System.Drawing.Point(411, 63);
+            this.btnRecord.Location = new System.Drawing.Point(376, 63);
             this.btnRecord.Name = "btnRecord";
             this.btnRecord.Size = new System.Drawing.Size(75, 23);
             this.btnRecord.TabIndex = 12;
@@ -181,11 +182,23 @@
             this.btnRecord.UseVisualStyleBackColor = true;
             this.btnRecord.Click += new System.EventHandler(this.btnRecord_Click);
             // 
+            // btnPlayback
+            // 
+            this.btnPlayback.Enabled = false;
+            this.btnPlayback.Location = new System.Drawing.Point(465, 63);
+            this.btnPlayback.Name = "btnPlayback";
+            this.btnPlayback.Size = new System.Drawing.Size(75, 23);
+            this.btnPlayback.TabIndex = 13;
+            this.btnPlayback.Text = "Playback";
+            this.btnPlayback.UseVisualStyleBackColor = true;
+            this.btnPlayback.Click += new System.EventHandler(this.btnPlayback_Click);
+            // 
             // frmSound
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(632, 333);
+            this.Controls.Add(this.btnPlayback);
             this.Controls.Add(this.btnRecord);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cboxInputDevices);
@@ -223,6 +236,7 @@
         private System.Windows.Forms.ComboBox cboxInputDevices;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnRecord;
+        private System.Windows.Forms.Button btnPlayback;
     }
 }
 

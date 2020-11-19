@@ -22,8 +22,7 @@ namespace Soundboard
         private String SoundPath;
         private WaveOut MainPlayer;
         private Boolean Recording;
-        private WaveIn AudioRecorderW;
-        private WasapiLoopbackCapture AudioRecorder;
+        private WaveIn AudioRecorder;
         private WaveFileWriter AudioWriter;
 
         public frmSound()
@@ -223,54 +222,37 @@ namespace Soundboard
             //Change Behavior based off of the new boolean, not the previous boolean
             if (Recording)
             {
+                //Enable the Playback button if hasn't been yet
+                btnPlayback.Enabled = true;
                 btnRecord.BackColor = Color.Red;
                 //Instatiate the recorder and the file writer
-                String RecordingPath = SoundPath + "\\Recording\\Test.wav";
+                String RecordingPath = SoundPath + "\\Recording\\Temp.wav";
 
                 //Instatiate the WaveIn
-                AudioRecorderW = new WaveIn();
-                AudioRecorderW.DeviceNumber = cboxInputDevices.SelectedIndex;
-                AudioWriter = new WaveFileWriter(RecordingPath, AudioRecorderW.WaveFormat);
-                AudioRecorderW.DataAvailable += (s, audioArgs) =>
+                AudioRecorder = new WaveIn();
+                AudioRecorder.DeviceNumber = cboxInputDevices.SelectedIndex;
+                AudioWriter = new WaveFileWriter(RecordingPath, AudioRecorder.WaveFormat);
+                //Setup Event Handlers
+                AudioRecorder.DataAvailable += (s, audioArgs) =>
                 {
                     AudioWriter.Write(audioArgs.Buffer, 0, audioArgs.BytesRecorded);
                 };
-                AudioRecorderW.RecordingStopped += (s, a) =>
-                {
-                    AudioWriter.Dispose();
-                    AudioRecorderW.Dispose();
-                    AudioWriter = null;
-                };
-
-                //MMDevice selectedDevice = getSelectedRecordingDevice();
-                //Instatiate the Recording device
-                //AudioRecorder = new WasapiLoopbackCapture(selectedDevice);
-                /*AudioWriter = new WaveFileWriter(RecordingPath, AudioRecorder.WaveFormat);
-                
-                //Add Event handlers since the recording is not of set length
-                //First - Recording the Audio as it Comes in
-                AudioRecorder.DataAvailable += (s, newAudio) =>
-                {
-                    AudioWriter.Write(newAudio.Buffer, 0, newAudio.BytesRecorded);
-                };
-                //Next - when the user stops the Recording
                 AudioRecorder.RecordingStopped += (s, a) =>
                 {
-                    //Properly clean up the memory used
-                    AudioRecorder.Dispose();
                     AudioWriter.Dispose();
+                    AudioRecorder.Dispose();
                     AudioWriter = null;
-                };*/
+                };
 
-                //Finally - after setting all of that up - Start recording
-                //AudioRecorder.StartRecording();
-                AudioRecorderW.StartRecording();
+                AudioRecorder.StartRecording();
             }
             else
             {
                 btnRecord.BackColor = Color.Gray;
                 //Thanks to the event handlers setup in the Start Recording section - only one method needs to be called
-                AudioRecorderW.StopRecording();
+                AudioRecorder.StopRecording();
+                AudioRecorder.StopRecording();
+                AudioRecorder.StopRecording();
             }
         }
 
@@ -282,6 +264,15 @@ namespace Soundboard
         {
             var deviceEnumerator = new MMDeviceEnumerator();
             return deviceEnumerator.EnumerateAudioEndPoints(DataFlow.Capture, DeviceState.All)[cboxInputDevices.SelectedIndex];
+        }
+
+        private void btnPlayback_Click(object sender, EventArgs e)
+        {
+            //The path of the temporary file
+            String TempPath = SoundPath + "\\Recording\\Temp.wav";
+            WaveFileReader wavReader = new NAudio.Wave.WaveFileReader(TempPath);
+            MainPlayer.Init(wavReader);
+            MainPlayer.Play();
         }
     }
 }
