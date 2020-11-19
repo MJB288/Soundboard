@@ -1,4 +1,5 @@
 ﻿using NAudio;
+using NAudio.CoreAudioApi;
 using NAudio.Wave;
 using Soundboard.Classes;
 using System;
@@ -21,6 +22,9 @@ namespace Soundboard
         private String SoundPath;
         private WaveOut MainPlayer;
         private Boolean Recording;
+        private WasapiLoopbackCapture AudioRecorder;
+        private WaveFileWriter AudioWriter;
+
         public frmSound()
         {
             InitializeComponent();
@@ -57,7 +61,7 @@ namespace Soundboard
             {
                 MainPlayer.Stop();
             }
-            MainPlayer.DeviceNumber = cboxSoundDevices.SelectedIndex;
+            MainPlayer.DeviceNumber = cboxOutputDevices.SelectedIndex;
             //MainPlayer.Volume = .01f * (float)tbarVolume.Value;
             
             if(lviewSounds.SelectedItems[0].Tag.ToString()[lviewSounds.SelectedItems[0].Tag.ToString().Length - 1] == '3')
@@ -85,16 +89,9 @@ namespace Soundboard
 
         private void frmSound_Load(object sender, EventArgs e)
         { 
-            //Load all of the sound devices
-            cboxSoundDevices.Items.Clear();
-            for (int deviceId = 0; deviceId < NAudio.Wave.WaveOut.DeviceCount; deviceId++)
-            {
-                var capabilities = NAudio.Wave.WaveOut.GetCapabilities(deviceId);
-                cboxSoundDevices.Items.Add(capabilities.ProductName);
-            }
-            cboxSoundDevices.SelectedIndex = 0;
-
+            //Load all of the sound devices for both input and output
             loadInputDevices();
+            loadOutputDevices();
 
             SoundPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\Sounds";
 
@@ -120,11 +117,9 @@ namespace Soundboard
             }
         }
 
-        /*private void loadSoundDevices(int deviceCount, NAudio)
-        {
-
-        }*/
-
+        /// <summary>
+        /// Uses the NAudio Library to get the list of input devices and uploads the list of names to a comboBox for selection
+        /// </summary>
         private void loadInputDevices()
         {
             cboxInputDevices.Items.Clear();
@@ -134,6 +129,20 @@ namespace Soundboard
                 cboxInputDevices.Items.Add(capabilities.ProductName);
             }
             cboxInputDevices.SelectedIndex = 0;
+        }
+
+        /// <summary>
+        /// Uses the NAudio Library to get the list of output devices and uploads the list of names to a comboBox for selection
+        /// </summary>
+        private void loadOutputDevices()
+        {
+            cboxOutputDevices.Items.Clear();
+            for (int deviceId = 0; deviceId < NAudio.Wave.WaveOut.DeviceCount; deviceId++)
+            {
+                var capabilities = NAudio.Wave.WaveOut.GetCapabilities(deviceId);
+                cboxOutputDevices.Items.Add(capabilities.ProductName);
+            }
+            cboxOutputDevices.SelectedIndex = 0;
         }
 
         /// <summary>
@@ -208,11 +217,23 @@ namespace Soundboard
             if (Recording)
             {
                 btnRecord.BackColor = Color.Red;
+                //Instatiate the recorder and the file writer
+                String RecordingPath = SoundPath + "\\Recording\\Test.mp3";
+                
+                //Instatiate the Recording device
+                AudioRecorder = new WasapiLoopbackCapture(getSelectedRecordingDevice());
+                AudioWriter = new WaveFileWriter(RecordingPath, AudioRecorder.WaveFormat);
             }
             else
             {
                 btnRecord.BackColor = Color.Gray;
             }
+        }
+
+        private MMDevice getSelectedRecordingDevice()
+        {
+            var deviceEnumerator = new MMDeviceEnumerator();
+            return deviceEnumerator.EnumerateAudioEndPoints(DataFlow.Capture, DeviceState.All)[cboxInputDevices.SelectedIndex];
         }
     }
 }

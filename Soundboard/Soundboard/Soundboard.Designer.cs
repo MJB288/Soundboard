@@ -33,7 +33,7 @@
             this.clmName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.clmLength = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnStop = new System.Windows.Forms.Button();
-            this.cboxSoundDevices = new System.Windows.Forms.ComboBox();
+            this.cboxOutputDevices = new System.Windows.Forms.ComboBox();
             this.lblDeviceSelection = new System.Windows.Forms.Label();
             this.cboxGroups = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -88,19 +88,19 @@
             this.btnStop.UseVisualStyleBackColor = true;
             this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
-            // cboxSoundDevices
+            // cboxOutputDevices
             // 
-            this.cboxSoundDevices.FormattingEnabled = true;
-            this.cboxSoundDevices.Items.AddRange(new object[] {
+            this.cboxOutputDevices.FormattingEnabled = true;
+            this.cboxOutputDevices.Items.AddRange(new object[] {
             "1",
             "2",
             "3",
             "4",
             "5"});
-            this.cboxSoundDevices.Location = new System.Drawing.Point(307, 120);
-            this.cboxSoundDevices.Name = "cboxSoundDevices";
-            this.cboxSoundDevices.Size = new System.Drawing.Size(299, 21);
-            this.cboxSoundDevices.TabIndex = 3;
+            this.cboxOutputDevices.Location = new System.Drawing.Point(307, 120);
+            this.cboxOutputDevices.Name = "cboxOutputDevices";
+            this.cboxOutputDevices.Size = new System.Drawing.Size(299, 21);
+            this.cboxOutputDevices.TabIndex = 3;
             // 
             // lblDeviceSelection
             // 
@@ -194,7 +194,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cboxGroups);
             this.Controls.Add(this.lblDeviceSelection);
-            this.Controls.Add(this.cboxSoundDevices);
+            this.Controls.Add(this.cboxOutputDevices);
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.lviewSounds);
             this.Controls.Add(this.btnPlay);
@@ -214,7 +214,7 @@
         private System.Windows.Forms.ColumnHeader clmName;
         private System.Windows.Forms.ColumnHeader clmLength;
         private System.Windows.Forms.Button btnStop;
-        private System.Windows.Forms.ComboBox cboxSoundDevices;
+        private System.Windows.Forms.ComboBox cboxOutputDevices;
         private System.Windows.Forms.Label lblDeviceSelection;
         private System.Windows.Forms.ComboBox cboxGroups;
         private System.Windows.Forms.Label label1;
