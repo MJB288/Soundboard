@@ -43,6 +43,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.btnRecord = new System.Windows.Forms.Button();
             this.btnPlayback = new System.Windows.Forms.Button();
+            this.btnSaveRec = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.tbarVolume)).BeginInit();
             this.SuspendLayout();
             // 
@@ -193,11 +194,23 @@
             this.btnPlayback.UseVisualStyleBackColor = true;
             this.btnPlayback.Click += new System.EventHandler(this.btnPlayback_Click);
             // 
+            // btnSaveRec
+            // 
+            this.btnSaveRec.Enabled = false;
+            this.btnSaveRec.Location = new System.Drawing.Point(546, 63);
+            this.btnSaveRec.Name = "btnSaveRec";
+            this.btnSaveRec.Size = new System.Drawing.Size(75, 23);
+            this.btnSaveRec.TabIndex = 14;
+            this.btnSaveRec.Text = "Save";
+            this.btnSaveRec.UseVisualStyleBackColor = true;
+            this.btnSaveRec.Click += new System.EventHandler(this.btnSaveRec_Click);
+            // 
             // frmSound
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(632, 333);
+            this.Controls.Add(this.btnSaveRec);
             this.Controls.Add(this.btnPlayback);
             this.Controls.Add(this.btnRecord);
             this.Controls.Add(this.label2);
@@ -237,6 +250,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnRecord;
         private System.Windows.Forms.Button btnPlayback;
+        private System.Windows.Forms.Button btnSaveRec;
     }
 }
 

@@ -224,6 +224,7 @@ namespace Soundboard
             {
                 //Enable the Playback button if hasn't been yet
                 btnPlayback.Enabled = true;
+                btnRecord.Enabled = true;
                 btnRecord.BackColor = Color.Red;
                 //Instatiate the recorder and the file writer
                 String RecordingPath = SoundPath + "\\Recording\\Temp.wav";
@@ -251,8 +252,6 @@ namespace Soundboard
                 btnRecord.BackColor = Color.Gray;
                 //Thanks to the event handlers setup in the Start Recording section - only one method needs to be called
                 AudioRecorder.StopRecording();
-                AudioRecorder.StopRecording();
-                AudioRecorder.StopRecording();
             }
         }
 
@@ -273,6 +272,31 @@ namespace Soundboard
             WaveFileReader wavReader = new NAudio.Wave.WaveFileReader(TempPath);
             MainPlayer.Init(wavReader);
             MainPlayer.Play();
+        }
+
+        private void btnSaveRec_Click(object sender, EventArgs e)
+        {
+            String TempPath = SoundPath + "\\Recording\\Temp.wav";
+            String SavePath = "";
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+
+            saveFileDialog1.Filter = "wav files (*.wav)|*.wav|All files (*.*)|*.*";
+            saveFileDialog1.FilterIndex = 2;
+            saveFileDialog1.RestoreDirectory = true;
+
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                SavePath = saveFileDialog1.FileName;
+                //Copy the Temp File over to the specified Save Path
+                System.IO.File.Copy(TempPath, SavePath, true);
+                btnPlayback.Enabled = false;
+                btnRecord.Enabled = false;
+            }
+            else //As it is right now - this could be removed, but I'll leave it like this for now incase I think of anything
+            {
+                return;
+            }
+            
         }
     }
 }
