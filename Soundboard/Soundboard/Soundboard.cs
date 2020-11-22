@@ -235,6 +235,7 @@ namespace Soundboard
                 //Enable the Playback button if hasn't been yet
                 btnPlayback.Enabled = true;
                 btnRecord.Enabled = true;
+                btnSaveRec.Enabled = true;
                 btnRecord.BackColor = Color.Red;
                 //Instatiate the recorder and the file writer
                 String RecordingPath = SoundPath + "\\Recording\\Temp.wav";
