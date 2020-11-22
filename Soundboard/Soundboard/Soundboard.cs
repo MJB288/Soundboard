@@ -21,9 +21,11 @@ namespace Soundboard
         private SoundRepository SoundData;
         private String SoundPath;
         private WaveOut MainPlayer;
+        private WaveOut PlaybackPlayer;
         private Boolean Recording;
         private WaveIn AudioRecorder;
         private WaveFileWriter AudioWriter;
+        private WaveFileReader RecordingPlaybackReader;
 
         public frmSound()
         {
@@ -222,6 +224,14 @@ namespace Soundboard
             //Change Behavior based off of the new boolean, not the previous boolean
             if (Recording)
             {
+                //Reset the Waveout so that the file is properly closed
+                if(PlaybackPlayer != null)
+                {
+                    PlaybackPlayer.Stop();
+                    PlaybackPlayer.Dispose();
+                    RecordingPlaybackReader.Dispose();
+                }
+                PlaybackPlayer = new WaveOut();
                 //Enable the Playback button if hasn't been yet
                 btnPlayback.Enabled = true;
                 btnRecord.Enabled = true;
@@ -267,11 +277,14 @@ namespace Soundboard
 
         private void btnPlayback_Click(object sender, EventArgs e)
         {
-            //The path of the temporary file
-            String TempPath = SoundPath + "\\Recording\\Temp.wav";
-            WaveFileReader wavReader = new NAudio.Wave.WaveFileReader(TempPath);
-            MainPlayer.Init(wavReader);
-            MainPlayer.Play();
+            if (!Recording)
+            {
+                //The path of the temporary file
+                String TempPath = SoundPath + "\\Recording\\Temp.wav";
+                RecordingPlaybackReader = new NAudio.Wave.WaveFileReader(TempPath);
+                PlaybackPlayer.Init(RecordingPlaybackReader);
+                PlaybackPlayer.Play();
+            }
         }
 
         private void btnSaveRec_Click(object sender, EventArgs e)
