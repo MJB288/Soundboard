@@ -233,9 +233,8 @@ namespace Soundboard
                 }
                 PlaybackPlayer = new WaveOut();
                 //Enable the Playback button if hasn't been yet
-                btnPlayback.Enabled = true;
-                btnRecord.Enabled = true;
-                btnSaveRec.Enabled = true;
+                btnPlayback.Enabled = false;
+                btnSaveRec.Enabled = false;
                 btnRecord.BackColor = Color.Red;
                 //Instatiate the recorder and the file writer
                 String RecordingPath = SoundPath + "\\Recording\\Temp.wav";
@@ -263,6 +262,9 @@ namespace Soundboard
                 btnRecord.BackColor = Color.Gray;
                 //Thanks to the event handlers setup in the Start Recording section - only one method needs to be called
                 AudioRecorder.StopRecording();
+
+                btnPlayback.Enabled = true;
+                btnSaveRec.Enabled = true;
             }
         }
 
