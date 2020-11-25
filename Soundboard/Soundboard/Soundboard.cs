@@ -229,6 +229,10 @@ namespace Soundboard
                 {
                     PlaybackPlayer.Stop();
                     PlaybackPlayer.Dispose();
+                    
+                }
+                if(RecordingPlaybackReader != null)
+                {
                     RecordingPlaybackReader.Dispose();
                 }
                 PlaybackPlayer = new WaveOut();
@@ -304,12 +308,27 @@ namespace Soundboard
             {
                 SavePath = saveFileDialog1.FileName;
                 //Copy the Temp File over to the specified Save Path
-                System.IO.File.Copy(TempPath, SavePath, true);
+                try
+                {
+                    System.IO.File.Copy(TempPath, SavePath, true);
+                }
+                catch(FileNotFoundException)
+                {
+                    MessageBox.Show("Error : Temporary Sound Storage Not Found", "File Not Found");
+                    return;
+                }
+                catch (PathTooLongException)
+                {
+                    MessageBox.Show("Error : Specified path exceeds system length! Save to a different location!");
+                    return;
+                }
                 btnPlayback.Enabled = false;
                 btnRecord.Enabled = false;
+                MessageBox.Show("Save Successful!");
             }
             else //As it is right now - this could be removed, but I'll leave it like this for now incase I think of anything
             {
+                MessageBox.Show("Save Canceled");
                 return;
             }
             
