@@ -68,13 +68,30 @@ namespace Soundboard
             
             if(lviewSounds.SelectedItems[0].Tag.ToString()[lviewSounds.SelectedItems[0].Tag.ToString().Length - 1] == '3')
             {
-                Mp3FileReader mp3Reader = new NAudio.Wave.Mp3FileReader((String)lviewSounds.SelectedItems[0].Tag);
+                Mp3FileReader mp3Reader = null;
+                try
+                {
+                    mp3Reader = new NAudio.Wave.Mp3FileReader((String)lviewSounds.SelectedItems[0].Tag);
+                }
+                catch (FileNotFoundException)
+                {
+                    MessageBox.Show("Error : File '" + lviewSounds.SelectedItems[0].Tag + "' is not found!");
+                    return;
+                }
                 MainPlayer.Init(mp3Reader);
                 MainPlayer.Play();
             }
             else if(lviewSounds.SelectedItems[0].Tag.ToString().ToLower()[lviewSounds.SelectedItems[0].Tag.ToString().Length - 1] == 'v')
             {
-                WaveFileReader wavReader = new NAudio.Wave.WaveFileReader((String)lviewSounds.SelectedItems[0].Tag);
+                WaveFileReader wavReader;
+                try
+                {
+                    wavReader = new NAudio.Wave.WaveFileReader((String)lviewSounds.SelectedItems[0].Tag);
+                }
+                catch (FileNotFoundException)
+                {
+                    MessageBox.Show("Error : File '" + lviewSounds.SelectedItems[0].Tag + "' is not found!");
+                }
                 MainPlayer.Init(wavReader);
                 MainPlayer.Play();
             }
@@ -320,6 +337,11 @@ namespace Soundboard
                 catch (PathTooLongException)
                 {
                     MessageBox.Show("Error : Specified path exceeds system length! Save to a different location!");
+                    return;
+                }
+                catch (NotSupportedException nse)
+                {
+                    MessageBox.Show("Error : Specified file format not supported :\n" + nse.Message);
                     return;
                 }
                 btnPlayback.Enabled = false;
