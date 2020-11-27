@@ -99,7 +99,7 @@
             "3",
             "4",
             "5"});
-            this.cboxOutputDevices.Location = new System.Drawing.Point(307, 120);
+            this.cboxOutputDevices.Location = new System.Drawing.Point(307, 172);
             this.cboxOutputDevices.Name = "cboxOutputDevices";
             this.cboxOutputDevices.Size = new System.Drawing.Size(299, 21);
             this.cboxOutputDevices.TabIndex = 3;
@@ -107,7 +107,7 @@
             // lblDeviceSelection
             // 
             this.lblDeviceSelection.AutoSize = true;
-            this.lblDeviceSelection.Location = new System.Drawing.Point(408, 104);
+            this.lblDeviceSelection.Location = new System.Drawing.Point(390, 156);
             this.lblDeviceSelection.Name = "lblDeviceSelection";
             this.lblDeviceSelection.Size = new System.Drawing.Size(132, 13);
             this.lblDeviceSelection.TabIndex = 4;
@@ -133,7 +133,7 @@
             // 
             // tbarVolume
             // 
-            this.tbarVolume.Location = new System.Drawing.Point(307, 12);
+            this.tbarVolume.Location = new System.Drawing.Point(316, 2);
             this.tbarVolume.Maximum = 100;
             this.tbarVolume.Name = "tbarVolume";
             this.tbarVolume.Size = new System.Drawing.Size(121, 45);
@@ -159,7 +159,7 @@
             "3",
             "4",
             "5"});
-            this.cboxInputDevices.Location = new System.Drawing.Point(307, 183);
+            this.cboxInputDevices.Location = new System.Drawing.Point(307, 235);
             this.cboxInputDevices.Name = "cboxInputDevices";
             this.cboxInputDevices.Size = new System.Drawing.Size(299, 21);
             this.cboxInputDevices.TabIndex = 10;
@@ -167,7 +167,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(408, 167);
+            this.label2.Location = new System.Drawing.Point(394, 219);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(124, 13);
             this.label2.TabIndex = 11;
@@ -175,7 +175,7 @@
             // 
             // btnRecord
             // 
-            this.btnRecord.Location = new System.Drawing.Point(376, 63);
+            this.btnRecord.Location = new System.Drawing.Point(332, 119);
             this.btnRecord.Name = "btnRecord";
             this.btnRecord.Size = new System.Drawing.Size(75, 23);
             this.btnRecord.TabIndex = 12;
@@ -186,7 +186,7 @@
             // btnPlayback
             // 
             this.btnPlayback.Enabled = false;
-            this.btnPlayback.Location = new System.Drawing.Point(465, 63);
+            this.btnPlayback.Location = new System.Drawing.Point(421, 119);
             this.btnPlayback.Name = "btnPlayback";
             this.btnPlayback.Size = new System.Drawing.Size(75, 23);
             this.btnPlayback.TabIndex = 13;
@@ -197,7 +197,7 @@
             // btnSaveRec
             // 
             this.btnSaveRec.Enabled = false;
-            this.btnSaveRec.Location = new System.Drawing.Point(546, 63);
+            this.btnSaveRec.Location = new System.Drawing.Point(502, 119);
             this.btnSaveRec.Name = "btnSaveRec";
             this.btnSaveRec.Size = new System.Drawing.Size(75, 23);
             this.btnSaveRec.TabIndex = 14;

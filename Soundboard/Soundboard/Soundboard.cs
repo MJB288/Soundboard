@@ -83,7 +83,7 @@ namespace Soundboard
             }
             else if(lviewSounds.SelectedItems[0].Tag.ToString().ToLower()[lviewSounds.SelectedItems[0].Tag.ToString().Length - 1] == 'v')
             {
-                WaveFileReader wavReader;
+                WaveFileReader wavReader = null;
                 try
                 {
                     wavReader = new NAudio.Wave.WaveFileReader((String)lviewSounds.SelectedItems[0].Tag);
@@ -91,6 +91,7 @@ namespace Soundboard
                 catch (FileNotFoundException)
                 {
                     MessageBox.Show("Error : File '" + lviewSounds.SelectedItems[0].Tag + "' is not found!");
+                    return;
                 }
                 MainPlayer.Init(wavReader);
                 MainPlayer.Play();
@@ -119,6 +120,7 @@ namespace Soundboard
             refreshSoundData();
 
             MainPlayer = new NAudio.Wave.WaveOut();
+            PlaybackPlayer = new NAudio.Wave.WaveOut();
             tbarVolume.Value = 50;
             MainPlayer.Volume = 0.01f * tbarVolume.Value;
 
@@ -227,6 +229,7 @@ namespace Soundboard
         private void tbarVolume_Scroll(object sender, EventArgs e)
         {
             MainPlayer.Volume = .01f * tbarVolume.Value;
+            PlaybackPlayer.Volume = .01f * tbarVolume.Value;
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
@@ -253,6 +256,7 @@ namespace Soundboard
                     RecordingPlaybackReader.Dispose();
                 }
                 PlaybackPlayer = new WaveOut();
+                PlaybackPlayer.Volume = 0.01f * tbarVolume.Value;
                 //Enable the Playback button if hasn't been yet
                 btnPlayback.Enabled = false;
                 btnSaveRec.Enabled = false;
@@ -308,6 +312,7 @@ namespace Soundboard
                 RecordingPlaybackReader = new NAudio.Wave.WaveFileReader(TempPath);
                 PlaybackPlayer.Init(RecordingPlaybackReader);
                 PlaybackPlayer.Play();
+
             }
         }
 
