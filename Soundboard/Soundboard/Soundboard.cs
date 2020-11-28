@@ -240,57 +240,58 @@ namespace Soundboard
         private void btnRecord_Click(object sender, EventArgs e)
         {
             //Only this button can access this boolean at the moment, so no locks are needed
+            
+
+            btnPlayback.Enabled = Recording;
+            btnSaveRec.Enabled = Recording;
+            //Now adjust the state of recording since it is currently a toggle at the current moment
+            toggleRecordingState();
+        }
+
+        /// <summary>
+        /// Flip the Boolean and change the state of recording based off of it
+        /// </summary>
+        private void toggleRecordingState()
+        {
             Recording = !Recording;
             //Change Behavior based off of the new boolean, not the previous boolean
             if (Recording)
             {
-                //Reset the Waveout so that the file is properly closed
-                if(PlaybackPlayer != null)
-                {
-                    PlaybackPlayer.Stop();
-                    PlaybackPlayer.Dispose();
-                    
-                }
-                if(RecordingPlaybackReader != null)
-                {
-                    RecordingPlaybackReader.Dispose();
-                }
-                PlaybackPlayer = new WaveOut();
-                PlaybackPlayer.Volume = 0.01f * tbarVolume.Value;
-                //Enable the Playback button if hasn't been yet
-                btnPlayback.Enabled = false;
-                btnSaveRec.Enabled = false;
+                //Double check that memory is properly disposed of
+                resetRecordingPlaybackPlayer();
+                //Signify that the program is currently Recording
                 btnRecord.BackColor = Color.Red;
                 //Instatiate the recorder and the file writer
-                String RecordingPath = SoundPath + "\\Recording\\Temp.wav";
+                String recordingPath = SoundPath + "\\Recording\\Temp.wav";
 
                 //Instatiate the WaveIn
                 AudioRecorder = new WaveIn();
                 AudioRecorder.DeviceNumber = cboxInputDevices.SelectedIndex;
-                AudioWriter = new WaveFileWriter(RecordingPath, AudioRecorder.WaveFormat);
-                //Setup Event Handlers
-                AudioRecorder.DataAvailable += (s, audioArgs) =>
-                {
-                    AudioWriter.Write(audioArgs.Buffer, 0, audioArgs.BytesRecorded);
-                };
-                AudioRecorder.RecordingStopped += (s, a) =>
-                {
-                    AudioWriter.Dispose();
-                    AudioRecorder.Dispose();
-                    AudioWriter = null;
-                };
-
-                AudioRecorder.StartRecording();
+                RecordHelper.StartRecordingIn(AudioWriter, AudioRecorder, recordingPath);
             }
             else
             {
                 btnRecord.BackColor = Color.Gray;
                 //Thanks to the event handlers setup in the Start Recording section - only one method needs to be called
                 AudioRecorder.StopRecording();
-
-                btnPlayback.Enabled = true;
-                btnSaveRec.Enabled = true;
             }
+        }
+
+        private void resetRecordingPlaybackPlayer()
+        {
+            //Reset the Waveout so that the file is properly closed
+            if (PlaybackPlayer != null)
+            {
+                PlaybackPlayer.Stop();
+                PlaybackPlayer.Dispose();
+
+            }
+            if (RecordingPlaybackReader != null)
+            {
+                RecordingPlaybackReader.Dispose();
+            }
+            PlaybackPlayer = new WaveOut();
+            PlaybackPlayer.Volume = 0.01f * tbarVolume.Value;
         }
 
         /// <summary>
