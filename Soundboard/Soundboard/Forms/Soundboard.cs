@@ -124,6 +124,7 @@ namespace Soundboard
             tbarVolume.Value = 50;
             MainPlayer.Volume = 0.01f * tbarVolume.Value;
 
+            btnPlay.Shor
             //loadSoundDevices(NAudio.Wave.WaveIn.DeviceCount, NAudio.Wave.WaveIn)
         }
 
