@@ -53,15 +53,24 @@
     <Compile Include="Classes\SoundFile.cs" />
     <Compile Include="Classes\SoundFileFactory.cs" />
     <Compile Include="Classes\SoundRepository.cs" />
-    <Compile Include="Soundboard.cs">
+    <Compile Include="Forms\ShortcutForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Soundboard.Designer.cs">
+    <Compile Include="Forms\ShortcutForm.Designer.cs">
+      <DependentUpon>ShortcutForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Soundboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Soundboard.Designer.cs">
       <DependentUpon>Soundboard.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Soundboard.resx">
+    <EmbeddedResource Include="Forms\ShortcutForm.resx">
+      <DependentUpon>ShortcutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Soundboard.resx">
       <DependentUpon>Soundboard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

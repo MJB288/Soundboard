@@ -1,4 +1,4 @@
-﻿namespace Soundboard
+﻿namespace Soundboard.Forms
 {
     partial class frmSound
     {
@@ -48,6 +48,7 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.shortcutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiShortcut0 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiShortcut1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiShortcut2 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiShortcut3 = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,7 +58,6 @@
             this.tsmiShortcut7 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiShortcut8 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiShortcut9 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiShortcut0 = new System.Windows.Forms.ToolStripMenuItem();
             this.btnSetShortcut = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.tbarVolume)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -243,7 +243,7 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(93, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
             // shortcutToolStripMenuItem
@@ -263,6 +263,13 @@
             this.shortcutToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
             this.shortcutToolStripMenuItem.Text = "Shortcut";
             this.shortcutToolStripMenuItem.Visible = false;
+            // 
+            // tsmiShortcut0
+            // 
+            this.tsmiShortcut0.Name = "tsmiShortcut0";
+            this.tsmiShortcut0.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.NumPad0)));
+            this.tsmiShortcut0.Size = new System.Drawing.Size(215, 22);
+            this.tsmiShortcut0.Text = "Shortcut 0";
             // 
             // tsmiShortcut1
             // 
@@ -327,13 +334,6 @@
             this.tsmiShortcut9.Size = new System.Drawing.Size(215, 22);
             this.tsmiShortcut9.Text = "Shortcut 9";
             // 
-            // tsmiShortcut0
-            // 
-            this.tsmiShortcut0.Name = "tsmiShortcut0";
-            this.tsmiShortcut0.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.NumPad0)));
-            this.tsmiShortcut0.Size = new System.Drawing.Size(215, 22);
-            this.tsmiShortcut0.Text = "Shortcut 0";
-            // 
             // btnSetShortcut
             // 
             this.btnSetShortcut.Location = new System.Drawing.Point(221, 77);
@@ -342,6 +342,7 @@
             this.btnSetShortcut.TabIndex = 16;
             this.btnSetShortcut.Text = "Set Shortcut";
             this.btnSetShortcut.UseVisualStyleBackColor = true;
+            this.btnSetShortcut.Click += new System.EventHandler(this.btnSetShortcut_Click);
             // 
             // frmSound
             // 

@@ -16,7 +16,7 @@ namespace Soundboard
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmSound());
+            Application.Run(new Forms.frmSound());
         }
     }
 }

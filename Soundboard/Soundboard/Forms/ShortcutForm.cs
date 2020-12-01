@@ -10,11 +10,21 @@ using System.Windows.Forms;
 
 namespace Soundboard.Forms
 {
-    public partial class ShortcutForm : Form
+    public partial class frmShortcutForm : Form
     {
-        public ShortcutForm()
+        public frmShortcutForm()
         {
             InitializeComponent();
+        }
+
+        private void frmShortcutForm_Load(object sender, EventArgs e)
+        {
+            this.KeyPress += getPressedKey;
+        }
+
+        private void getPressedKey(object sender, KeyPressEventArgs ke)
+        {
+            lblDisplayKey.Text = "Pressed Key = " + ke.KeyChar;
         }
     }
 }

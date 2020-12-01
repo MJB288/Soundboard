@@ -2,6 +2,7 @@
 using NAudio.CoreAudioApi;
 using NAudio.Wave;
 using Soundboard.Classes;
+using Soundboard.Forms;
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Soundboard
+namespace Soundboard.Forms
 {
     public partial class frmSound : Form
     {
@@ -124,7 +125,7 @@ namespace Soundboard
             tbarVolume.Value = 50;
             MainPlayer.Volume = 0.01f * tbarVolume.Value;
 
-            btnPlay.Shor
+            
             //loadSoundDevices(NAudio.Wave.WaveIn.DeviceCount, NAudio.Wave.WaveIn)
         }
 
@@ -361,6 +362,13 @@ namespace Soundboard
                 return;
             }
             
+        }
+
+        private void btnSetShortcut_Click(object sender, EventArgs e)
+        {
+            frmShortcutForm assignShortcutform = new frmShortcutForm();
+            //We want the user to assign a shortcut, so therefore, lockout control from base form
+            assignShortcutform.ShowDialog();
         }
     }
 }
