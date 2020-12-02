@@ -365,6 +365,7 @@
             this.Controls.Add(this.lviewSounds);
             this.Controls.Add(this.btnPlay);
             this.Controls.Add(this.menuStrip1);
+            this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "frmSound";
             this.Text = "Soundboard";

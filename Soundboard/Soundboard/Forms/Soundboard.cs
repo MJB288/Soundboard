@@ -21,7 +21,7 @@ namespace Soundboard.Forms
     {
         public SoundRepository SoundData;
         private String SoundPath;
-        private WaveOut MainPlayer;
+        private SEMediaPlayer MediaCenter;
         private WaveOut PlaybackPlayer;
         private Boolean Recording;
         private WaveIn AudioRecorder;
@@ -36,71 +36,24 @@ namespace Soundboard.Forms
 
         private void btnPlay_Click(object sender, EventArgs e)
         {
-            /*System.Media.SoundPlayer player = new System.Media.SoundPlayer("hellothere.mp3");
-            player.*/
-
-            //WMPLib.WindowsMediaPlayer player = new WMPLib.WindowsMediaPlayer();
-            //player.URL = "hellothere.mp3";
-            //            player.playerApplication.
-            /* using (FileStream fs = new FileStream("hellothere.wav", FileMode.Open, FileAccess.Write, FileShare.ReadWrite))
-             {
-                 var waveReader = new NAudio.Wave.WaveFileReader("hellothere1.wav");
-                 var waveIn = new NAudio.Wave.WaveIn();
-                 
-
-                 waveIn.DeviceNumber = 0;
-                 waveOut.DeviceNumber = cboxSoundDevices.SelectedIndex;
-
-                 var test = new NAudio.Wave.Mp3FileReader("hellothere.mp3");
-                 waveOut.Init(test);
-                 waveOut.Play();
-             }*/
-            if(lviewSounds.SelectedItems.Count == 0)
+            if (lviewSounds.SelectedItems.Count == 0)
             {
                 MessageBox.Show("No item is selected!", "Play Error");
                 return;
             }
-            if(MainPlayer.PlaybackState == PlaybackState.Paused || MainPlayer.PlaybackState == PlaybackState.Playing)
+            if (MediaCenter.MPisPlaying() || MediaCenter.MPisPaused())
             {
-                MainPlayer.Stop();
+                MediaCenter.StopMainPlayer();
             }
-            MainPlayer.DeviceNumber = cboxOutputDevices.SelectedIndex;
-            //MainPlayer.Volume = .01f * (float)tbarVolume.Value;
-            
-            if(lviewSounds.SelectedItems[0].Tag.ToString()[lviewSounds.SelectedItems[0].Tag.ToString().Length - 1] == '3')
+            //Play the sound and get the result
+            int result = MediaCenter.playSound(lviewSounds.SelectedItems[0].Tag.ToString(), cboxOutputDevices.SelectedIndex);
+            if (result == -1)
             {
-                Mp3FileReader mp3Reader = null;
-                try
-                {
-                    mp3Reader = new NAudio.Wave.Mp3FileReader((String)lviewSounds.SelectedItems[0].Tag);
-                }
-                catch (FileNotFoundException)
-                {
-                    MessageBox.Show("Error : File '" + lviewSounds.SelectedItems[0].Tag + "' is not found!");
-                    return;
-                }
-                MainPlayer.Init(mp3Reader);
-                MainPlayer.Play();
+                MessageBox.Show("Error : File Could not be found : \n" + lviewSounds.SelectedItems[0].Tag.ToString());
             }
-            else if(lviewSounds.SelectedItems[0].Tag.ToString().ToLower()[lviewSounds.SelectedItems[0].Tag.ToString().Length - 1] == 'v')
-            {
-                WaveFileReader wavReader = null;
-                try
-                {
-                    wavReader = new NAudio.Wave.WaveFileReader((String)lviewSounds.SelectedItems[0].Tag);
-                }
-                catch (FileNotFoundException)
-                {
-                    MessageBox.Show("Error : File '" + lviewSounds.SelectedItems[0].Tag + "' is not found!");
-                    return;
-                }
-                MainPlayer.Init(wavReader);
-                MainPlayer.Play();
-            }
-            
-            
+
             //NAudio.Wave.DirectSoundOut.
-//            var device = new MMDeviceEnumerator();
+            //            var device = new MMDeviceEnumerator();
         }
 
         private void lviewSounds_SelectedIndexChanged(object sender, EventArgs e)
@@ -120,11 +73,11 @@ namespace Soundboard.Forms
             //Acquire the sound data
             refreshSoundData();
 
-            MainPlayer = new NAudio.Wave.WaveOut();
-            PlaybackPlayer = new NAudio.Wave.WaveOut();
+            //TODO - load previous volume level from memory
             tbarVolume.Value = 50;
-            MainPlayer.Volume = 0.01f * tbarVolume.Value;
 
+            MediaCenter = new SEMediaPlayer(0.01f * tbarVolume.Value);
+            PlaybackPlayer = new NAudio.Wave.WaveOut();
             
             //loadSoundDevices(NAudio.Wave.WaveIn.DeviceCount, NAudio.Wave.WaveIn)
         }
@@ -221,16 +174,12 @@ namespace Soundboard.Forms
 
         private void btnStop_Click(object sender, EventArgs e)
         {
-            if(MainPlayer == null || MainPlayer.PlaybackState == PlaybackState.Stopped)
-            {
-                return;
-            }
-            MainPlayer.Stop();
+            MediaCenter.StopMainPlayer();
         }
 
         private void tbarVolume_Scroll(object sender, EventArgs e)
         {
-            MainPlayer.Volume = .01f * tbarVolume.Value;
+            MediaCenter.setVolume(.01f * tbarVolume.Value);
             PlaybackPlayer.Volume = .01f * tbarVolume.Value;
         }
 
@@ -358,7 +307,7 @@ namespace Soundboard.Forms
             }
             else //As it is right now - this could be removed, but I'll leave it like this for now incase I think of anything
             {
-                MessageBox.Show("Save Canceled");
+                MessageBox.Show("Save Canceled!");
                 return;
             }
             
