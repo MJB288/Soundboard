@@ -9,7 +9,7 @@ namespace Soundboard
     /// <summary>
     /// A class that holds all of the necessary attributes for playback
     /// </summary>
-    class SoundFile
+    public class SoundFile
     {
         public String soundName { get; set; }
         public String filePath {get; set;}

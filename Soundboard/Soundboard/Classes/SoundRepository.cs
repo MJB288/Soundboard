@@ -6,43 +6,47 @@ using System.Threading.Tasks;
 
 namespace Soundboard.Classes
 {
-    class SoundRepository
+    public class SoundRepository
     {
         //Holds all of the sound data
         public Dictionary<String, List<SoundFile>> SoundFiles;
 
-        public String[] ShortcutSounds;
+        private Dictionary<String, String> ShortcutDictionary;
 
         public SoundRepository()
         {
-            ShortcutSounds = new string[10];
+            ShortcutDictionary = new Dictionary<String, String>();
         }
 
         public SoundRepository(Dictionary<String, List<SoundFile>> fileData)
         {
             SoundFiles = fileData;
-            ShortcutSounds = new string[10];
+            ShortcutDictionary = new Dictionary<String, String>();
         }
 
-        public void setShortcutSound(int shortcutIndex, String FilePath)
+        public void setShortcutSound(String keyCombo, String FilePath)
         {
-            ShortcutSounds[shortcutIndex] = FilePath;
+            ShortcutDictionary[keyCombo] = FilePath;
         }
 
-        public void clearShortcutSound(int shortcutIndex)
+        public void clearShortcutSound(String keyCombo)
         {
             //Will use null - can kill two birds with one stone with a null check
-            ShortcutSounds[shortcutIndex] = null;
+            ShortcutDictionary.Remove(keyCombo);
         }
 
         public void clearAllShortcutSounds()
         {
-            ShortcutSounds = new string[10];
+            ShortcutDictionary = new Dictionary<String, String>();
         }
 
-        public String getShortcutSound(int index)
+        public String getShortcutSound(String keyCombo)
         {
-            return ShortcutSounds[index];
+            if (!ShortcutDictionary.ContainsKey(keyCombo))
+            {
+                return null;
+            }
+            return ShortcutDictionary[keyCombo];
         }
 
         public String[] getGroupNames()

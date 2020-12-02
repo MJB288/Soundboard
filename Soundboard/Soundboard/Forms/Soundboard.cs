@@ -19,7 +19,7 @@ namespace Soundboard.Forms
 {
     public partial class frmSound : Form
     {
-        private SoundRepository SoundData;
+        public SoundRepository SoundData;
         private String SoundPath;
         private WaveOut MainPlayer;
         private WaveOut PlaybackPlayer;
@@ -366,7 +366,14 @@ namespace Soundboard.Forms
 
         private void btnSetShortcut_Click(object sender, EventArgs e)
         {
-            frmShortcutForm assignShortcutform = new frmShortcutForm();
+            //Check for a selected Item
+            if (lviewSounds.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("No item is selected!", "Shortcut Error");
+                return;
+            }
+            //Open the form, passing the String filepath to be shortcutted
+            frmShortcutForm assignShortcutform = new frmShortcutForm(lviewSounds.SelectedItems[0].Tag.ToString(), this);
             //We want the user to assign a shortcut, so therefore, lockout control from base form
             assignShortcutform.ShowDialog();
         }
