@@ -22,16 +22,11 @@ namespace Soundboard.Forms
         public SoundRepository SoundData;
         private String SoundPath;
         private SEMediaPlayer MediaCenter;
-        private WaveOut PlaybackPlayer;
-        private Boolean Recording;
-        private WaveIn AudioRecorder;
-        private WaveFileWriter AudioWriter;
-        private WaveFileReader RecordingPlaybackReader;
+       
 
         public frmSound()
         {
             InitializeComponent();
-            Recording = false;
         }
 
         private void btnPlay_Click(object sender, EventArgs e)
@@ -77,7 +72,6 @@ namespace Soundboard.Forms
             tbarVolume.Value = 50;
 
             MediaCenter = new SEMediaPlayer(0.01f * tbarVolume.Value);
-            PlaybackPlayer = new NAudio.Wave.WaveOut();
             
             //loadSoundDevices(NAudio.Wave.WaveIn.DeviceCount, NAudio.Wave.WaveIn)
         }
@@ -180,7 +174,6 @@ namespace Soundboard.Forms
         private void tbarVolume_Scroll(object sender, EventArgs e)
         {
             MediaCenter.setVolume(.01f * tbarVolume.Value);
-            PlaybackPlayer.Volume = .01f * tbarVolume.Value;
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
@@ -191,59 +184,26 @@ namespace Soundboard.Forms
         private void btnRecord_Click(object sender, EventArgs e)
         {
             //Only this button can access this boolean at the moment, so no locks are needed
-            
 
-            btnPlayback.Enabled = Recording;
-            btnSaveRec.Enabled = Recording;
+
+            btnPlayback.Enabled = MediaCenter.Recording;
+            btnSaveRec.Enabled = MediaCenter.Recording;
             //Now adjust the state of recording since it is currently a toggle at the current moment
-            toggleRecordingState();
-        }
-
-        /// <summary>
-        /// Flip the Boolean and change the state of recording based off of it
-        /// </summary>
-        private void toggleRecordingState()
-        {
-            Recording = !Recording;
-            //Change Behavior based off of the new boolean, not the previous boolean
-            if (Recording)
+            MediaCenter.toggleRecordingState(cboxInputDevices.SelectedIndex, SoundPath);
+            //Now the boolean is flipped, account for post-change logic
+            if (MediaCenter.Recording)
             {
-                //Double check that memory is properly disposed of
-                resetRecordingPlaybackPlayer();
-                //Signify that the program is currently Recording
                 btnRecord.BackColor = Color.Red;
-                //Instatiate the recorder and the file writer
-                String recordingPath = SoundPath + "\\Recording\\Temp.wav";
-
-                //Instatiate the WaveIn
-                AudioRecorder = new WaveIn();
-                AudioRecorder.DeviceNumber = cboxInputDevices.SelectedIndex;
-                RecordHelper.StartRecordingIn(AudioWriter, AudioRecorder, recordingPath);
             }
             else
             {
                 btnRecord.BackColor = Color.Gray;
-                //Thanks to the event handlers setup in the Start Recording section - only one method needs to be called
-                AudioRecorder.StopRecording();
             }
         }
 
-        private void resetRecordingPlaybackPlayer()
-        {
-            //Reset the Waveout so that the file is properly closed
-            if (PlaybackPlayer != null)
-            {
-                PlaybackPlayer.Stop();
-                PlaybackPlayer.Dispose();
+       
 
-            }
-            if (RecordingPlaybackReader != null)
-            {
-                RecordingPlaybackReader.Dispose();
-            }
-            PlaybackPlayer = new WaveOut();
-            PlaybackPlayer.Volume = 0.01f * tbarVolume.Value;
-        }
+        
 
         /// <summary>
         /// Gets the Recording device currently selected by the user and returns it as an MMDevice Object for Wasapi purposes
@@ -257,15 +217,7 @@ namespace Soundboard.Forms
 
         private void btnPlayback_Click(object sender, EventArgs e)
         {
-            if (!Recording)
-            {
-                //The path of the temporary file
-                String TempPath = SoundPath + "\\Recording\\Temp.wav";
-                RecordingPlaybackReader = new NAudio.Wave.WaveFileReader(TempPath);
-                PlaybackPlayer.Init(RecordingPlaybackReader);
-                PlaybackPlayer.Play();
-
-            }
+            MediaCenter.playbackRecording(SoundPath);
         }
 
         private void btnSaveRec_Click(object sender, EventArgs e)

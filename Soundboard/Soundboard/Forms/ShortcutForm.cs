@@ -15,7 +15,7 @@ namespace Soundboard.Forms
         /// <summary>
         /// A static array of Key Codes that should not be recognized as individual key presses for shortcuts
         /// </summary>
-        public static Keys[] NoShortcutAlone = { Keys.ShiftKey, Keys.ControlKey, Keys.Alt, Keys.Menu};
+        public static Keys[] NoShortcutAlone = { Keys.ShiftKey, Keys.ControlKey, Keys.Alt, Keys.Menu };
         /// <summary>
         /// The filepath of the sound file that will be played with the key press
         /// </summary>

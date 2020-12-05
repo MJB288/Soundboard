@@ -18,10 +18,20 @@ namespace Soundboard.Classes
     public class SEMediaPlayer
     {
         private WaveOut MainPlayer;
+        private WaveOut PlaybackPlayer;
+        private WaveIn AudioRecorder;
+        private WaveFileWriter AudioWriter;
+        private WaveFileReader RecordingPlaybackReader;
+        public Boolean Recording;
+        private float PrevVolume;
+
         public SEMediaPlayer(float startingVolume)
         {
             MainPlayer = new WaveOut();
             MainPlayer.Volume = startingVolume;
+            Recording = false;
+            AudioRecorder = new WaveIn();
+            PrevVolume = 100.00f;
         }
 
         public int playSound(String FilePath, int deviceNumber)
@@ -60,6 +70,64 @@ namespace Soundboard.Classes
             return 1;
         }
 
+        public void playbackRecording(String soundPath)
+        {
+            if (!Recording)
+            {
+                //The path of the temporary file
+                String TempPath = soundPath + "\\Recording\\Temp.wav";
+                RecordingPlaybackReader = new NAudio.Wave.WaveFileReader(TempPath);
+                PlaybackPlayer.Init(RecordingPlaybackReader);
+                PlaybackPlayer.Play();
+
+            }
+        }
+
+        /// <summary>
+        /// Flip the Boolean and change the state of recording based off of it
+        /// </summary>
+        public void toggleRecordingState(int deviceNumber, String soundPath)
+        {
+            Recording = !Recording;
+            //Change Behavior based off of the new boolean, not the previous boolean
+            if (Recording)
+            {
+                //Double check that memory is properly disposed of
+                resetRecordingPlaybackPlayer();
+                //Signify that the program is currently Recording
+                
+                //Instatiate the recorder and the file writer
+                String recordingPath = soundPath + "\\Recording\\Temp.wav";
+
+                //Instatiate the WaveIn
+                AudioRecorder = new WaveIn();
+                AudioRecorder.DeviceNumber = deviceNumber;
+                RecordHelper.StartRecordingIn(AudioWriter, AudioRecorder, recordingPath);
+            }
+            else
+            {
+                //Thanks to the event handlers setup in the Start Recording section - only one method needs to be called
+                AudioRecorder.StopRecording();
+            }
+        }
+
+        private void resetRecordingPlaybackPlayer()
+        {
+            //Reset the Waveout so that the file is properly closed
+            if (PlaybackPlayer != null)
+            {
+                PlaybackPlayer.Stop();
+                PlaybackPlayer.Dispose();
+
+            }
+            if (RecordingPlaybackReader != null)
+            {
+                RecordingPlaybackReader.Dispose();
+            }
+            PlaybackPlayer = new WaveOut();
+            PlaybackPlayer.Volume = 0.01f * PrevVolume;
+        }
+
         public bool MPisPlaying()
         {
             return MainPlayer.PlaybackState == PlaybackState.Playing;
@@ -78,6 +146,8 @@ namespace Soundboard.Classes
         public void setVolume(float newVolume)
         {
             MainPlayer.Volume = newVolume;
+            PlaybackPlayer.Volume = newVolume;
+            PrevVolume = newVolume;
         }
     }
 }
