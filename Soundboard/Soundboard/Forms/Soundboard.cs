@@ -57,7 +57,8 @@ namespace Soundboard.Forms
         }
 
         private void frmSound_Load(object sender, EventArgs e)
-        { 
+        {
+            this.KeyDown += frmSound_KeyDown;
             //Load all of the sound devices for both input and output
             loadInputDevices();
             loadOutputDevices();
@@ -277,6 +278,16 @@ namespace Soundboard.Forms
             frmShortcutForm assignShortcutform = new frmShortcutForm(lviewSounds.SelectedItems[0].Tag.ToString(), this);
             //We want the user to assign a shortcut, so therefore, lockout control from base form
             assignShortcutform.ShowDialog();
+        }
+
+        private void frmSound_KeyDown(object sender, KeyEventArgs keyEvent)
+        {
+            playShortcutSound("abcd");
+        }
+
+        private void playShortcutSound(String keyCombo)
+        {
+            MessageBox.Show(keyCombo);
         }
     }
 }
