@@ -293,7 +293,7 @@ namespace Soundboard.Forms
         {
             //Now convert the input into a shortcut if there is one
             //MessageBox.Show(keyCombo);
-            String filePath = SoundData.setShortcutSound(keyCombo);
+            String filePath = SoundData.getShortcutSound(keyCombo);
             //Check for null filepath - means no shortcut
             if (filePath != null) {
                 int result = MediaCenter.playSound(filePath, cboxOutputDevices.SelectedIndex);
