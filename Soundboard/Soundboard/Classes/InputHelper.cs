@@ -13,7 +13,10 @@ namespace Soundboard.Classes
     /// </summary>
     public static class InputHelper
     {
-
+        /// <summary>
+        /// A static array of Key Codes that should not be recognized as individual key presses for shortcuts
+        /// </summary>
+        public static Keys[] NoShortcutAlone = { Keys.ShiftKey, Keys.ControlKey, Keys.Alt, Keys.Menu };
 
         public static String convertKeyInputToString(KeyEventArgs keyEvent, Keys modifierKeys)
         {

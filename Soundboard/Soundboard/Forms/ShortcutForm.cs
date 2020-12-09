@@ -13,10 +13,7 @@ namespace Soundboard.Forms
 {
     public partial class frmShortcutForm : Form
     {
-        /// <summary>
-        /// A static array of Key Codes that should not be recognized as individual key presses for shortcuts
-        /// </summary>
-        public static Keys[] NoShortcutAlone = { Keys.ShiftKey, Keys.ControlKey, Keys.Alt, Keys.Menu };
+        
         /// <summary>
         /// The filepath of the sound file that will be played with the key press
         /// </summary>
@@ -48,13 +45,11 @@ namespace Soundboard.Forms
         {
             //I don't want Shift, Ctrl, or Alt to be registered as individual keypresses
             //Also - 
-            if (!NoShortcutAlone.Contains(ke.KeyCode))
+            if (!InputHelper.NoShortcutAlone.Contains(ke.KeyCode))
             {
+                //Get the String combination for the pressed key
                 String keyCombo = InputHelper.convertKeyInputToString(ke, Form.ModifierKeys);
                 lblDisplayKey.Text = "Pressed Key = " + keyCombo;
-
-                
-
 
                 //Now pass the data to the sound repository - using the form reference that was passed to this form
                 String soundTest = Soundboard.SoundData.getShortcutSound(keyCombo);
