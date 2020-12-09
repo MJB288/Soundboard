@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Soundboard.Classes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -49,22 +50,11 @@ namespace Soundboard.Forms
             //Also - 
             if (!NoShortcutAlone.Contains(ke.KeyCode))
             {
-                String keyCombo = "";
-                if (Form.ModifierKeys.HasFlag(Keys.Control))
-                {
-                   keyCombo += "Ctrl ";
-                }
-                if (Form.ModifierKeys.HasFlag(Keys.Shift))
-                {
-                    keyCombo += "Shift ";
-                }
-                /* May exclude the Alt Key until I can supress the windows noises that occur when pressing it on this window
-                if(Form.ModifierKeys.HasFlag(Keys.Alt))
-                {
-                    keyCombo += "Alt ";
-                }*/
-                keyCombo += ke.KeyCode.ToString();
+                String keyCombo = InputHelper.convertKeyInputToString(ke, Form.ModifierKeys);
                 lblDisplayKey.Text = "Pressed Key = " + keyCombo;
+
+                
+
 
                 //Now pass the data to the sound repository - using the form reference that was passed to this form
                 String soundTest = Soundboard.SoundData.getShortcutSound(keyCombo);
