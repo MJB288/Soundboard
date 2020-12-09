@@ -282,12 +282,28 @@ namespace Soundboard.Forms
 
         private void frmSound_KeyDown(object sender, KeyEventArgs keyEvent)
         {
-            playShortcutSound("abcd");
+            if (!InputHelper.NoShortcutAlone.Contains(keyEvent.KeyCode))
+            {
+                String keyCombo = InputHelper.convertKeyInputToString(keyEvent, Form.ModifierKeys);
+                playShortcutSound(keyCombo);
+            }
         }
-
+        
         private void playShortcutSound(String keyCombo)
         {
-            MessageBox.Show(keyCombo);
+            //Now convert the input into a shortcut if there is one
+            //MessageBox.Show(keyCombo);
+            String filePath = SoundData.setShortcutSound(keyCombo);
+            //Check for null filepath - means no shortcut
+            if (filePath != null) {
+                int result = MediaCenter.playSound(filePath, cboxOutputDevices.SelectedIndex);
+                //If the file is not found - notify the user and remove the shortcut
+                if(result == -1)
+                {
+                    MessageBox.Show("Shortcut : " + keyCombo +  "\nThe File could not be found : \n" + filePath, "File Not Found Shortcut");
+                    SoundData.clearShortcutSound(keyCombo);
+                }
+            }
         }
     }
 }
