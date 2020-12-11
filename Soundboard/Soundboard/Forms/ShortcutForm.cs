@@ -32,15 +32,6 @@ namespace Soundboard.Forms
             this.KeyUp += getPressedKeyUp;
         }
 
-        private void getPressedKey(object sender, KeyPressEventArgs ke)
-        {
-            lblDisplayKey.Text = "Pressed Key = " + ke.KeyChar;
-            if (Form.ModifierKeys.HasFlag(Keys.Shift))
-            {
-                lblDisplayKey.Text += " Shift";
-            }
-        }
-
         private void getPressedKeyUp(object sender, KeyEventArgs ke)
         {
             //I don't want Shift, Ctrl, or Alt to be registered as individual keypresses
@@ -49,7 +40,7 @@ namespace Soundboard.Forms
             {
                 //Get the String combination for the pressed key
                 String keyCombo = InputHelper.convertKeyInputToString(ke, Form.ModifierKeys);
-                lblDisplayKey.Text = "Pressed Key = " + keyCombo;
+                //lblDisplayKey.Text = "Pressed Key = " + keyCombo;
 
                 //Now pass the data to the sound repository - using the form reference that was passed to this form
                 String soundTest = Soundboard.SoundData.getShortcutSound(keyCombo);
@@ -73,6 +64,11 @@ namespace Soundboard.Forms
             }
 
            
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
