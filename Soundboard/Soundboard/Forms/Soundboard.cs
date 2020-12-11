@@ -307,8 +307,8 @@ namespace Soundboard.Forms
 
         private void tsmiManageShortcuts_Click(object sender, EventArgs e)
         {
-            frmShortcutManager sManager = new frmShortcutManager(SoundData);
-            sManager.ShowDialog();
+            frmShortcutManager sManager = new frmShortcutManager(this);
+            sManager.Show();
         }
     }
 }

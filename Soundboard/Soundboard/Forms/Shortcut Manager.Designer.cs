@@ -31,13 +31,13 @@
             this.lviewShortcuts = new System.Windows.Forms.ListView();
             this.clmKeyBind = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.clmFileName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.clmGroup = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.clmFullFilePath = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnRemove = new System.Windows.Forms.Button();
             this.btnRemoveAll = new System.Windows.Forms.Button();
             this.btnEditKey = new System.Windows.Forms.Button();
             this.btnApply = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
-            this.clmGroup = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // lviewShortcuts
@@ -65,6 +65,10 @@
             this.clmFileName.Text = "File Name";
             this.clmFileName.Width = 140;
             // 
+            // clmGroup
+            // 
+            this.clmGroup.Text = "Group";
+            // 
             // clmFullFilePath
             // 
             this.clmFullFilePath.Text = "FilePath";
@@ -78,6 +82,7 @@
             this.btnRemove.TabIndex = 1;
             this.btnRemove.Text = "Remove Selected";
             this.btnRemove.UseVisualStyleBackColor = true;
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 
             // btnRemoveAll
             // 
@@ -117,10 +122,6 @@
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
-            // 
-            // clmGroup
-            // 
-            this.clmGroup.Text = "Group";
             // 
             // frmShortcutManager
             // 

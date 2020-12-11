@@ -15,13 +15,13 @@ namespace Soundboard.Forms
     {
         //This temporary dictionary will hold all changes and then decide to save the keybinds or no
         private Dictionary<String, String> tempShortcutDictionary;
-        private SoundRepository SoundDataRef;
-        public frmShortcutManager(SoundRepository SoundData)
+        private frmSound SoundDataRef;
+        public frmShortcutManager(frmSound SoundForm)
         {
             InitializeComponent();
             //Copy Constructor method, so don't need to clone here
-            tempShortcutDictionary = SoundData.getShortcutDictionaryC();
-            SoundDataRef = SoundData;
+            tempShortcutDictionary = SoundForm.SoundData.getShortcutDictionaryC();
+            SoundDataRef = SoundForm;
         }
 
         private void btnRemoveAll_Click(object sender, EventArgs e)
@@ -78,8 +78,36 @@ namespace Soundboard.Forms
 
         private void btnApply_Click(object sender, EventArgs e)
         {
+            foreach(KeyValuePair<String, String> kvp in tempShortcutDictionary)
+            {
+                MessageBox.Show(kvp.Key + "\n" + kvp.Value);
+            }
             //Since all changes are to the dictionary, let's save them here
-            SoundDataRef.setShortcutDictionary(tempShortcutDictionary);
+            SoundDataRef.SoundData.setShortcutDictionary(tempShortcutDictionary);
+        }
+
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            int firstIndex = -1;
+            foreach(int i in lviewShortcuts.SelectedIndices)
+            {
+                //Can't have a negative index
+                if(firstIndex == -1)
+                {
+                    firstIndex = i;
+                }
+                MessageBox.Show("Deleting : " + lviewShortcuts.Items[i].SubItems[0].Text);
+                //Remove the item from the dictionary
+                tempShortcutDictionary.Remove(lviewShortcuts.Items[i].SubItems[0].Text);
+                lviewShortcuts.Items.RemoveAt(i);
+
+            }
+            if (firstIndex != 0)
+                firstIndex--;
+            //Auto select the previous item if one exists
+            if(lviewShortcuts.Items.Count != 0)
+                lviewShortcuts.Items[firstIndex].Selected = true;
+
         }
     }
 }
