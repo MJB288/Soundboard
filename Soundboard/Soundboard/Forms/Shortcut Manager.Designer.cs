@@ -37,6 +37,7 @@
             this.btnEditKey = new System.Windows.Forms.Button();
             this.btnApply = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
+            this.clmGroup = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // lviewShortcuts
@@ -44,11 +45,13 @@
             this.lviewShortcuts.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.clmKeyBind,
             this.clmFileName,
+            this.clmGroup,
             this.clmFullFilePath});
+            this.lviewShortcuts.FullRowSelect = true;
             this.lviewShortcuts.HideSelection = false;
-            this.lviewShortcuts.Location = new System.Drawing.Point(120, 59);
+            this.lviewShortcuts.Location = new System.Drawing.Point(97, 59);
             this.lviewShortcuts.Name = "lviewShortcuts";
-            this.lviewShortcuts.Size = new System.Drawing.Size(445, 220);
+            this.lviewShortcuts.Size = new System.Drawing.Size(468, 220);
             this.lviewShortcuts.TabIndex = 0;
             this.lviewShortcuts.UseCompatibleStateImageBehavior = false;
             this.lviewShortcuts.View = System.Windows.Forms.View.Details;
@@ -60,6 +63,7 @@
             // clmFileName
             // 
             this.clmFileName.Text = "File Name";
+            this.clmFileName.Width = 140;
             // 
             // clmFullFilePath
             // 
@@ -96,16 +100,17 @@
             // 
             // btnApply
             // 
-            this.btnApply.Location = new System.Drawing.Point(241, 371);
+            this.btnApply.Location = new System.Drawing.Point(307, 311);
             this.btnApply.Name = "btnApply";
             this.btnApply.Size = new System.Drawing.Size(74, 37);
             this.btnApply.TabIndex = 4;
             this.btnApply.Text = "Apply";
             this.btnApply.UseVisualStyleBackColor = true;
+            this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(362, 371);
+            this.btnClose.Location = new System.Drawing.Point(428, 311);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(74, 37);
             this.btnClose.TabIndex = 5;
@@ -113,11 +118,15 @@
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
+            // clmGroup
+            // 
+            this.clmGroup.Text = "Group";
+            // 
             // frmShortcutManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 364);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnApply);
             this.Controls.Add(this.btnEditKey);
@@ -142,5 +151,6 @@
         private System.Windows.Forms.Button btnEditKey;
         private System.Windows.Forms.Button btnApply;
         private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.ColumnHeader clmGroup;
     }
 }

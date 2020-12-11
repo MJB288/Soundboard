@@ -15,11 +15,13 @@ namespace Soundboard.Forms
     {
         //This temporary dictionary will hold all changes and then decide to save the keybinds or no
         private Dictionary<String, String> tempShortcutDictionary;
+        private SoundRepository SoundDataRef;
         public frmShortcutManager(SoundRepository SoundData)
         {
             InitializeComponent();
             //Copy Constructor method, so don't need to clone here
             tempShortcutDictionary = SoundData.getShortcutDictionaryC();
+            SoundDataRef = SoundData;
         }
 
         private void btnRemoveAll_Click(object sender, EventArgs e)
@@ -36,6 +38,8 @@ namespace Soundboard.Forms
 
         private void btnClose_Click(object sender, EventArgs e)
         {
+            tempShortcutDictionary.Clear();
+            tempShortcutDictionary = null;
             this.Close();
         }
 
@@ -56,15 +60,26 @@ namespace Soundboard.Forms
                 List<ListViewItem> newItems = new List<ListViewItem>();
                 foreach (KeyValuePair<String, String> kvp in tempShortcutDictionary)
                 {
-                    String[] itemArray = new String[3];
+                    String[] itemArray = new String[4];
+                    //The KeyBind
                     itemArray[0] = kvp.Key;
+                    //The FileName
                     itemArray[1] = kvp.Value.Split('\\')[kvp.Value.Split('\\').Count() - 1];
-                    itemArray[2] = kvp.Value;
+                    //The Group Name
+                    itemArray[2] = kvp.Value.Split('\\')[kvp.Value.Split('\\').Count() - 2];
+                    //The Full Filepath
+                    itemArray[3] = kvp.Value;
                     ListViewItem newItem = new ListViewItem(itemArray);
                     newItems.Add(newItem);
                 }
                 lviewShortcuts.Items.AddRange(newItems.ToArray());
             }
+        }
+
+        private void btnApply_Click(object sender, EventArgs e)
+        {
+            //Since all changes are to the dictionary, let's save them here
+            SoundDataRef.setShortcutDictionary(tempShortcutDictionary);
         }
     }
 }

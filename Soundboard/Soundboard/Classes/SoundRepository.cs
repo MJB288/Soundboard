@@ -29,6 +29,11 @@ namespace Soundboard.Classes
             ShortcutDictionary[keyCombo] = FilePath;
         }
 
+        public void setShortcutDictionary(Dictionary<String, String> newDictionary)
+        {
+            ShortcutDictionary = new Dictionary<String, String>(newDictionary);
+        }
+
         public void clearShortcutSound(String keyCombo)
         {
             //Will use null - can kill two birds with one stone with a null check
@@ -58,5 +63,7 @@ namespace Soundboard.Classes
         {
             return new Dictionary<String, String>(ShortcutDictionary);
         }
+
+        
     }
 }
