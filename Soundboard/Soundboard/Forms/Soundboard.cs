@@ -224,8 +224,7 @@ namespace Soundboard.Forms
         private void btnSaveRec_Click(object sender, EventArgs e)
         {
             String TempPath = SoundPath + "\\Recording\\Temp.wav";
-            String SavePath = "";
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            String SavePath = "";            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
 
             saveFileDialog1.Filter = "wav files (*.wav)|*.wav|All files (*.*)|*.*";
             saveFileDialog1.FilterIndex = 2;
@@ -304,6 +303,12 @@ namespace Soundboard.Forms
                     SoundData.clearShortcutSound(keyCombo);
                 }
             }
+        }
+
+        private void tsmiManageShortcuts_Click(object sender, EventArgs e)
+        {
+            frmShortcutManager sManager = new frmShortcutManager();
+            sManager.ShowDialog();
         }
     }
 }

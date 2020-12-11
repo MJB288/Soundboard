@@ -47,18 +47,8 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.shortcutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiShortcut0 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiShortcut1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiShortcut2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiShortcut3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiShortcut4 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiShortcut5 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiShortcut6 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiShortcut7 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiShortcut8 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiShortcut9 = new System.Windows.Forms.ToolStripMenuItem();
             this.btnSetShortcut = new System.Windows.Forms.Button();
+            this.tsmiManageShortcuts = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.tbarVolume)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -224,8 +214,7 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.shortcutToolStripMenuItem});
+            this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(632, 24);
@@ -235,6 +224,7 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiManageShortcuts,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
@@ -243,96 +233,8 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(93, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "Exit";
-            // 
-            // shortcutToolStripMenuItem
-            // 
-            this.shortcutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiShortcut0,
-            this.tsmiShortcut1,
-            this.tsmiShortcut2,
-            this.tsmiShortcut3,
-            this.tsmiShortcut4,
-            this.tsmiShortcut5,
-            this.tsmiShortcut6,
-            this.tsmiShortcut7,
-            this.tsmiShortcut8,
-            this.tsmiShortcut9});
-            this.shortcutToolStripMenuItem.Name = "shortcutToolStripMenuItem";
-            this.shortcutToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
-            this.shortcutToolStripMenuItem.Text = "Shortcut";
-            this.shortcutToolStripMenuItem.Visible = false;
-            // 
-            // tsmiShortcut0
-            // 
-            this.tsmiShortcut0.Name = "tsmiShortcut0";
-            this.tsmiShortcut0.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.NumPad0)));
-            this.tsmiShortcut0.Size = new System.Drawing.Size(215, 22);
-            this.tsmiShortcut0.Text = "Shortcut 0";
-            // 
-            // tsmiShortcut1
-            // 
-            this.tsmiShortcut1.Name = "tsmiShortcut1";
-            this.tsmiShortcut1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.NumPad1)));
-            this.tsmiShortcut1.Size = new System.Drawing.Size(215, 22);
-            this.tsmiShortcut1.Text = "Shortcut 1";
-            // 
-            // tsmiShortcut2
-            // 
-            this.tsmiShortcut2.Name = "tsmiShortcut2";
-            this.tsmiShortcut2.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.NumPad2)));
-            this.tsmiShortcut2.Size = new System.Drawing.Size(215, 22);
-            this.tsmiShortcut2.Text = "Shortcut 2";
-            // 
-            // tsmiShortcut3
-            // 
-            this.tsmiShortcut3.Name = "tsmiShortcut3";
-            this.tsmiShortcut3.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.NumPad3)));
-            this.tsmiShortcut3.Size = new System.Drawing.Size(215, 22);
-            this.tsmiShortcut3.Text = "Shortcut 3";
-            // 
-            // tsmiShortcut4
-            // 
-            this.tsmiShortcut4.Name = "tsmiShortcut4";
-            this.tsmiShortcut4.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.NumPad4)));
-            this.tsmiShortcut4.Size = new System.Drawing.Size(215, 22);
-            this.tsmiShortcut4.Text = "Shortcut 4";
-            // 
-            // tsmiShortcut5
-            // 
-            this.tsmiShortcut5.Name = "tsmiShortcut5";
-            this.tsmiShortcut5.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.NumPad5)));
-            this.tsmiShortcut5.Size = new System.Drawing.Size(215, 22);
-            this.tsmiShortcut5.Text = "Shortcut 5";
-            // 
-            // tsmiShortcut6
-            // 
-            this.tsmiShortcut6.Name = "tsmiShortcut6";
-            this.tsmiShortcut6.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.NumPad6)));
-            this.tsmiShortcut6.Size = new System.Drawing.Size(215, 22);
-            this.tsmiShortcut6.Text = "Shortcut 6";
-            // 
-            // tsmiShortcut7
-            // 
-            this.tsmiShortcut7.Name = "tsmiShortcut7";
-            this.tsmiShortcut7.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.NumPad7)));
-            this.tsmiShortcut7.Size = new System.Drawing.Size(215, 22);
-            this.tsmiShortcut7.Text = "Shortcut 7";
-            // 
-            // tsmiShortcut8
-            // 
-            this.tsmiShortcut8.Name = "tsmiShortcut8";
-            this.tsmiShortcut8.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.NumPad8)));
-            this.tsmiShortcut8.Size = new System.Drawing.Size(215, 22);
-            this.tsmiShortcut8.Text = "Shortcut 8";
-            // 
-            // tsmiShortcut9
-            // 
-            this.tsmiShortcut9.Name = "tsmiShortcut9";
-            this.tsmiShortcut9.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.NumPad9)));
-            this.tsmiShortcut9.Size = new System.Drawing.Size(215, 22);
-            this.tsmiShortcut9.Text = "Shortcut 9";
             // 
             // btnSetShortcut
             // 
@@ -343,6 +245,13 @@
             this.btnSetShortcut.Text = "Set Shortcut";
             this.btnSetShortcut.UseVisualStyleBackColor = true;
             this.btnSetShortcut.Click += new System.EventHandler(this.btnSetShortcut_Click);
+            // 
+            // tsmiManageShortcuts
+            // 
+            this.tsmiManageShortcuts.Name = "tsmiManageShortcuts";
+            this.tsmiManageShortcuts.Size = new System.Drawing.Size(180, 22);
+            this.tsmiManageShortcuts.Text = "Manage Shortcuts";
+            this.tsmiManageShortcuts.Click += new System.EventHandler(this.tsmiManageShortcuts_Click);
             // 
             // frmSound
             // 
@@ -399,18 +308,8 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem shortcutToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tsmiShortcut1;
-        private System.Windows.Forms.ToolStripMenuItem tsmiShortcut2;
-        private System.Windows.Forms.ToolStripMenuItem tsmiShortcut3;
-        private System.Windows.Forms.ToolStripMenuItem tsmiShortcut4;
-        private System.Windows.Forms.ToolStripMenuItem tsmiShortcut5;
-        private System.Windows.Forms.ToolStripMenuItem tsmiShortcut6;
-        private System.Windows.Forms.ToolStripMenuItem tsmiShortcut7;
-        private System.Windows.Forms.ToolStripMenuItem tsmiShortcut8;
-        private System.Windows.Forms.ToolStripMenuItem tsmiShortcut9;
-        private System.Windows.Forms.ToolStripMenuItem tsmiShortcut0;
         private System.Windows.Forms.Button btnSetShortcut;
+        private System.Windows.Forms.ToolStripMenuItem tsmiManageShortcuts;
     }
 }
 

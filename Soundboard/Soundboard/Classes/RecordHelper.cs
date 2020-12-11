@@ -28,7 +28,7 @@ namespace Soundboard.Classes
             //A little lazy, but I will display the exception name in the popup
             catch (Exception ex)
             {
-                MessageBox.Show("An error has occured : \n" + ex.Message, ex.GetType().Name);
+                MessageBox.Show("An error has occured during recording : \n" + ex.Message, ex.GetType().Name);
                 return false;
             }
             //Setup the Recording Event Handlers
