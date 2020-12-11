@@ -33,8 +33,10 @@
             this.clmFileName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.clmFullFilePath = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnRemove = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnRemoveAll = new System.Windows.Forms.Button();
+            this.btnEditKey = new System.Windows.Forms.Button();
+            this.btnApply = new System.Windows.Forms.Button();
+            this.btnClose = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lviewShortcuts
@@ -66,42 +68,65 @@
             // 
             // btnRemove
             // 
-            this.btnRemove.Location = new System.Drawing.Point(585, 196);
+            this.btnRemove.Location = new System.Drawing.Point(585, 145);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(113, 29);
             this.btnRemove.TabIndex = 1;
             this.btnRemove.Text = "Remove Selected";
             this.btnRemove.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // btnRemoveAll
             // 
-            this.button1.Location = new System.Drawing.Point(585, 240);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(113, 29);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Remove All";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnRemoveAll.Location = new System.Drawing.Point(585, 189);
+            this.btnRemoveAll.Name = "btnRemoveAll";
+            this.btnRemoveAll.Size = new System.Drawing.Size(113, 29);
+            this.btnRemoveAll.TabIndex = 2;
+            this.btnRemoveAll.Text = "Remove All";
+            this.btnRemoveAll.UseVisualStyleBackColor = true;
+            this.btnRemoveAll.Click += new System.EventHandler(this.btnRemoveAll_Click);
             // 
-            // button2
+            // btnEditKey
             // 
-            this.button2.Location = new System.Drawing.Point(585, 152);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(113, 29);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Edit Keybind";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnEditKey.Location = new System.Drawing.Point(585, 101);
+            this.btnEditKey.Name = "btnEditKey";
+            this.btnEditKey.Size = new System.Drawing.Size(113, 29);
+            this.btnEditKey.TabIndex = 3;
+            this.btnEditKey.Text = "Edit Keybind";
+            this.btnEditKey.UseVisualStyleBackColor = true;
+            // 
+            // btnApply
+            // 
+            this.btnApply.Location = new System.Drawing.Point(241, 371);
+            this.btnApply.Name = "btnApply";
+            this.btnApply.Size = new System.Drawing.Size(74, 37);
+            this.btnApply.TabIndex = 4;
+            this.btnApply.Text = "Apply";
+            this.btnApply.UseVisualStyleBackColor = true;
+            // 
+            // btnClose
+            // 
+            this.btnClose.Location = new System.Drawing.Point(362, 371);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(74, 37);
+            this.btnClose.TabIndex = 5;
+            this.btnClose.Text = "Close";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // frmShortcutManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnClose);
+            this.Controls.Add(this.btnApply);
+            this.Controls.Add(this.btnEditKey);
+            this.Controls.Add(this.btnRemoveAll);
             this.Controls.Add(this.btnRemove);
             this.Controls.Add(this.lviewShortcuts);
             this.Name = "frmShortcutManager";
             this.Text = "Shortcut Manager";
+            this.Load += new System.EventHandler(this.frmShortcutManager_Load);
             this.ResumeLayout(false);
 
         }
@@ -113,7 +138,9 @@
         private System.Windows.Forms.ColumnHeader clmFileName;
         private System.Windows.Forms.ColumnHeader clmFullFilePath;
         private System.Windows.Forms.Button btnRemove;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnRemoveAll;
+        private System.Windows.Forms.Button btnEditKey;
+        private System.Windows.Forms.Button btnApply;
+        private System.Windows.Forms.Button btnClose;
     }
 }

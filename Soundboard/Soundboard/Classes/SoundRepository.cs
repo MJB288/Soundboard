@@ -53,5 +53,10 @@ namespace Soundboard.Classes
         {
             return SoundFiles.Keys.ToArray();
         }
+
+        public Dictionary<String, String> getShortcutDictionaryC()
+        {
+            return new Dictionary<String, String>(ShortcutDictionary);
+        }
     }
 }
