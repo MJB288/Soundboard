@@ -28,7 +28,9 @@ namespace Soundboard.Classes
         public SEMediaPlayer(float startingVolume)
         {
             MainPlayer = new WaveOut();
+            PlaybackPlayer = new WaveOut();
             MainPlayer.Volume = startingVolume;
+            PlaybackPlayer.Volume = startingVolume;
             Recording = false;
             AudioRecorder = new WaveIn();
             PrevVolume = 100.00f;

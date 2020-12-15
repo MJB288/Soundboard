@@ -109,5 +109,15 @@ namespace Soundboard.Forms
                 lviewShortcuts.Items[firstIndex].Selected = true;
 
         }
+
+        private void btnEditKey_Click(object sender, EventArgs e)
+        {
+            frmShortcutForm newShortcutSetter = new frmShortcutForm(lviewShortcuts.SelectedItems[0].SubItems[3].Text, SoundDataRef);
+            newShortcutSetter.ShowDialog();
+            //Remove the current keybind
+            //Reset the list view
+            populateListView();
+
+        }
     }
 }

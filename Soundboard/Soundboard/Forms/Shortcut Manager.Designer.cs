@@ -102,6 +102,7 @@
             this.btnEditKey.TabIndex = 3;
             this.btnEditKey.Text = "Edit Keybind";
             this.btnEditKey.UseVisualStyleBackColor = true;
+            this.btnEditKey.Click += new System.EventHandler(this.btnEditKey_Click);
             // 
             // btnApply
             // 

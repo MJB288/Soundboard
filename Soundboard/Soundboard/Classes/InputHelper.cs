@@ -18,6 +18,9 @@ namespace Soundboard.Classes
         /// </summary>
         public static Keys[] NoShortcutAlone = { Keys.ShiftKey, Keys.ControlKey, Keys.Alt, Keys.Menu };
 
+        public static String LastKeyCombo = "";
+        public static bool LastKeyComboLock = false;
+
         public static String convertKeyInputToString(KeyEventArgs keyEvent, Keys modifierKeys)
         {
             String keyCombo = "";
