@@ -17,6 +17,10 @@ namespace Soundboard.Classes
         /// A static array of Key Codes that should not be recognized as individual key presses for shortcuts
         /// </summary>
         public static Keys[] NoShortcutAlone = { Keys.ShiftKey, Keys.ControlKey, Keys.Alt, Keys.Menu };
+        /// <summary>
+        /// A static list of shortcuts that do things other than play a sound. 
+        /// </summary>
+        public static List<String> BaseShortcuts = loadBaseShortcuts();
 
         public static String LastKeyCombo = "";
         public static bool LastKeyComboLock = false;
@@ -42,5 +46,27 @@ namespace Soundboard.Classes
             keyCombo += keyEvent.KeyCode.ToString();
             return keyCombo;
         }
+        /// <summary>
+        /// Loads the list of user keybinds for shortcuts that do something other than play sound
+        /// </summary>
+        /// <returns></returns>
+        private static List<String> loadBaseShortcuts()
+        {
+            //No prebound shortcuts yet so I will simply return a new list
+            return new List<String>();
+        }
+
+        /// <summary>
+        /// A method that removes a base shortcut and replaces it with another. This is for sound purposes
+        /// </summary>
+        public static void changeBaseShortcuts(String originalShortcut, String newShortcut)
+        {
+            if (!BaseShortcuts.Contains(originalShortcut))
+            {
+                throw new ArgumentException("Base Shortcut '" + originalShortcut + "' was not found!");
+            }
+        }
     }
+
+    
 }
