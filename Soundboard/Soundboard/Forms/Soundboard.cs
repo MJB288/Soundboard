@@ -170,6 +170,7 @@ namespace Soundboard.Forms
         private void btnStop_Click(object sender, EventArgs e)
         {
             MediaCenter.StopMainPlayer();
+            MediaCenter.StopPlaybackPlayer();
         }
 
         private void tbarVolume_Scroll(object sender, EventArgs e)
@@ -283,8 +284,32 @@ namespace Soundboard.Forms
         {
             if (!InputHelper.NoShortcutAlone.Contains(keyEvent.KeyCode))
             {
+                
                 String keyCombo = InputHelper.convertKeyInputToString(keyEvent, Form.ModifierKeys);
+                //First we need to determine if a base shortcut (e.x. Stop) was invoked before deciding if a sound is being played or not
+                if (InputHelper.BaseShortcuts.ContainsKey(keyCombo))
+                {
+                    //Invoke the processing method
+                    processBaseShortcut(InputHelper.BaseShortcuts[keyCombo]);
+                }
                 playShortcutSound(keyCombo);
+            }
+        }
+
+        /// <summary>
+        /// This function when given the name of a keybound action will process and execute that action if it is allowed
+        /// </summary>
+        /// <param name="actionName"></param>
+        private void processBaseShortcut(String actionName)
+        {
+            switch (actionName) {
+                case "Stop":
+                    MediaCenter.StopMainPlayer();
+                    MediaCenter.StopPlaybackPlayer();
+                    break;
+                default:
+                    break;
+
             }
         }
         

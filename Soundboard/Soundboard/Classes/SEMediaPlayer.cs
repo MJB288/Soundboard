@@ -145,6 +145,11 @@ namespace Soundboard.Classes
             MainPlayer.Stop();
         }
 
+        public void StopPlaybackPlayer()
+        {
+            PlaybackPlayer.Stop();
+        }
+
         public void setVolume(float newVolume)
         {
             MainPlayer.Volume = newVolume;

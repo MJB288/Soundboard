@@ -20,7 +20,7 @@ namespace Soundboard.Classes
         /// <summary>
         /// A static list of shortcuts that do things other than play a sound. 
         /// </summary>
-        public static List<String> BaseShortcuts = loadBaseShortcuts();
+        public static Dictionary<String, String> BaseShortcuts = loadBaseShortcuts();
 
         public static String LastKeyCombo = "";
         public static bool LastKeyComboLock = false;
@@ -47,13 +47,13 @@ namespace Soundboard.Classes
             return keyCombo;
         }
         /// <summary>
-        /// Loads the list of user keybinds for shortcuts that do something other than play sound
+        /// Loads the dictionary of user keybinds for shortcuts that do something other than play sound
         /// </summary>
         /// <returns></returns>
-        private static List<String> loadBaseShortcuts()
+        private static Dictionary<String, String> loadBaseShortcuts()
         {
-            //No prebound shortcuts yet so I will simply return a new list
-            return new List<String>();
+            //No prebound shortcuts yet so I will simply return a new dictionary
+            return new Dictionary<String, String>();
         }
 
         /// <summary>
@@ -61,10 +61,14 @@ namespace Soundboard.Classes
         /// </summary>
         public static void changeBaseShortcuts(String originalShortcut, String newShortcut)
         {
-            if (!BaseShortcuts.Contains(originalShortcut))
+            if (!BaseShortcuts.ContainsKey(originalShortcut))
             {
                 throw new ArgumentException("Base Shortcut '" + originalShortcut + "' was not found!");
             }
+
+            BaseShortcuts[newShortcut] = BaseShortcuts[originalShortcut];
+            //Now remove the old key bind
+            BaseShortcuts.Remove(originalShortcut);
         }
     }
 
