@@ -48,7 +48,10 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnSetShortcut = new System.Windows.Forms.Button();
+            this.manageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiManageShortcuts = new System.Windows.Forms.ToolStripMenuItem();
+            this.soundShortcutsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.basicKeybindsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.tbarVolume)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -214,7 +217,8 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.manageToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(632, 24);
@@ -246,12 +250,33 @@
             this.btnSetShortcut.UseVisualStyleBackColor = true;
             this.btnSetShortcut.Click += new System.EventHandler(this.btnSetShortcut_Click);
             // 
+            // manageToolStripMenuItem
+            // 
+            this.manageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.soundShortcutsToolStripMenuItem,
+            this.basicKeybindsToolStripMenuItem});
+            this.manageToolStripMenuItem.Name = "manageToolStripMenuItem";
+            this.manageToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
+            this.manageToolStripMenuItem.Text = "Manage";
+            // 
             // tsmiManageShortcuts
             // 
             this.tsmiManageShortcuts.Name = "tsmiManageShortcuts";
             this.tsmiManageShortcuts.Size = new System.Drawing.Size(180, 22);
             this.tsmiManageShortcuts.Text = "Manage Shortcuts";
             this.tsmiManageShortcuts.Click += new System.EventHandler(this.tsmiManageShortcuts_Click);
+            // 
+            // soundShortcutsToolStripMenuItem
+            // 
+            this.soundShortcutsToolStripMenuItem.Name = "soundShortcutsToolStripMenuItem";
+            this.soundShortcutsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.soundShortcutsToolStripMenuItem.Text = "Sound Shortcuts";
+            // 
+            // basicKeybindsToolStripMenuItem
+            // 
+            this.basicKeybindsToolStripMenuItem.Name = "basicKeybindsToolStripMenuItem";
+            this.basicKeybindsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.basicKeybindsToolStripMenuItem.Text = "Basic Keybinds";
             // 
             // frmSound
             // 
@@ -310,6 +335,9 @@
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.Button btnSetShortcut;
         private System.Windows.Forms.ToolStripMenuItem tsmiManageShortcuts;
+        private System.Windows.Forms.ToolStripMenuItem manageToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem soundShortcutsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem basicKeybindsToolStripMenuItem;
     }
 }
 
