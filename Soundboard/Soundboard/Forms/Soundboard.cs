@@ -185,9 +185,15 @@ namespace Soundboard.Forms
 
         private void btnRecord_Click(object sender, EventArgs e)
         {
-            //Only this button can access this boolean at the moment, so no locks are needed
+            //Since recording needs to be acted upon by shortcut as well - in a separate method
+            toggleRecording();
+        }
 
-
+        /// <summary>
+        /// A method for invoking recording functions.
+        /// </summary>
+        private void toggleRecording()
+        {
             btnPlayback.Enabled = MediaCenter.Recording;
             btnSaveRec.Enabled = MediaCenter.Recording;
             //Now adjust the state of recording since it is currently a toggle at the current moment

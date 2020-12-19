@@ -52,8 +52,13 @@ namespace Soundboard.Classes
         /// <returns></returns>
         private static Dictionary<String, String> loadBaseShortcuts()
         {
-            //No prebound shortcuts yet so I will simply return a new dictionary
-            return new Dictionary<String, String>();
+            Dictionary<String, String> DefaultShortcuts = new Dictionary<String, String>();
+            //Stop
+            DefaultShortcuts.Add(Properties.Settings.Default.StopKey, "Stop");
+            DefaultShortcuts.Add(Properties.Settings.Default.PlayKey, "Play");
+            DefaultShortcuts.Add(Properties.Settings.Default.RecordKey, "Record");
+            DefaultShortcuts.Add(Properties.Settings.Default.PlaybackKey, "Playback");
+            return DefaultShortcuts;
         }
 
         /// <summary>
