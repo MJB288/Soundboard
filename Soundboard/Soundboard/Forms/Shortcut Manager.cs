@@ -16,12 +16,14 @@ namespace Soundboard.Forms
         //This temporary dictionary will hold all changes and then decide to save the keybinds or no
         private Dictionary<String, String> tempShortcutDictionary;
         private frmSound SoundDataRef;
+        private ListViewColumnSorter ColumnSorter;
         public frmShortcutManager(frmSound SoundForm)
         {
             InitializeComponent();
             //Copy Constructor method, so don't need to clone here
             tempShortcutDictionary = SoundForm.SoundData.getShortcutDictionaryC();
             SoundDataRef = SoundForm;
+            ColumnSorter = new ListViewColumnSorter();
         }
 
         private void btnRemoveAll_Click(object sender, EventArgs e)
@@ -46,6 +48,10 @@ namespace Soundboard.Forms
         private void frmShortcutManager_Load(object sender, EventArgs e)
         {
             populateListView();
+            //Attach the Column Sorter to the listview
+            lviewShortcuts.ListViewItemSorter = ColumnSorter;
+            //And then attach the event handler
+            lviewShortcuts.ColumnClick += lviewShortcut_ColumnClicked;
             
         }
 
@@ -119,6 +125,43 @@ namespace Soundboard.Forms
             //TODO- update the ListView without resetting the entire list and also not lazily toss it on the bottom
             populateListView();
 
+        }
+
+        private void lviewShortcut_ColumnClicked(object sender, ColumnClickEventArgs e)
+        {
+            ColumnSort(e, lviewShortcuts, ColumnSorter);
+        }
+
+        /// <summary>
+        /// Given the event of a column being clicked on, use the supplied column sorter to sort a ListView. 
+        /// The column sorter's mode will switch between ascending and descending, or change columns
+        /// </summary>
+        /// <param name="e"></param>
+        /// <param name="lviewResults"></param>
+        /// <param name="lvwColumnSorter"></param>
+        private void ColumnSort(ColumnClickEventArgs e, ListView lviewResults, ListViewColumnSorter lvwColumnSorter)
+        {
+            //Checking to see if column is already selected
+            if (e.Column == lvwColumnSorter.ColumnToSort)
+            {
+                //If already selected - reverse the order
+                if (lvwColumnSorter.SortMode == SortOrder.Ascending)
+                {
+                    lvwColumnSorter.SortMode = SortOrder.Descending;
+                }
+                else
+                {
+                    lvwColumnSorter.SortMode = SortOrder.Ascending;
+                }
+            }
+            else
+            {
+                //New column - default to ascending order
+                lvwColumnSorter.ColumnToSort = e.Column;
+                lvwColumnSorter.SortMode = SortOrder.Descending;
+            }
+            //Now perform the sort
+            lviewResults.Sort();
         }
     }
 }
