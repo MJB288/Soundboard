@@ -116,6 +116,7 @@ namespace Soundboard.Forms
             newShortcutSetter.ShowDialog();
             //Remove the current keybind
             //Reset the list view
+            //TODO- update the ListView without resetting the entire list and also not lazily toss it on the bottom
             populateListView();
 
         }
