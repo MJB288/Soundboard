@@ -31,6 +31,14 @@ namespace Soundboard.Forms
 
         private void btnPlay_Click(object sender, EventArgs e)
         {
+            playSelectedSound();
+        }
+
+        /// <summary>
+        /// Plays the currently selected sound on lviewSounds with the selected device from cboxOutputDevices
+        /// </summary>
+        private void playSelectedSound()
+        {
             if (lviewSounds.SelectedItems.Count == 0)
             {
                 MessageBox.Show("No item is selected!", "Play Error");
@@ -277,6 +285,10 @@ namespace Soundboard.Forms
         private void processBaseShortcut(String actionName)
         {
             switch (actionName) {
+                case "Play":
+                    //Call the method for playing a sound effect
+                    playSelectedSound();
+                    break;
                 case "Stop":
                     MediaCenter.StopMainPlayer();
                     MediaCenter.StopPlaybackPlayer();
@@ -284,6 +296,10 @@ namespace Soundboard.Forms
                 case "Record":
                     toggleRecording();
                     break;
+                case "Playback":
+                    MediaCenter.playbackRecording(SoundPath);
+                    break;
+                //Do nothing if not a base shortcut for this form
                 default:
                     break;
 
@@ -307,7 +323,7 @@ namespace Soundboard.Forms
             }
         }
 
-        private void tsmiManageShortcuts_Click(object sender, EventArgs e)
+        private void tsmiSoundShortcuts_Click(object sender, EventArgs e)
         {
             frmShortcutManager sManager = new frmShortcutManager(this);
             sManager.Show();
