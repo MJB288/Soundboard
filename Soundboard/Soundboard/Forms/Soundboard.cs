@@ -328,5 +328,11 @@ namespace Soundboard.Forms
             frmShortcutManager sManager = new frmShortcutManager(this);
             sManager.Show();
         }
+
+        private void tsmiBasicKeybinds_Click(object sender, EventArgs e)
+        {
+            frmKeybind keyManager = new frmKeybind();
+            keyManager.Show();
+        }
     }
 }
