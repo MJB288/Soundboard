@@ -49,7 +49,7 @@
             this.clmFullFilePath});
             this.lviewShortcuts.FullRowSelect = true;
             this.lviewShortcuts.HideSelection = false;
-            this.lviewShortcuts.Location = new System.Drawing.Point(97, 59);
+            this.lviewShortcuts.Location = new System.Drawing.Point(15, 21);
             this.lviewShortcuts.Name = "lviewShortcuts";
             this.lviewShortcuts.Size = new System.Drawing.Size(468, 220);
             this.lviewShortcuts.TabIndex = 0;
@@ -76,7 +76,7 @@
             // 
             // btnRemove
             // 
-            this.btnRemove.Location = new System.Drawing.Point(585, 145);
+            this.btnRemove.Location = new System.Drawing.Point(503, 107);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(113, 29);
             this.btnRemove.TabIndex = 1;
@@ -86,7 +86,7 @@
             // 
             // btnRemoveAll
             // 
-            this.btnRemoveAll.Location = new System.Drawing.Point(585, 189);
+            this.btnRemoveAll.Location = new System.Drawing.Point(503, 151);
             this.btnRemoveAll.Name = "btnRemoveAll";
             this.btnRemoveAll.Size = new System.Drawing.Size(113, 29);
             this.btnRemoveAll.TabIndex = 2;
@@ -96,7 +96,7 @@
             // 
             // btnEditKey
             // 
-            this.btnEditKey.Location = new System.Drawing.Point(585, 101);
+            this.btnEditKey.Location = new System.Drawing.Point(503, 63);
             this.btnEditKey.Name = "btnEditKey";
             this.btnEditKey.Size = new System.Drawing.Size(113, 29);
             this.btnEditKey.TabIndex = 3;
@@ -106,7 +106,7 @@
             // 
             // btnApply
             // 
-            this.btnApply.Location = new System.Drawing.Point(307, 311);
+            this.btnApply.Location = new System.Drawing.Point(218, 247);
             this.btnApply.Name = "btnApply";
             this.btnApply.Size = new System.Drawing.Size(74, 37);
             this.btnApply.TabIndex = 4;
@@ -116,7 +116,7 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(428, 311);
+            this.btnClose.Location = new System.Drawing.Point(339, 247);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(74, 37);
             this.btnClose.TabIndex = 5;
@@ -128,7 +128,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 364);
+            this.ClientSize = new System.Drawing.Size(631, 289);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnApply);
             this.Controls.Add(this.btnEditKey);

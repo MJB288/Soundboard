@@ -23,16 +23,175 @@ namespace Soundboard.Forms
         private String SoundPath;
         private SEMediaPlayer MediaCenter;
        
+        //STARTUP
+        //------------------------------------------------------------------------------
 
         public frmSound()
         {
             InitializeComponent();
         }
 
+        private void frmSound_Load(object sender, EventArgs e)
+        {
+            this.KeyDown += frmSound_KeyDown;
+            //Load all of the sound devices for both input and output
+            loadInputDevices();
+            loadOutputDevices();
+
+            SoundPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\Sounds";
+            //Instatiate the Recording Folder if necessary
+            System.IO.Directory.CreateDirectory(SoundPath + "\\Recording");
+            //Acquire the sound data
+            refreshSoundData();
+
+            //TODO - load previous volume level from memory
+            tbarVolume.Value = 50;
+
+            MediaCenter = new SEMediaPlayer(0.01f * tbarVolume.Value);
+
+            //loadSoundDevices(NAudio.Wave.WaveIn.DeviceCount, NAudio.Wave.WaveIn)
+        }
+
+
+
+        // BUTTON EVENT HANDLERS
+        // ----------------------------------------------------------------------------------
+
+
+
         private void btnPlay_Click(object sender, EventArgs e)
         {
             playSelectedSound();
         }
+
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+            MediaCenter.StopMainPlayer();
+            MediaCenter.StopPlaybackPlayer();
+        }
+
+        private void btnRecord_Click(object sender, EventArgs e)
+        {
+            //Since recording needs to be acted upon by shortcut as well - in a separate method
+            toggleRecording();
+        }
+
+        private void btnPlayback_Click(object sender, EventArgs e)
+        {
+            MediaCenter.playbackRecording(SoundPath);
+        }
+
+        /// <summary>
+        /// Event Handler : Invokes the RecordHelper.SaveRecording method on the temporary sound file.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSaveRec_Click(object sender, EventArgs e)
+        {
+            String TempPath = SoundPath + "\\Recording\\Temp.wav";
+            //Invoke the save file method
+            RecordHelper.SaveRecording(TempPath);
+        }
+
+        private void btnSetShortcut_Click(object sender, EventArgs e)
+        {
+            //Check for a selected Item
+            if (lviewSounds.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("No item is selected!", "Shortcut Error");
+                return;
+            }
+
+            String keyCombo = InputHelper.getUserInputShortcut();
+
+            //Now get the string the form assigned
+            //Now pass the data to the sound repository - using the form reference that was passed to this form
+            processShortcutSoundChange(keyCombo);
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            refreshSoundData();
+        }
+
+
+
+        //------------------------------------------------------------------------------------
+
+        //OTHER EVENT HANDLERS
+
+        //-------------------------------------------------------------------------------------
+        private void cboxGroups_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lviewSounds.Items.Clear();
+            //Incase the combobox is cleared - don't fire any code or more exceptions will happen
+            if (cboxGroups.SelectedIndex < 0)
+            {
+                return;
+            }
+
+            //Fill out the list of SoundFiles based on the group that has been selected
+            foreach (SoundFile soundFile in SoundData.SoundFiles[cboxGroups.SelectedItem.ToString()])
+            {
+                //Remove the .mp3 Extension (or .wav since that format is now current supported)
+                StringBuilder noMp3Name = new StringBuilder(soundFile.soundName);
+                noMp3Name.Remove(noMp3Name.Length - 4, 4);
+                //Create a string array of attributes
+                String[] itemArray = { noMp3Name.ToString(), "0" };
+                //Convert the attributes into a List View format
+                ListViewItem lviewItem = new ListViewItem(itemArray);
+                //And then add them to the path
+                lviewItem.Tag = soundFile.filePath;
+                lviewSounds.Items.Add(lviewItem);
+
+            }
+            lviewSounds.Items[0].Selected = true;
+        }
+
+        private void tbarVolume_Scroll(object sender, EventArgs e)
+        {
+            MediaCenter.setVolume(.01f * tbarVolume.Value);
+        }
+
+        private void frmSound_KeyDown(object sender, KeyEventArgs keyEvent)
+        {
+            if (!InputHelper.NoShortcutAlone.Contains(keyEvent.KeyCode))
+            {
+
+                String keyCombo = InputHelper.convertKeyInputToString(keyEvent, Form.ModifierKeys);
+                //First we need to determine if a base shortcut (e.x. Stop) was invoked before deciding if a sound is being played or not
+                if (InputHelper.BaseShortcuts.ContainsKey(keyCombo))
+                {
+                    //Invoke the processing method
+                    processBaseShortcut(InputHelper.BaseShortcuts[keyCombo]);
+                }
+                playShortcutSound(keyCombo);
+            }
+        }
+
+        private void tsmiSoundShortcuts_Click(object sender, EventArgs e)
+        {
+            frmShortcutManager sManager = new frmShortcutManager(this);
+            sManager.Show();
+        }
+
+        private void tsmiBasicKeybinds_Click(object sender, EventArgs e)
+        {
+            frmKeybind keyManager = new frmKeybind();
+            keyManager.Show();
+        }
+
+        private void lviewSounds_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        //--------------------------------------------------------------------------------------------
+
+        // HELPER METHODS
+        
+        
+        //---------------------------------------------------------------------------------------------
 
         /// <summary>
         /// Plays the currently selected sound on lviewSounds with the selected device from cboxOutputDevices
@@ -59,32 +218,6 @@ namespace Soundboard.Forms
 
             //NAudio.Wave.DirectSoundOut.
             //            var device = new MMDeviceEnumerator();
-        }
-
-        private void lviewSounds_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void frmSound_Load(object sender, EventArgs e)
-        {
-            this.KeyDown += frmSound_KeyDown;
-            //Load all of the sound devices for both input and output
-            loadInputDevices();
-            loadOutputDevices();
-
-            SoundPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\Sounds";
-            //Instatiate the Recording Folder if necessary
-            System.IO.Directory.CreateDirectory(SoundPath + "\\Recording");
-            //Acquire the sound data
-            refreshSoundData();
-
-            //TODO - load previous volume level from memory
-            tbarVolume.Value = 50;
-
-            MediaCenter = new SEMediaPlayer(0.01f * tbarVolume.Value);
-            
-            //loadSoundDevices(NAudio.Wave.WaveIn.DeviceCount, NAudio.Wave.WaveIn)
         }
 
         private object getCapability(bool input, int deviceID)
@@ -150,55 +283,6 @@ namespace Soundboard.Forms
             }
         }
 
-        private void cboxGroups_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            lviewSounds.Items.Clear();
-            //Incase the combobox is cleared - don't fire any code or more exceptions will happen
-            if(cboxGroups.SelectedIndex < 0)
-            {
-                return;
-            }
-
-            //Fill out the list of SoundFiles based on the group that has been selected
-            foreach(SoundFile soundFile in SoundData.SoundFiles[cboxGroups.SelectedItem.ToString()])
-            {
-                //Remove the .mp3 Extension (or .wav since that format is now current supported)
-                StringBuilder noMp3Name = new StringBuilder(soundFile.soundName);
-                noMp3Name.Remove(noMp3Name.Length - 4, 4);
-                //Create a string array of attributes
-                String[] itemArray = { noMp3Name.ToString(), "0"};
-                //Convert the attributes into a List View format
-                ListViewItem lviewItem = new ListViewItem(itemArray);
-                //And then add them to the path
-                lviewItem.Tag = soundFile.filePath;
-                lviewSounds.Items.Add(lviewItem);
-                
-            }
-            lviewSounds.Items[0].Selected = true;
-        }
-
-        private void btnStop_Click(object sender, EventArgs e)
-        {
-            MediaCenter.StopMainPlayer();
-            MediaCenter.StopPlaybackPlayer();
-        }
-
-        private void tbarVolume_Scroll(object sender, EventArgs e)
-        {
-            MediaCenter.setVolume(.01f * tbarVolume.Value);
-        }
-
-        private void btnRefresh_Click(object sender, EventArgs e)
-        {
-            refreshSoundData();
-        }
-
-        private void btnRecord_Click(object sender, EventArgs e)
-        {
-            //Since recording needs to be acted upon by shortcut as well - in a separate method
-            toggleRecording();
-        }
-
         /// <summary>
         /// A method for invoking recording functions.
         /// </summary>
@@ -219,10 +303,6 @@ namespace Soundboard.Forms
             }
         }
 
-       
-
-        
-
         /// <summary>
         /// Gets the Recording device currently selected by the user and returns it as an MMDevice Object for Wasapi purposes
         /// </summary>
@@ -231,39 +311,6 @@ namespace Soundboard.Forms
         {
             var deviceEnumerator = new MMDeviceEnumerator();
             return deviceEnumerator.EnumerateAudioEndPoints(DataFlow.Capture, DeviceState.All)[cboxInputDevices.SelectedIndex];
-        }
-
-        private void btnPlayback_Click(object sender, EventArgs e)
-        {
-            MediaCenter.playbackRecording(SoundPath);
-        }
-
-        /// <summary>
-        /// Event Handler : Invokes the RecordHelper.SaveRecording method on the temporary sound file.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnSaveRec_Click(object sender, EventArgs e)
-        {
-            String TempPath = SoundPath + "\\Recording\\Temp.wav";
-            //Invoke the save file method
-            RecordHelper.SaveRecording(TempPath);
-        }
-
-        private void btnSetShortcut_Click(object sender, EventArgs e)
-        {
-            //Check for a selected Item
-            if (lviewSounds.SelectedItems.Count == 0)
-            {
-                MessageBox.Show("No item is selected!", "Shortcut Error");
-                return;
-            }
-
-            String keyCombo = InputHelper.getUserInputShortcut();
-
-            //Now get the string the form assigned
-            //Now pass the data to the sound repository - using the form reference that was passed to this form
-            processShortcutSoundChange(keyCombo);
         }
 
         public void processShortcutSoundChange(String keyCombo)
@@ -284,22 +331,6 @@ namespace Soundboard.Forms
             }
             //Set the shortcut in the options
             SoundData.setShortcutSound(keyCombo, lviewSounds.SelectedItems[0].Tag.ToString());
-        }
-
-        private void frmSound_KeyDown(object sender, KeyEventArgs keyEvent)
-        {
-            if (!InputHelper.NoShortcutAlone.Contains(keyEvent.KeyCode))
-            {
-                
-                String keyCombo = InputHelper.convertKeyInputToString(keyEvent, Form.ModifierKeys);
-                //First we need to determine if a base shortcut (e.x. Stop) was invoked before deciding if a sound is being played or not
-                if (InputHelper.BaseShortcuts.ContainsKey(keyCombo))
-                {
-                    //Invoke the processing method
-                    processBaseShortcut(InputHelper.BaseShortcuts[keyCombo]);
-                }
-                playShortcutSound(keyCombo);
-            }
         }
 
         /// <summary>
@@ -333,7 +364,6 @@ namespace Soundboard.Forms
         private void playShortcutSound(String keyCombo)
         {
             //Now convert the input into a shortcut if there is one
-            //MessageBox.Show(keyCombo);
             String filePath = SoundData.getShortcutSound(keyCombo);
             //Check for null filepath - means no shortcut
             if (filePath != null) {
@@ -347,16 +377,6 @@ namespace Soundboard.Forms
             }
         }
 
-        private void tsmiSoundShortcuts_Click(object sender, EventArgs e)
-        {
-            frmShortcutManager sManager = new frmShortcutManager(this);
-            sManager.Show();
-        }
-
-        private void tsmiBasicKeybinds_Click(object sender, EventArgs e)
-        {
-            frmKeybind keyManager = new frmKeybind();
-            keyManager.Show();
-        }
+        
     }
 }
