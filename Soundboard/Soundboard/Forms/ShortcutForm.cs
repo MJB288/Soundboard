@@ -17,14 +17,10 @@ namespace Soundboard.Forms
         /// <summary>
         /// The filepath of the sound file that will be played with the key press
         /// </summary>
-        private String ShortcutFilePath;
-        private frmSound Soundboard;
         public String KeyCombo;
-        public frmShortcutForm(String shortcutFilePath, frmSound soundboard)
+        public frmShortcutForm()
         {
             InitializeComponent();
-            ShortcutFilePath = shortcutFilePath;
-            Soundboard = soundboard;
             KeyCombo = "";
         }
 

@@ -15,6 +15,7 @@ namespace Soundboard.Forms
     {
         //This temporary dictionary will hold all changes and then decide to save the keybinds or no
         private Dictionary<String, String> tempShortcutDictionary;
+        //private Dictionary<String, String> changesMade;
         private frmSound SoundDataRef;
         private ListViewColumnSorter ColumnSorter;
         public frmShortcutManager(frmSound SoundForm)
@@ -118,14 +119,40 @@ namespace Soundboard.Forms
 
         private void btnEditKey_Click(object sender, EventArgs e)
         {
-            frmShortcutForm newShortcutSetter = new frmShortcutForm(lviewShortcuts.SelectedItems[0].SubItems[3].Text, SoundDataRef);
+            frmShortcutForm newShortcutSetter = new frmShortcutForm();
             newShortcutSetter.ShowDialog();
             //Remove the current keybind
             //Reset the list view
             //TODO- update the ListView without resetting the entire list and also not lazily toss it on the bottom
-            populateListView();
+
+            String filePath = lviewShortcuts.SelectedItems[0].SubItems[3].Text;
+            //This is primarily for readability purposes
+            String oldKeyBind = lviewShortcuts.SelectedItems[0].SubItems[0].Text;
+            String newKeyBind = newShortcutSetter.KeyCombo;
+
+            //populateListView();
+            //Now process changes
+            String soundTest = SoundDataRef.SoundData.getShortcutSound(newShortcutSetter.KeyCombo);
+
+            if(soundTest != null)
+            {
+                String[] soundTestSplit = soundTest.Split('\\');
+                //Ask if the user wants to override the shortcut
+                DialogResult overrideChoice = MessageBox.Show("Key combination '" + newShortcutSetter.KeyCombo + "' is already bound to '" + soundTestSplit[soundTestSplit.Length - 1] +
+                    "\nDo you wish to overide?", "Collision Notice", MessageBoxButtons.YesNo);
+                if (overrideChoice == DialogResult.No)
+                {
+                    //Don't override, stop processing
+                    return;
+                }
+            }
+            tempShortcutDictionary.Remove(oldKeyBind);
+            tempShortcutDictionary[newKeyBind] = filePath;
+            lviewShortcuts.SelectedItems[0].SubItems[0].Text = newShortcutSetter.KeyCombo;
 
         }
+
+        //private void
 
         private void lviewShortcut_ColumnClicked(object sender, ColumnClickEventArgs e)
         {

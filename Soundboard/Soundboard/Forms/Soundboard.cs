@@ -53,7 +53,7 @@ namespace Soundboard.Forms
             //Check if an exception occurred
             if (!result.Equals(""))
             {
-                MessageBox.Show("Shortcut Playback Exception for combination '" + keyCombo + "' : \n" + result, "Playback Exception");
+                MessageBox.Show("Playback Exception for '" + lviewSounds.SelectedItems[0].SubItems[0].Text + "' : \n" + result, "Playback Exception");
                 //SoundData.clearShortcutSound(keyCombo);
             }
 
@@ -259,18 +259,23 @@ namespace Soundboard.Forms
                 return;
             }
             //Open the form, passing the String filepath to be shortcutted
-            frmShortcutForm assignShortcutform = new frmShortcutForm(lviewSounds.SelectedItems[0].Tag.ToString(), this);
+            frmShortcutForm assignShortcutform = new frmShortcutForm();
             //We want the user to assign a shortcut, so therefore, lockout control from base form
             assignShortcutform.ShowDialog();
 
             //Now get the string the form assigned
             //Now pass the data to the sound repository - using the form reference that was passed to this form
-            String soundTest = SoundData.getShortcutSound(assignShortcutform.KeyCombo);
+            processShortcutSoundChange(assignShortcutform.KeyCombo);
+        }
+
+        public void processShortcutSoundChange(String keyCombo)
+        {
+            String soundTest = SoundData.getShortcutSound(keyCombo);
             if (soundTest != null)
             {
                 String[] soundTestSplit = soundTest.Split('\\');
                 //Ask if the user wants to override the shortcut
-                DialogResult overrideChoice = MessageBox.Show("Key combination '" + assignShortcutform.KeyCombo + "' is already bound to '" + soundTestSplit[soundTestSplit.Length - 1] +
+                DialogResult overrideChoice = MessageBox.Show("Key combination '" + keyCombo + "' is already bound to '" + soundTestSplit[soundTestSplit.Length - 1] +
                     "\nDo you wish to overide?", "Collision Notice", MessageBoxButtons.YesNo);
                 if (overrideChoice == DialogResult.No)
                 {
@@ -280,7 +285,7 @@ namespace Soundboard.Forms
 
             }
             //Set the shortcut in the options
-            SoundData.setShortcutSound(assignShortcutform.KeyCombo, lviewSounds.SelectedItems[0].Tag.ToString());
+            SoundData.setShortcutSound(keyCombo, lviewSounds.SelectedItems[0].Tag.ToString());
         }
 
         private void frmSound_KeyDown(object sender, KeyEventArgs keyEvent)
