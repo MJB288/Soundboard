@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Soundboard.Forms;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -76,6 +77,14 @@ namespace Soundboard.Classes
             BaseShortcuts.Remove(originalShortcut);
         }
 
+        public static String getUserInputShortcut()
+        {
+            //Open the form
+            frmShortcutForm newShortcut = new frmShortcutForm();
+            //We want the user to assign a shortcut, so therefore, lockout control from base form
+            newShortcut.ShowDialog();
+            return newShortcut.KeyCombo;
+        }
     }
 
     

@@ -15,7 +15,6 @@ namespace Soundboard.Forms
     {
         //This temporary dictionary will hold all changes and then decide to save the keybinds or no
         private Dictionary<String, String> tempShortcutDictionary;
-        //private Dictionary<String, String> changesMade;
         private frmSound SoundDataRef;
         private ListViewColumnSorter ColumnSorter;
         public frmShortcutManager(frmSound SoundForm)
@@ -26,6 +25,10 @@ namespace Soundboard.Forms
             SoundDataRef = SoundForm;
             ColumnSorter = new ListViewColumnSorter();
         }
+
+        /* EVENT HANDLERS */
+
+        //--------------------------------------------------------------------------------------------------------------------------
 
         private void btnRemoveAll_Click(object sender, EventArgs e)
         {
@@ -54,33 +57,6 @@ namespace Soundboard.Forms
             //And then attach the event handler
             lviewShortcuts.ColumnClick += lviewShortcut_ColumnClicked;
             
-        }
-
-        /// <summary>
-        /// Clears the listview of Shortcuts and repopulates the list with up to date information
-        /// </summary>
-        private void populateListView()
-        {
-            lviewShortcuts.Items.Clear();
-            if (tempShortcutDictionary != null && tempShortcutDictionary.Count != 0)
-            {
-                List<ListViewItem> newItems = new List<ListViewItem>();
-                foreach (KeyValuePair<String, String> kvp in tempShortcutDictionary)
-                {
-                    String[] itemArray = new String[4];
-                    //The KeyBind
-                    itemArray[0] = kvp.Key;
-                    //The FileName
-                    itemArray[1] = kvp.Value.Split('\\')[kvp.Value.Split('\\').Count() - 1];
-                    //The Group Name
-                    itemArray[2] = kvp.Value.Split('\\')[kvp.Value.Split('\\').Count() - 2];
-                    //The Full Filepath
-                    itemArray[3] = kvp.Value;
-                    ListViewItem newItem = new ListViewItem(itemArray);
-                    newItems.Add(newItem);
-                }
-                lviewShortcuts.Items.AddRange(newItems.ToArray());
-            }
         }
 
         private void btnApply_Click(object sender, EventArgs e)
@@ -115,26 +91,21 @@ namespace Soundboard.Forms
 
         private void btnEditKey_Click(object sender, EventArgs e)
         {
-            frmShortcutForm newShortcutSetter = new frmShortcutForm();
-            newShortcutSetter.ShowDialog();
-            //Remove the current keybind
-            //Reset the list view
-            //TODO- update the ListView without resetting the entire list and also not lazily toss it on the bottom
-
-            String filePath = lviewShortcuts.SelectedItems[0].SubItems[3].Text;
             //This is primarily for readability purposes
+            String filePath = lviewShortcuts.SelectedItems[0].SubItems[3].Text;
+            
             String oldKeyBind = lviewShortcuts.SelectedItems[0].SubItems[0].Text;
-            String newKeyBind = newShortcutSetter.KeyCombo;
+            String newKeyBind = InputHelper.getUserInputShortcut();
 
             //populateListView();
             //Now process changes
-            String soundTest = SoundDataRef.SoundData.getShortcutSound(newShortcutSetter.KeyCombo);
+            String soundTest = SoundDataRef.SoundData.getShortcutSound(newKeyBind);
 
             if(soundTest != null)
             {
                 String[] soundTestSplit = soundTest.Split('\\');
                 //Ask if the user wants to override the shortcut
-                DialogResult overrideChoice = MessageBox.Show("Key combination '" + newShortcutSetter.KeyCombo + "' is already bound to '" + soundTestSplit[soundTestSplit.Length - 1] +
+                DialogResult overrideChoice = MessageBox.Show("Key combination '" + newKeyBind + "' is already bound to '" + soundTestSplit[soundTestSplit.Length - 1] +
                     "\nDo you wish to overide?", "Collision Notice", MessageBoxButtons.YesNo);
                 if (overrideChoice == DialogResult.No)
                 {
@@ -144,7 +115,7 @@ namespace Soundboard.Forms
             }
             tempShortcutDictionary.Remove(oldKeyBind);
             tempShortcutDictionary[newKeyBind] = filePath;
-            lviewShortcuts.SelectedItems[0].SubItems[0].Text = newShortcutSetter.KeyCombo;
+            lviewShortcuts.SelectedItems[0].SubItems[0].Text = newKeyBind;
 
         }
 
@@ -154,6 +125,9 @@ namespace Soundboard.Forms
         {
             ColumnSort(e, lviewShortcuts, ColumnSorter);
         }
+
+        //------------------------------------------------------------------------------------------------------------
+        /* Helper Methods*/
 
         /// <summary>
         /// Given the event of a column being clicked on, use the supplied column sorter to sort a ListView. 
@@ -185,6 +159,33 @@ namespace Soundboard.Forms
             }
             //Now perform the sort
             lviewResults.Sort();
+        }
+
+        /// <summary>
+        /// Clears the listview of Shortcuts and repopulates the list with up to date information
+        /// </summary>
+        private void populateListView()
+        {
+            lviewShortcuts.Items.Clear();
+            if (tempShortcutDictionary != null && tempShortcutDictionary.Count != 0)
+            {
+                List<ListViewItem> newItems = new List<ListViewItem>();
+                foreach (KeyValuePair<String, String> kvp in tempShortcutDictionary)
+                {
+                    String[] itemArray = new String[4];
+                    //The KeyBind
+                    itemArray[0] = kvp.Key;
+                    //The FileName
+                    itemArray[1] = kvp.Value.Split('\\')[kvp.Value.Split('\\').Count() - 1];
+                    //The Group Name
+                    itemArray[2] = kvp.Value.Split('\\')[kvp.Value.Split('\\').Count() - 2];
+                    //The Full Filepath
+                    itemArray[3] = kvp.Value;
+                    ListViewItem newItem = new ListViewItem(itemArray);
+                    newItems.Add(newItem);
+                }
+                lviewShortcuts.Items.AddRange(newItems.ToArray());
+            }
         }
     }
 }

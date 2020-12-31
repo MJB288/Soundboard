@@ -239,7 +239,7 @@ namespace Soundboard.Forms
         }
 
         /// <summary>
-        /// 
+        /// Event Handler : Invokes the RecordHelper.SaveRecording method on the temporary sound file.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -258,14 +258,12 @@ namespace Soundboard.Forms
                 MessageBox.Show("No item is selected!", "Shortcut Error");
                 return;
             }
-            //Open the form, passing the String filepath to be shortcutted
-            frmShortcutForm assignShortcutform = new frmShortcutForm();
-            //We want the user to assign a shortcut, so therefore, lockout control from base form
-            assignShortcutform.ShowDialog();
+
+            String keyCombo = InputHelper.getUserInputShortcut();
 
             //Now get the string the form assigned
             //Now pass the data to the sound repository - using the form reference that was passed to this form
-            processShortcutSoundChange(assignShortcutform.KeyCombo);
+            processShortcutSoundChange(keyCombo);
         }
 
         public void processShortcutSoundChange(String keyCombo)

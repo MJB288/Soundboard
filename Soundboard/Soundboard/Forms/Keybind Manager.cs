@@ -79,7 +79,8 @@ namespace Soundboard.Forms
 
         private void btnRebind_Click(object sender, EventArgs e)
         {
-
+            frmShortcutForm newShortcut = new frmShortcutForm();
+            newShortcut.ShowDialog();
         }
 
         private void changeKeybind()
