@@ -85,10 +85,6 @@ namespace Soundboard.Forms
 
         private void btnApply_Click(object sender, EventArgs e)
         {
-            foreach(KeyValuePair<String, String> kvp in tempShortcutDictionary)
-            {
-                MessageBox.Show(kvp.Key + "\n" + kvp.Value);
-            }
             //Since all changes are to the dictionary, let's save them here
             SoundDataRef.SoundData.setShortcutDictionary(tempShortcutDictionary);
         }
