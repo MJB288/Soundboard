@@ -71,5 +71,20 @@ namespace Soundboard.Forms
                 lviewKeybind.Items.Add(newItem);
             }
         }
+
+        private void btnDefault_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnRebind_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void changeKeybind()
+        {
+
+        }
     }
 }

@@ -36,7 +36,13 @@ namespace Soundboard.Classes
             PrevVolume = 100.00f;
         }
 
-        public int playSound(String FilePath, int deviceNumber)
+        /// <summary>
+        /// Plays an mp3 or wav file at a specified filepath.
+        /// </summary>
+        /// <param name="FilePath"></param>
+        /// <param name="deviceNumber"></param>
+        /// <returns>Returns empty string if successful, otherwise returns Exception message</returns>
+        public String playSound(String FilePath, int deviceNumber)
         {            
             MainPlayer.DeviceNumber = deviceNumber;
             //MainPlayer.Volume = .01f * (float)tbarVolume.Value;
@@ -48,9 +54,13 @@ namespace Soundboard.Classes
                 {
                     mp3Reader = new NAudio.Wave.Mp3FileReader(FilePath);
                 }
-                catch (FileNotFoundException)
+                catch (FileNotFoundException fex)
                 {
-                    return -1;
+                    return fex.Message;
+                }
+                catch (System.InvalidOperationException ioex)
+                {
+                    return ioex.Message;
                 }
                 MainPlayer.Init(mp3Reader);
                 MainPlayer.Play();
@@ -62,14 +72,18 @@ namespace Soundboard.Classes
                 {
                     wavReader = new NAudio.Wave.WaveFileReader(FilePath);
                 }
-                catch (FileNotFoundException)
+                catch (FileNotFoundException fex)
                 {
-                    return -1;
+                    return fex.Message;
+                }
+                catch (System.InvalidOperationException ioex)
+                {
+                    return ioex.Message;
                 }
                 MainPlayer.Init(wavReader);
                 MainPlayer.Play();
             }
-            return 1;
+            return "";
         }
 
         public void playbackRecording(String soundPath)

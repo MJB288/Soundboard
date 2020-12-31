@@ -84,6 +84,7 @@
             this.btnDefault.TabIndex = 3;
             this.btnDefault.Text = "Defaults";
             this.btnDefault.UseVisualStyleBackColor = true;
+            this.btnDefault.Click += new System.EventHandler(this.btnDefault_Click);
             // 
             // btnSave
             // 
@@ -218,6 +219,7 @@
             this.btnRebind.TabIndex = 16;
             this.btnRebind.Text = "Rebind";
             this.btnRebind.UseVisualStyleBackColor = true;
+            this.btnRebind.Click += new System.EventHandler(this.btnRebind_Click);
             // 
             // frmKeybind
             // 

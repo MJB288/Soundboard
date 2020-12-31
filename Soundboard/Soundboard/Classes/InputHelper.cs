@@ -75,6 +75,7 @@ namespace Soundboard.Classes
             //Now remove the old key bind
             BaseShortcuts.Remove(originalShortcut);
         }
+
     }
 
     

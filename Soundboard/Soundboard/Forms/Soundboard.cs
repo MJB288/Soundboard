@@ -49,10 +49,12 @@ namespace Soundboard.Forms
                 MediaCenter.StopMainPlayer();
             }
             //Play the sound and get the result
-            int result = MediaCenter.playSound(lviewSounds.SelectedItems[0].Tag.ToString(), cboxOutputDevices.SelectedIndex);
-            if (result == -1)
+            String result = MediaCenter.playSound(lviewSounds.SelectedItems[0].Tag.ToString(), cboxOutputDevices.SelectedIndex);
+            //Check if an exception occurred
+            if (!result.Equals(""))
             {
-                MessageBox.Show("Error : File Could not be found : \n" + lviewSounds.SelectedItems[0].Tag.ToString());
+                MessageBox.Show("Shortcut Playback Exception for combination '" + keyCombo + "' : \n" + result, "Playback Exception");
+                //SoundData.clearShortcutSound(keyCombo);
             }
 
             //NAudio.Wave.DirectSoundOut.
@@ -260,6 +262,25 @@ namespace Soundboard.Forms
             frmShortcutForm assignShortcutform = new frmShortcutForm(lviewSounds.SelectedItems[0].Tag.ToString(), this);
             //We want the user to assign a shortcut, so therefore, lockout control from base form
             assignShortcutform.ShowDialog();
+
+            //Now get the string the form assigned
+            //Now pass the data to the sound repository - using the form reference that was passed to this form
+            String soundTest = SoundData.getShortcutSound(assignShortcutform.KeyCombo);
+            if (soundTest != null)
+            {
+                String[] soundTestSplit = soundTest.Split('\\');
+                //Ask if the user wants to override the shortcut
+                DialogResult overrideChoice = MessageBox.Show("Key combination '" + assignShortcutform.KeyCombo + "' is already bound to '" + soundTestSplit[soundTestSplit.Length - 1] +
+                    "\nDo you wish to overide?", "Collision Notice", MessageBoxButtons.YesNo);
+                if (overrideChoice == DialogResult.No)
+                {
+                    //Don't override, stop processing
+                    return;
+                }
+
+            }
+            //Set the shortcut in the options
+            SoundData.setShortcutSound(assignShortcutform.KeyCombo, lviewSounds.SelectedItems[0].Tag.ToString());
         }
 
         private void frmSound_KeyDown(object sender, KeyEventArgs keyEvent)
@@ -313,12 +334,12 @@ namespace Soundboard.Forms
             String filePath = SoundData.getShortcutSound(keyCombo);
             //Check for null filepath - means no shortcut
             if (filePath != null) {
-                int result = MediaCenter.playSound(filePath, cboxOutputDevices.SelectedIndex);
+                String result = MediaCenter.playSound(filePath, cboxOutputDevices.SelectedIndex);
                 //If the file is not found - notify the user and remove the shortcut
-                if(result == -1)
+                if(!result.Equals(""))
                 {
-                    MessageBox.Show("Shortcut : " + keyCombo +  "\nThe File could not be found : \n" + filePath, "File Not Found Shortcut");
-                    SoundData.clearShortcutSound(keyCombo);
+                    MessageBox.Show("Shortcut Playback Exception for combination '" + keyCombo +  "' : \n" + result, "Playback Exception");
+                    //SoundData.clearShortcutSound(keyCombo);
                 }
             }
         }
