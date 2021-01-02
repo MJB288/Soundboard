@@ -25,10 +25,13 @@ namespace Soundboard.Classes
         public Boolean Recording;
         private float PrevVolume;
 
+
         public SEMediaPlayer(float startingVolume)
         {
+            //Initialize the players
             MainPlayer = new WaveOut();
             PlaybackPlayer = new WaveOut();
+            //Set their starting volume
             MainPlayer.Volume = startingVolume;
             PlaybackPlayer.Volume = startingVolume;
             Recording = false;
@@ -86,6 +89,10 @@ namespace Soundboard.Classes
             return "";
         }
 
+        /// <summary>
+        /// Plays the previously recorded sound byte at the temporary file directory.
+        /// </summary>
+        /// <param name="soundPath"></param>
         public void playbackRecording(String soundPath)
         {
             if (!Recording)
@@ -127,6 +134,9 @@ namespace Soundboard.Classes
             }
         }
 
+        /// <summary>
+        /// Properly dispenses the memory used by the Playback player 
+        /// </summary>
         private void resetRecordingPlaybackPlayer()
         {
             //Reset the Waveout so that the file is properly closed
@@ -144,26 +154,44 @@ namespace Soundboard.Classes
             PlaybackPlayer.Volume = 0.01f * PrevVolume;
         }
 
+        /// <summary>
+        /// Checks if the main player is in the playing state
+        /// </summary>
+        /// <returns>True - is Playing, False - is paused or Stopped</returns>
         public bool MPisPlaying()
         {
             return MainPlayer.PlaybackState == PlaybackState.Playing;
         }
 
+        /// <summary>
+        /// Checks if the main player is in the paused state
+        /// </summary>
+        /// <returns>True - is paused, False - is playing or stopped</returns>
         public bool MPisPaused()
         {
             return MainPlayer.PlaybackState == PlaybackState.Paused;
         }
 
+        /// <summary>
+        /// Calls the stop function built into the Main Wave Out
+        /// </summary>
         public void StopMainPlayer()
         {
             MainPlayer.Stop();
         }
 
+        /// <summary>
+        /// Calls the stop function built into the Playback Wave Out
+        /// </summary>
         public void StopPlaybackPlayer()
         {
             PlaybackPlayer.Stop();
         }
 
+        /// <summary>
+        /// Sets the volume on the main player and the playback player.
+        /// </summary>
+        /// <param name="newVolume"></param>
         public void setVolume(float newVolume)
         {
             MainPlayer.Volume = newVolume;
