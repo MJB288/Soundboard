@@ -54,25 +54,11 @@ namespace Soundboard.Forms
                 }
                 String newKeybind = item.SubItems[1].Text;
 
-                //If there is no oldKeyBind - nothing has changed with the current action
-                /*if(oldKeybind == null || oldKeybind == "")
-                {
-                    continue;
-                }*/
-
-                /*InputHelper.BaseShortcuts.Remove(oldKeybind);
-                InputHelper.BaseShortcuts.Add(newKeybind, actionName);*/
                 newDictionary.Add(newKeybind, actionName);
 
-                //Error checking - double check that keybind exists - means some error in listing and unlisting keybinds
-                /*if (!InputHelper.BaseShortcuts.ContainsKey(actionName))
-                {
-                    MessageBox.Show("Error : Action - '" + actionName + "'");
-                }*/
-                //Other
-                //InputHelper.BaseShortcuts[actionName] = ;
             }
             InputHelper.BaseShortcuts = new Dictionary<String, String>(newDictionary);
+            InputHelper.saveBaseShortcuts();
         }
 
         private void frmKeybind_Load(object sender, EventArgs e)

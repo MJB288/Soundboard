@@ -53,13 +53,27 @@ namespace Soundboard.Classes
         /// <returns></returns>
         private static Dictionary<String, String> loadBaseShortcuts()
         {
-            Dictionary<String, String> DefaultShortcuts = new Dictionary<String, String>();
+            Dictionary<String, String> LoadedShortcuts = new Dictionary<String, String>();
             //Stop
-            DefaultShortcuts.Add(Properties.Settings.Default.StopKey, "Stop");
-            DefaultShortcuts.Add(Properties.Settings.Default.PlayKey, "Play");
-            DefaultShortcuts.Add(Properties.Settings.Default.RecordKey, "Record");
-            DefaultShortcuts.Add(Properties.Settings.Default.PlaybackKey, "Playback");
-            return DefaultShortcuts;
+            LoadedShortcuts.Add(Properties.Settings.Default.StopKey, "Stop");
+            LoadedShortcuts.Add(Properties.Settings.Default.PlayKey, "Play");
+            LoadedShortcuts.Add(Properties.Settings.Default.RecordKey, "Record");
+            LoadedShortcuts.Add(Properties.Settings.Default.PlaybackKey, "Playback");
+            return LoadedShortcuts;
+        }
+
+        /// <summary>
+        /// Locates values for saved Base Shortcuts
+        /// </summary>
+        public static void saveBaseShortcuts()
+        {
+            //Locate the shortcuts since the actions are values, not keys and then save them into their respective system settings variables
+            Properties.Settings.Default.StopKey = BaseShortcuts.FirstOrDefault(key => key.Value.Equals("Stop")).Key ;
+            Properties.Settings.Default.PlayKey = BaseShortcuts.FirstOrDefault(key => key.Value.Equals("Play")).Key;
+            Properties.Settings.Default.PlaybackKey = BaseShortcuts.FirstOrDefault(key => key.Value.Equals("Playback")).Key;
+            Properties.Settings.Default.RecordKey = BaseShortcuts.FirstOrDefault(key => key.Value.Equals("Record")).Key;
+
+            Properties.Settings.Default.Save();
         }
 
         /// <summary>
