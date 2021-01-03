@@ -193,6 +193,7 @@
             this.lviewKeybind.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.clmName,
             this.clmKeybind});
+            this.lviewKeybind.FullRowSelect = true;
             this.lviewKeybind.HideSelection = false;
             this.lviewKeybind.Location = new System.Drawing.Point(37, 150);
             this.lviewKeybind.Name = "lviewKeybind";
