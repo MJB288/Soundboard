@@ -63,6 +63,8 @@ namespace Soundboard.Forms
         {
             //Since all changes are to the dictionary, let's save them here
             SoundDataRef.SoundData.setShortcutDictionary(tempShortcutDictionary);
+            //Now invoke the save function
+            SoundDataRef.SoundData.saveShortcutDictionary();
         }
 
         private void btnRemove_Click(object sender, EventArgs e)

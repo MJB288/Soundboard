@@ -49,6 +49,9 @@ namespace Soundboard.Forms
 
             MediaCenter = new SEMediaPlayer(0.01f * tbarVolume.Value);
 
+            //Now load the sound Shortcuts now that everything else is ready to go
+            SoundData.setShortcutDictionary(SoundData.loadShortcutDictionary());
+
             //loadSoundDevices(NAudio.Wave.WaveIn.DeviceCount, NAudio.Wave.WaveIn)
         }
 
