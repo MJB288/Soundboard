@@ -14,7 +14,7 @@ namespace Soundboard.Forms
     public partial class frmKeybind : Form
     {
         /// <summary>
-        /// A dictionary that tracks the keybinds that were changed
+        /// A dictionary that tracks the keybinds that were changed. Keys are the old keybinds, values are what the keybind was changed to.
         /// </summary>
         private Dictionary<String, String> changedKeyBinds;
 
@@ -79,8 +79,20 @@ namespace Soundboard.Forms
 
         private void btnRebind_Click(object sender, EventArgs e)
         {
-            frmShortcutForm newShortcut = new frmShortcutForm();
-            newShortcut.ShowDialog();
+            String oldKeyBind = lviewKeybind.SelectedItems[0].SubItems[0].Text;
+            String newKeyBind = InputHelper.getUserInputShortcut();
+
+            //TODO- add a check that trims the dictionary - incase of rebinding the same action multiple times
+            //Or add an extra value somehow
+
+            if (changedKeyBinds.ContainsKey(oldKeyBind))
+            {
+                changedKeyBinds[oldKeyBind] = newKeyBind;
+            }
+
+            //Add the action to the dictionary
+            changedKeyBinds.Add(oldKeyBind, newKeyBind);
+            
         }
 
         private void changeKeybind()
