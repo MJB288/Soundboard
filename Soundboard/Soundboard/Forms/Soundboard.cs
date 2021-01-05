@@ -136,11 +136,12 @@ namespace Soundboard.Forms
             //Fill out the list of SoundFiles based on the group that has been selected
             foreach (SoundFile soundFile in SoundData.SoundFiles[cboxGroups.SelectedItem.ToString()])
             {
+                //MessageBox.Show(soundFile.duration.ToString(@"hh\:mm\:ss"));
                 //Remove the .mp3 Extension (or .wav since that format is now current supported)
                 StringBuilder noMp3Name = new StringBuilder(soundFile.soundName);
                 noMp3Name.Remove(noMp3Name.Length - 4, 4);
                 //Create a string array of attributes
-                String[] itemArray = { noMp3Name.ToString(), "0" };
+                String[] itemArray = { noMp3Name.ToString(), soundFile.duration.ToString(@"hh\:mm\:ss") };
                 //Convert the attributes into a List View format
                 ListViewItem lviewItem = new ListViewItem(itemArray);
                 //And then add them to the path

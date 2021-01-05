@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms.VisualStyles;
 
+
 namespace Soundboard.Classes
 {
     /// <summary>
@@ -30,7 +31,9 @@ namespace Soundboard.Classes
             {
                 //Split the filepath 
                 String[] fileSplit = filePath.Split('\\');
-                SoundFile newFile = new SoundFile(fileSplit[fileSplit.Count() - 1], filePath, fileSplit[fileSplit.Count() - 2]);
+                //Get the length of the Sound Effect
+                TimeSpan duration = RecordHelper.getSoundDuration(filePath);
+                SoundFile newFile = new SoundFile(fileSplit[fileSplit.Count() - 1], filePath, duration,fileSplit[fileSplit.Count() - 2]);
                 //Check if we have an existing group or not
                 if (!soundData.ContainsKey(newFile.groupName))
                 {
@@ -40,5 +43,8 @@ namespace Soundboard.Classes
             }
             return soundData;
         }
+
+
+       
     }
 }

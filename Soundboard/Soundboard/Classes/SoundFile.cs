@@ -14,7 +14,8 @@ namespace Soundboard
         public String soundName { get; set; }
         public String filePath {get; set;}
         public String groupName { get; set; }
-        //public TimeSpan duration { get; set; }
+        
+        public TimeSpan duration { get; set; }
 
         /// <summary>
         /// Constructs a SoundFile object. Automatically determines groupname from the last folder name in the filepath
@@ -22,11 +23,11 @@ namespace Soundboard
         /// <param name="name"></param>
         /// <param name="path">The Filepath where the file is located</param>
         /// <param name="duration">The duration of the sound file</param>
-        public SoundFile(String name, String path/*, TimeSpan duration*/)
+        public SoundFile(String name, String path, TimeSpan duration)
         {
             soundName = name;
             filePath = path;
-            //this.duration = duration;
+            this.duration = duration;
             //The group name will automatically be determined by the lowest level folder holding the File
             groupName = path.Split('\\')[path.Split('\\').Count()-2];
         }
@@ -38,11 +39,11 @@ namespace Soundboard
         /// <param name="path"></param>
         /// <param name="duration"></param>
         /// <param name="groupName"></param>
-        public SoundFile(String name, String path, /*TimeSpan duration,*/ String groupName)
+        public SoundFile(String name, String path, TimeSpan duration, String groupName)
         {
             soundName = name;
             filePath = path;
-            //this.duration = duration;
+            this.duration = duration;
             this.groupName = groupName;
         }
     }

@@ -94,5 +94,56 @@ namespace Soundboard.Classes
                 return;
             }
         }
+
+        /// <summary>
+        /// Uses mp3 or wav file reader to open a file and get the duration of the sound file
+        /// </summary>
+        /// <param name="filePath">A filepath to an mp3 or wav file player</param>
+        /// <returns>Exactly 0 if invalid</returns>
+        public static TimeSpan getSoundDuration(String filePath)
+        {
+            StringBuilder fileType = new StringBuilder(filePath.Substring(filePath.Length - 4, 4));
+            //First Determine the File Type
+            if (fileType.ToString().Equals(".mp3"))
+            {
+                try
+                {
+                    Mp3FileReader mp3FileReader = new Mp3FileReader(filePath);
+                    return mp3FileReader.TotalTime;
+                }
+                catch (FileNotFoundException fex)
+                {
+                    MessageBox.Show("Could not find file while loading!\n" + fex.Message, "File Not Found");
+                    return new TimeSpan(0);
+                }
+                catch (System.InvalidOperationException ioex)
+                {
+                    MessageBox.Show("Error while loading [" + filePath + "]\n" + ioex.Message, "Invalid Operation Exception");
+                    return new TimeSpan(0);
+                }
+            }
+            else if (fileType.ToString().Equals(".wav"))
+            {
+                try
+                {
+                    WaveFileReader wavFileReader = new WaveFileReader(filePath);
+                    return wavFileReader.TotalTime;
+                }
+                catch (FileNotFoundException fex)
+                {
+                    MessageBox.Show("Could not find file while loading!\n" + fex.Message, "File Not Found");
+                    return new TimeSpan(0);
+                }
+                catch (System.InvalidOperationException ioex)
+                {
+                    MessageBox.Show("Error while loading [" + filePath + "]\n" + ioex.Message, "Invalid Operation Exception");
+                    return new TimeSpan(0);
+                }
+            }
+            else
+            {
+                return new TimeSpan(0);
+            }
+        }
     }
 }
