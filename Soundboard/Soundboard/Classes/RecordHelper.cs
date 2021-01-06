@@ -109,7 +109,9 @@ namespace Soundboard.Classes
                 try
                 {
                     Mp3FileReader mp3FileReader = new Mp3FileReader(filePath);
-                    return mp3FileReader.TotalTime;
+                    TimeSpan returnMe = mp3FileReader.TotalTime;
+                    mp3FileReader.Dispose();
+                    return returnMe;
                 }
                 catch (FileNotFoundException fex)
                 {
@@ -127,6 +129,8 @@ namespace Soundboard.Classes
                 try
                 {
                     WaveFileReader wavFileReader = new WaveFileReader(filePath);
+                    TimeSpan returnMe = wavFileReader.TotalTime;
+                    wavFileReader.Dispose();
                     return wavFileReader.TotalTime;
                 }
                 catch (FileNotFoundException fex)

@@ -117,6 +117,11 @@ namespace Soundboard.Forms
             refreshSoundData();
         }
 
+        private void btnMute_Click(object sender, EventArgs e)
+        {
+            toggleMuteStatus();
+        }
+
 
 
         //------------------------------------------------------------------------------------
@@ -378,6 +383,19 @@ namespace Soundboard.Forms
                     MessageBox.Show("Shortcut Playback Exception for combination '" + keyCombo +  "' : \n" + result, "Playback Exception");
                     //SoundData.clearShortcutSound(keyCombo);
                 }
+            }
+        }
+
+        private void toggleMuteStatus()
+        {
+            MediaCenter.setMuted(!MediaCenter.isMuted());
+            if (MediaCenter.isMuted())
+            {
+                btnMute.BackColor = Color.LightSalmon;
+            }
+            else
+            {
+                btnMute.BackColor = Color.LemonChiffon;
             }
         }
 

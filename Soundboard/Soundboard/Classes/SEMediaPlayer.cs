@@ -23,7 +23,9 @@ namespace Soundboard.Classes
         private WaveFileWriter AudioWriter;
         private WaveFileReader RecordingPlaybackReader;
         public Boolean Recording;
+        private Boolean Mute;
         private float PrevVolume;
+        public bool SingleSoundPlay = false;
 
 
         public SEMediaPlayer(float startingVolume)
@@ -36,7 +38,7 @@ namespace Soundboard.Classes
             PlaybackPlayer.Volume = startingVolume;
             Recording = false;
             AudioRecorder = new WaveIn();
-            PrevVolume = 100.00f;
+            PrevVolume = 1.00f;
         }
 
         /// <summary>
@@ -49,6 +51,11 @@ namespace Soundboard.Classes
         {            
             MainPlayer.DeviceNumber = deviceNumber;
             //MainPlayer.Volume = .01f * (float)tbarVolume.Value;
+            if (SingleSoundPlay)
+            {
+                MainPlayer.Stop();
+            }
+
 
             if (FilePath.Substring(FilePath.Length - 4, 4).Equals(".mp3"))
             {
@@ -67,6 +74,11 @@ namespace Soundboard.Classes
                 }
                 MainPlayer.Init(mp3Reader);
                 MainPlayer.Play();
+               /* MainPlayer.PlaybackStopped += (a, s) =>
+                {
+                    mp3Reader.Dispose();
+                    MainPlayer.Dispose();
+                };*/
             }
             else if (FilePath.Substring(FilePath.Length - 4, 4).Equals(".wav"))
             {
@@ -85,6 +97,11 @@ namespace Soundboard.Classes
                 }
                 MainPlayer.Init(wavReader);
                 MainPlayer.Play();
+               /* MainPlayer.PlaybackStopped += (a, s) =>
+                {
+                    wavReader.Dispose();
+                    MainPlayer.Dispose();
+                };*/
             }
             return "";
         }
@@ -151,7 +168,7 @@ namespace Soundboard.Classes
                 RecordingPlaybackReader.Dispose();
             }
             PlaybackPlayer = new WaveOut();
-            PlaybackPlayer.Volume = 0.01f * PrevVolume;
+            PlaybackPlayer.Volume = PrevVolume;
         }
 
         /// <summary>
@@ -194,9 +211,40 @@ namespace Soundboard.Classes
         /// <param name="newVolume"></param>
         public void setVolume(float newVolume)
         {
-            MainPlayer.Volume = newVolume;
-            PlaybackPlayer.Volume = newVolume;
+            if (!Mute)
+            {
+                MainPlayer.Volume = newVolume;
+                PlaybackPlayer.Volume = newVolume;
+            }
             PrevVolume = newVolume;
+        }
+        
+        /// <summary>
+        /// Mutes and unmutes the player based on boolean input. 
+        /// </summary>
+        /// <remarks>
+        /// It is a boolean input rather than a boolean toggle simply in case there is a need in the future
+        /// to guarantee that mute is being put into a certain state, even if for a brief moment.
+        /// </remarks>
+        /// <param name="muteState">True - mute player, False - unmute Player</param>
+        public void setMuted(bool muteState)
+        {
+            Mute = muteState;
+            if (Mute)
+            {
+                MainPlayer.Volume = 0;
+                PlaybackPlayer.Volume = 0;
+            }
+            else
+            {
+                MainPlayer.Volume = PrevVolume;
+                PlaybackPlayer.Volume = PrevVolume;
+            }
+        }
+
+        public bool isMuted()
+        {
+            return Mute;
         }
     }
 }

@@ -51,6 +51,7 @@
             this.tsmiSoundShortcuts = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiBasicKeybinds = new System.Windows.Forms.ToolStripMenuItem();
             this.btnSetShortcut = new System.Windows.Forms.Button();
+            this.btnMute = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.tbarVolume)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -250,14 +251,14 @@
             // tsmiSoundShortcuts
             // 
             this.tsmiSoundShortcuts.Name = "tsmiSoundShortcuts";
-            this.tsmiSoundShortcuts.Size = new System.Drawing.Size(180, 22);
+            this.tsmiSoundShortcuts.Size = new System.Drawing.Size(161, 22);
             this.tsmiSoundShortcuts.Text = "Sound Shortcuts";
             this.tsmiSoundShortcuts.Click += new System.EventHandler(this.tsmiSoundShortcuts_Click);
             // 
             // tsmiBasicKeybinds
             // 
             this.tsmiBasicKeybinds.Name = "tsmiBasicKeybinds";
-            this.tsmiBasicKeybinds.Size = new System.Drawing.Size(180, 22);
+            this.tsmiBasicKeybinds.Size = new System.Drawing.Size(161, 22);
             this.tsmiBasicKeybinds.Text = "Basic Keybinds";
             this.tsmiBasicKeybinds.Click += new System.EventHandler(this.tsmiBasicKeybinds_Click);
             // 
@@ -271,11 +272,24 @@
             this.btnSetShortcut.UseVisualStyleBackColor = true;
             this.btnSetShortcut.Click += new System.EventHandler(this.btnSetShortcut_Click);
             // 
+            // btnMute
+            // 
+            this.btnMute.BackColor = System.Drawing.Color.LemonChiffon;
+            this.btnMute.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnMute.Location = new System.Drawing.Point(444, 47);
+            this.btnMute.Name = "btnMute";
+            this.btnMute.Size = new System.Drawing.Size(44, 23);
+            this.btnMute.TabIndex = 17;
+            this.btnMute.Text = "Mute";
+            this.btnMute.UseVisualStyleBackColor = false;
+            this.btnMute.Click += new System.EventHandler(this.btnMute_Click);
+            // 
             // frmSound
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(632, 382);
+            this.Controls.Add(this.btnMute);
             this.Controls.Add(this.btnSetShortcut);
             this.Controls.Add(this.btnSaveRec);
             this.Controls.Add(this.btnPlayback);
@@ -330,6 +344,7 @@
         private System.Windows.Forms.ToolStripMenuItem manageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tsmiSoundShortcuts;
         private System.Windows.Forms.ToolStripMenuItem tsmiBasicKeybinds;
+        private System.Windows.Forms.Button btnMute;
     }
 }
 
