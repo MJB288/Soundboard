@@ -59,6 +59,7 @@ namespace Soundboard.Classes
             LoadedShortcuts.Add(Properties.Settings.Default.PlayKey, "Play");
             LoadedShortcuts.Add(Properties.Settings.Default.RecordKey, "Record");
             LoadedShortcuts.Add(Properties.Settings.Default.PlaybackKey, "Playback");
+            LoadedShortcuts.Add(Properties.Settings.Default.MuteKey, "Mute");
             return LoadedShortcuts;
         }
 

@@ -70,5 +70,17 @@ namespace Soundboard.Properties {
                 this["PlaybackKey"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("M")]
+        public string MuteKey {
+            get {
+                return ((string)(this["MuteKey"]));
+            }
+            set {
+                this["MuteKey"] = value;
+            }
+        }
     }
 }

@@ -363,6 +363,9 @@ namespace Soundboard.Forms
                 case "Playback":
                     MediaCenter.playbackRecording(SoundPath);
                     break;
+                case "Mute":
+                    toggleMuteStatus();
+                    break;
                 //Do nothing if not a base shortcut for this form
                 default:
                     break;
