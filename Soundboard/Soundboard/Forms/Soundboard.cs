@@ -121,7 +121,10 @@ namespace Soundboard.Forms
         {
             toggleMuteStatus();
         }
-
+        private void btnSingleMulti_Click(object sender, EventArgs e)
+        {
+            togglePlayMode();
+        }
 
 
         //------------------------------------------------------------------------------------
@@ -212,10 +215,10 @@ namespace Soundboard.Forms
                 MessageBox.Show("No item is selected!", "Play Error");
                 return;
             }
-            if (MediaCenter.MPisPlaying() || MediaCenter.MPisPaused())
+            /*if (MediaCenter.MPisPlaying() || MediaCenter.MPisPaused())
             {
                 MediaCenter.StopMainPlayer();
-            }
+            }*/
             //Play the sound and get the result
             String result = MediaCenter.playSound(lviewSounds.SelectedItems[0].Tag.ToString(), cboxOutputDevices.SelectedIndex);
             //Check if an exception occurred
@@ -399,6 +402,23 @@ namespace Soundboard.Forms
             else
             {
                 btnMute.BackColor = Color.LemonChiffon;
+            }
+        }
+
+        /// <summary>
+        /// Toggles the Singular Playback setting for the SEMediaPlayer, and adjusts the text of the button
+        /// </summary>
+        private void togglePlayMode()
+        {
+            MediaCenter.SingleSoundPlay = !MediaCenter.SingleSoundPlay;
+            btnSingleMulti.Text = "Mode : ";
+            if (MediaCenter.SingleSoundPlay)
+            {
+                btnSingleMulti.Text += "Single";
+            }
+            else
+            {
+                btnSingleMulti.Text += "Multi";
             }
         }
 

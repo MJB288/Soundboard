@@ -26,6 +26,8 @@ namespace Soundboard.Classes
         private Boolean Mute;
         private float PrevVolume;
         public bool SingleSoundPlay = false;
+        private Mp3FileReader mp3Reader;
+        private WaveFileReader wavReader;
 
 
         public SEMediaPlayer(float startingVolume)
@@ -53,13 +55,24 @@ namespace Soundboard.Classes
             //MainPlayer.Volume = .01f * (float)tbarVolume.Value;
             if (SingleSoundPlay)
             {
+                if (mp3Reader != null)
+                {
+                    mp3Reader.Dispose();
+                }
+
+                if (wavReader != null)
+                {
+                    wavReader.Dispose();
+                }
+                //MainPlayer.Dispose();
                 MainPlayer.Stop();
+                //MessageBox.Show("This should be stopping the player");
             }
 
 
             if (FilePath.Substring(FilePath.Length - 4, 4).Equals(".mp3"))
             {
-                Mp3FileReader mp3Reader = null;
+                
                 try
                 {
                     mp3Reader = new NAudio.Wave.Mp3FileReader(FilePath);
@@ -82,7 +95,7 @@ namespace Soundboard.Classes
             }
             else if (FilePath.Substring(FilePath.Length - 4, 4).Equals(".wav"))
             {
-                WaveFileReader wavReader = null;
+                
                 try
                 {
                     wavReader = new NAudio.Wave.WaveFileReader(FilePath);

@@ -52,6 +52,7 @@
             this.tsmiBasicKeybinds = new System.Windows.Forms.ToolStripMenuItem();
             this.btnSetShortcut = new System.Windows.Forms.Button();
             this.btnMute = new System.Windows.Forms.Button();
+            this.btnSingleMulti = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.tbarVolume)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -284,11 +285,22 @@
             this.btnMute.UseVisualStyleBackColor = false;
             this.btnMute.Click += new System.EventHandler(this.btnMute_Click);
             // 
+            // btnSingleMulti
+            // 
+            this.btnSingleMulti.Location = new System.Drawing.Point(25, 76);
+            this.btnSingleMulti.Name = "btnSingleMulti";
+            this.btnSingleMulti.Size = new System.Drawing.Size(89, 23);
+            this.btnSingleMulti.TabIndex = 18;
+            this.btnSingleMulti.Text = "Mode : Multi";
+            this.btnSingleMulti.UseVisualStyleBackColor = true;
+            this.btnSingleMulti.Click += new System.EventHandler(this.btnSingleMulti_Click);
+            // 
             // frmSound
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(632, 382);
+            this.Controls.Add(this.btnSingleMulti);
             this.Controls.Add(this.btnMute);
             this.Controls.Add(this.btnSetShortcut);
             this.Controls.Add(this.btnSaveRec);
@@ -345,6 +357,7 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiSoundShortcuts;
         private System.Windows.Forms.ToolStripMenuItem tsmiBasicKeybinds;
         private System.Windows.Forms.Button btnMute;
+        private System.Windows.Forms.Button btnSingleMulti;
     }
 }
 
