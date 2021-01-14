@@ -17,5 +17,8 @@
     <Setting Name="MuteKey" Type="System.String" Scope="User">
       <Value Profile="(Default)">M</Value>
     </Setting>
+    <Setting Name="SaveKey" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Ctrl S</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

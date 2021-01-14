@@ -369,6 +369,15 @@ namespace Soundboard.Forms
                 case "Mute":
                     toggleMuteStatus();
                     break;
+                case "Save":
+                    if (btnSaveRec.Enabled)
+                    {
+                        //TODO - Change where the temp file and add conditions to prevent it from being opened by the main playergit 
+                        String TempPath = SoundPath + "\\Recording\\Temp.wav";
+                        //Invoke the save file method
+                        RecordHelper.SaveRecording(TempPath);
+                    }
+                    break;
                 //Do nothing if not a base shortcut for this form
                 default:
                     break;

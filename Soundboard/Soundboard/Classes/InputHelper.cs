@@ -60,6 +60,7 @@ namespace Soundboard.Classes
             LoadedShortcuts.Add(Properties.Settings.Default.RecordKey, "Record");
             LoadedShortcuts.Add(Properties.Settings.Default.PlaybackKey, "Playback");
             LoadedShortcuts.Add(Properties.Settings.Default.MuteKey, "Mute");
+            LoadedShortcuts.Add(Properties.Settings.Default.SaveKey, "Save");
             return LoadedShortcuts;
         }
 
@@ -73,6 +74,8 @@ namespace Soundboard.Classes
             Properties.Settings.Default.PlayKey = BaseShortcuts.FirstOrDefault(key => key.Value.Equals("Play")).Key;
             Properties.Settings.Default.PlaybackKey = BaseShortcuts.FirstOrDefault(key => key.Value.Equals("Playback")).Key;
             Properties.Settings.Default.RecordKey = BaseShortcuts.FirstOrDefault(key => key.Value.Equals("Record")).Key;
+            Properties.Settings.Default.RecordKey = BaseShortcuts.FirstOrDefault(key => key.Value.Equals("Mute")).Key;
+            Properties.Settings.Default.SaveKey = BaseShortcuts.FirstOrDefault(key => key.Value.Equals("Save")).Key;
 
             Properties.Settings.Default.Save();
         }
