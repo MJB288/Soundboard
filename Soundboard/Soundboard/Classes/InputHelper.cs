@@ -64,6 +64,19 @@ namespace Soundboard.Classes
             return LoadedShortcuts;
         }
 
+        public static Dictionary<String, String> loadDefaultShortcuts()
+        {
+            Dictionary<String, String> DefaultShortcuts = new Dictionary<String, String>();
+            //Stop
+            DefaultShortcuts.Add("S", "Stop");
+            DefaultShortcuts.Add("P", "Play");
+            DefaultShortcuts.Add("Ctrl R", "Record");
+            DefaultShortcuts.Add("Ctrl P", "Playback");
+            DefaultShortcuts.Add("M", "Mute");
+            DefaultShortcuts.Add("Ctrl S", "Save");
+            return DefaultShortcuts;
+        }
+
         /// <summary>
         /// Locates values for saved Base Shortcuts
         /// </summary>

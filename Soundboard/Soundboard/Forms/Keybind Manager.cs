@@ -63,26 +63,15 @@ namespace Soundboard.Forms
 
         private void frmKeybind_Load(object sender, EventArgs e)
         {
-            loadBaseKeybinds();
+            //Load the keybinds into the listview - getting the current list of base shortcuts
+            loadBaseKeybinds(InputHelper.BaseShortcuts);
         }
         
-        private void loadBaseKeybinds()
-        {
-            lviewKeybind.Items.Clear();
-            //Loop through all controls in the InputHelper.BaseShortcuts
-            foreach(KeyValuePair<String, String> kvp in InputHelper.BaseShortcuts)
-            {
-                String[] listItemArray = { kvp.Value, kvp.Key };
-                ListViewItem newItem = new ListViewItem(listItemArray);
-                lviewKeybind.Items.Add(newItem);
-                //Add each keybind to the list
-                UniqueKeyBinds.Add(kvp.Key);
-            }
-        }
+        
 
         private void btnDefault_Click(object sender, EventArgs e)
         {
-
+            loadDefaultKeybinds();
         }
 
         private void btnRebind_Click(object sender, EventArgs e)
@@ -129,6 +118,33 @@ namespace Soundboard.Forms
             ChangedKeyBinds.Add(oldKeyBind, action);*/
             lviewKeybind.SelectedItems[0].SubItems[1].Text = newKeyBind;
             lviewKeybind.SelectedItems[0].Tag = (object)oldKeyBind;
+            btnSave.Enabled = true;
+        }
+        /// <summary>
+        /// Clears the list view of keybinds, and then adds each keybind for each object 
+        /// </summary>
+        private void loadBaseKeybinds(Dictionary<String, String> dictionaryToLoad)
+        {
+            lviewKeybind.Items.Clear();
+            //Loop through all controls in the InputHelper.BaseShortcuts
+            foreach (KeyValuePair<String, String> kvp in dictionaryToLoad)
+            {
+                String[] listItemArray = { kvp.Value, kvp.Key };
+                ListViewItem newItem = new ListViewItem(listItemArray);
+                lviewKeybind.Items.Add(newItem);
+                //Add each keybind to the list
+                UniqueKeyBinds.Add(kvp.Key);
+            }
+        }
+
+        private void loadDefaultKeybinds()
+        {
+            //First - clear the unique key bindings
+            UniqueKeyBinds = new List<string>();
+            //Then call the function that loads the shortcuts at the beginning
+            //While feeding it the dictionary generated from loading the values from memory
+            loadBaseKeybinds(InputHelper.loadDefaultShortcuts());
+            //Finally enable the save button in case it hasn't
             btnSave.Enabled = true;
         }
     }
