@@ -79,6 +79,9 @@ namespace Soundboard.Forms
             changeKeybind();
         }
 
+        /// <summary>
+        /// Changes an already assigned keybind. Uses the UniqueKeyBinds List to track which keys are taken
+        /// </summary>
         private void changeKeybind()
         {
             String oldKeyBind = lviewKeybind.SelectedItems[0].SubItems[1].Text;
@@ -137,6 +140,9 @@ namespace Soundboard.Forms
             }
         }
 
+        /// <summary>
+        /// Acquires the default dictionary of keybinds using InputHelper.loadDefaultShortcuts and then reloads the listview to display them
+        /// </summary>
         private void loadDefaultKeybinds()
         {
             //First - clear the unique key bindings

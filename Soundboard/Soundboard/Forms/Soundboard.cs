@@ -325,6 +325,10 @@ namespace Soundboard.Forms
             return deviceEnumerator.EnumerateAudioEndPoints(DataFlow.Capture, DeviceState.All)[cboxInputDevices.SelectedIndex];
         }
 
+        /// <summary>
+        /// Given the string conversion of the user assigned shortcut, determine if the shortcut can be assigned to the chosen sound.
+        /// </summary>
+        /// <param name="keyCombo"></param>
         public void processShortcutSoundChange(String keyCombo)
         {
             String soundTest = SoundData.getShortcutSound(keyCombo);

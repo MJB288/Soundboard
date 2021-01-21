@@ -59,7 +59,7 @@
             // 
             // btnPlay
             // 
-            this.btnPlay.Location = new System.Drawing.Point(32, 47);
+            this.btnPlay.Location = new System.Drawing.Point(33, 47);
             this.btnPlay.Name = "btnPlay";
             this.btnPlay.Size = new System.Drawing.Size(75, 23);
             this.btnPlay.TabIndex = 0;
@@ -73,9 +73,9 @@
             this.clmName,
             this.clmLength});
             this.lviewSounds.HideSelection = false;
-            this.lviewSounds.Location = new System.Drawing.Point(23, 138);
+            this.lviewSounds.Location = new System.Drawing.Point(26, 138);
             this.lviewSounds.Name = "lviewSounds";
-            this.lviewSounds.Size = new System.Drawing.Size(242, 202);
+            this.lviewSounds.Size = new System.Drawing.Size(271, 202);
             this.lviewSounds.TabIndex = 1;
             this.lviewSounds.UseCompatibleStateImageBehavior = false;
             this.lviewSounds.View = System.Windows.Forms.View.Details;
@@ -92,7 +92,7 @@
             // 
             // btnStop
             // 
-            this.btnStop.Location = new System.Drawing.Point(126, 47);
+            this.btnStop.Location = new System.Drawing.Point(127, 47);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(75, 23);
             this.btnStop.TabIndex = 2;
@@ -109,7 +109,7 @@
             "3",
             "4",
             "5"});
-            this.cboxOutputDevices.Location = new System.Drawing.Point(308, 206);
+            this.cboxOutputDevices.Location = new System.Drawing.Point(321, 207);
             this.cboxOutputDevices.Name = "cboxOutputDevices";
             this.cboxOutputDevices.Size = new System.Drawing.Size(299, 21);
             this.cboxOutputDevices.TabIndex = 3;
@@ -117,7 +117,7 @@
             // lblDeviceSelection
             // 
             this.lblDeviceSelection.AutoSize = true;
-            this.lblDeviceSelection.Location = new System.Drawing.Point(391, 190);
+            this.lblDeviceSelection.Location = new System.Drawing.Point(404, 191);
             this.lblDeviceSelection.Name = "lblDeviceSelection";
             this.lblDeviceSelection.Size = new System.Drawing.Size(132, 13);
             this.lblDeviceSelection.TabIndex = 4;
@@ -126,7 +126,7 @@
             // cboxGroups
             // 
             this.cboxGroups.FormattingEnabled = true;
-            this.cboxGroups.Location = new System.Drawing.Point(101, 111);
+            this.cboxGroups.Location = new System.Drawing.Point(102, 111);
             this.cboxGroups.Name = "cboxGroups";
             this.cboxGroups.Size = new System.Drawing.Size(121, 21);
             this.cboxGroups.TabIndex = 5;
@@ -135,7 +135,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(59, 114);
+            this.label1.Location = new System.Drawing.Point(60, 114);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(42, 13);
             this.label1.TabIndex = 7;
@@ -143,7 +143,7 @@
             // 
             // tbarVolume
             // 
-            this.tbarVolume.Location = new System.Drawing.Point(317, 36);
+            this.tbarVolume.Location = new System.Drawing.Point(389, 55);
             this.tbarVolume.Maximum = 100;
             this.tbarVolume.Name = "tbarVolume";
             this.tbarVolume.Size = new System.Drawing.Size(121, 45);
@@ -152,7 +152,7 @@
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Location = new System.Drawing.Point(221, 47);
+            this.btnRefresh.Location = new System.Drawing.Point(222, 47);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(75, 23);
             this.btnRefresh.TabIndex = 9;
@@ -169,7 +169,7 @@
             "3",
             "4",
             "5"});
-            this.cboxInputDevices.Location = new System.Drawing.Point(308, 269);
+            this.cboxInputDevices.Location = new System.Drawing.Point(321, 270);
             this.cboxInputDevices.Name = "cboxInputDevices";
             this.cboxInputDevices.Size = new System.Drawing.Size(299, 21);
             this.cboxInputDevices.TabIndex = 10;
@@ -177,7 +177,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(395, 253);
+            this.label2.Location = new System.Drawing.Point(408, 254);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(124, 13);
             this.label2.TabIndex = 11;
@@ -185,7 +185,7 @@
             // 
             // btnRecord
             // 
-            this.btnRecord.Location = new System.Drawing.Point(333, 153);
+            this.btnRecord.Location = new System.Drawing.Point(346, 154);
             this.btnRecord.Name = "btnRecord";
             this.btnRecord.Size = new System.Drawing.Size(75, 23);
             this.btnRecord.TabIndex = 12;
@@ -196,7 +196,7 @@
             // btnPlayback
             // 
             this.btnPlayback.Enabled = false;
-            this.btnPlayback.Location = new System.Drawing.Point(422, 153);
+            this.btnPlayback.Location = new System.Drawing.Point(431, 154);
             this.btnPlayback.Name = "btnPlayback";
             this.btnPlayback.Size = new System.Drawing.Size(75, 23);
             this.btnPlayback.TabIndex = 13;
@@ -207,7 +207,7 @@
             // btnSaveRec
             // 
             this.btnSaveRec.Enabled = false;
-            this.btnSaveRec.Location = new System.Drawing.Point(503, 153);
+            this.btnSaveRec.Location = new System.Drawing.Point(516, 154);
             this.btnSaveRec.Name = "btnSaveRec";
             this.btnSaveRec.Size = new System.Drawing.Size(75, 23);
             this.btnSaveRec.TabIndex = 14;
@@ -222,7 +222,7 @@
             this.manageToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(632, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(640, 24);
             this.menuStrip1.TabIndex = 15;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -237,7 +237,7 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(93, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
             // manageToolStripMenuItem
@@ -265,7 +265,7 @@
             // 
             // btnSetShortcut
             // 
-            this.btnSetShortcut.Location = new System.Drawing.Point(221, 77);
+            this.btnSetShortcut.Location = new System.Drawing.Point(222, 77);
             this.btnSetShortcut.Name = "btnSetShortcut";
             this.btnSetShortcut.Size = new System.Drawing.Size(75, 23);
             this.btnSetShortcut.TabIndex = 16;
@@ -277,7 +277,7 @@
             // 
             this.btnMute.BackColor = System.Drawing.Color.LemonChiffon;
             this.btnMute.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnMute.Location = new System.Drawing.Point(444, 47);
+            this.btnMute.Location = new System.Drawing.Point(516, 66);
             this.btnMute.Name = "btnMute";
             this.btnMute.Size = new System.Drawing.Size(44, 23);
             this.btnMute.TabIndex = 17;
@@ -287,7 +287,7 @@
             // 
             // btnSingleMulti
             // 
-            this.btnSingleMulti.Location = new System.Drawing.Point(25, 76);
+            this.btnSingleMulti.Location = new System.Drawing.Point(26, 76);
             this.btnSingleMulti.Name = "btnSingleMulti";
             this.btnSingleMulti.Size = new System.Drawing.Size(89, 23);
             this.btnSingleMulti.TabIndex = 18;
@@ -299,7 +299,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(632, 382);
+            this.ClientSize = new System.Drawing.Size(640, 382);
             this.Controls.Add(this.btnSingleMulti);
             this.Controls.Add(this.btnMute);
             this.Controls.Add(this.btnSetShortcut);
