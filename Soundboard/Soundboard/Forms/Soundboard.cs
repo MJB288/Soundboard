@@ -357,8 +357,16 @@ namespace Soundboard.Forms
                 }
 
             }
+            //String existingSound
+            String existingKeyBind = SoundData.getShortcutbyFilePath(lviewSounds.SelectedItems[0].Tag.ToString());
+            if(existingKeyBind != null)
+            {
+                SoundData.clearShortcutSound(existingKeyBind);
+            }
             //Set the shortcut in the options
             SoundData.setShortcutSound(keyCombo, lviewSounds.SelectedItems[0].Tag.ToString());
+            lviewSounds.SelectedItems[0].SubItems[2].Text = keyCombo;
+
         }
 
         /// <summary>
