@@ -22,6 +22,7 @@ namespace Soundboard.Forms
         public SoundRepository SoundData;
         private String SoundPath;
         private SEMediaPlayer MediaCenter;
+        private bool firstLoadUp;
        
         //STARTUP
         //------------------------------------------------------------------------------
@@ -33,6 +34,7 @@ namespace Soundboard.Forms
 
         private void frmSound_Load(object sender, EventArgs e)
         {
+            firstLoadUp = true;
             this.KeyDown += frmSound_KeyDown;
             //Load all of the sound devices for both input and output
             loadInputDevices();
@@ -49,10 +51,10 @@ namespace Soundboard.Forms
 
             MediaCenter = new SEMediaPlayer(0.01f * tbarVolume.Value);
 
-            //Now load the sound Shortcuts now that everything else is ready to go
-            SoundData.setShortcutDictionary(SoundData.loadShortcutDictionary());
+            
 
             //loadSoundDevices(NAudio.Wave.WaveIn.DeviceCount, NAudio.Wave.WaveIn)
+            firstLoadUp = false;
         }
 
 
@@ -144,12 +146,17 @@ namespace Soundboard.Forms
             //Fill out the list of SoundFiles based on the group that has been selected
             foreach (SoundFile soundFile in SoundData.SoundFiles[cboxGroups.SelectedItem.ToString()])
             {
-                //MessageBox.Show(soundFile.duration.ToString(@"hh\:mm\:ss"));
+                String shortcut = SoundData.getShortcutbyFilePath(soundFile.filePath);
+                //Null Check
+                if(shortcut == null)
+                {
+                    shortcut = "";
+                }
                 //Remove the .mp3 Extension (or .wav since that format is now current supported)
                 StringBuilder noMp3Name = new StringBuilder(soundFile.soundName);
                 noMp3Name.Remove(noMp3Name.Length - 4, 4);
                 //Create a string array of attributes
-                String[] itemArray = { noMp3Name.ToString(), soundFile.duration.ToString(@"hh\:mm\:ss") };
+                String[] itemArray = { noMp3Name.ToString(), soundFile.duration.ToString(@"hh\:mm\:ss"), shortcut };
                 //Convert the attributes into a List View format
                 ListViewItem lviewItem = new ListViewItem(itemArray);
                 //And then add them to the path
@@ -282,6 +289,11 @@ namespace Soundboard.Forms
             String[] filePaths = System.IO.Directory.GetFiles(SoundPath, "*", SearchOption.AllDirectories).Where(file => file.Contains(".mp3") || file.Contains(".wav")).ToArray();
             SoundFileFactory fileCreator = new SoundFileFactory(filePaths);
             SoundData = new SoundRepository(fileCreator.constructSoundFiles());
+            if (firstLoadUp)
+            {
+                //Now load the sound Shortcuts now that everything else is ready to go
+                SoundData.setShortcutDictionary(SoundData.loadShortcutDictionary());
+            }
             //lblTest.Text = SoundData.SoundFiles.Keys.ToString
             try
             {

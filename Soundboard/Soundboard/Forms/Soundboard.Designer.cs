@@ -53,6 +53,7 @@
             this.btnSetShortcut = new System.Windows.Forms.Button();
             this.btnMute = new System.Windows.Forms.Button();
             this.btnSingleMulti = new System.Windows.Forms.Button();
+            this.clmShortcut = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.tbarVolume)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -71,7 +72,8 @@
             // 
             this.lviewSounds.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.clmName,
-            this.clmLength});
+            this.clmLength,
+            this.clmShortcut});
             this.lviewSounds.HideSelection = false;
             this.lviewSounds.Location = new System.Drawing.Point(26, 138);
             this.lviewSounds.Name = "lviewSounds";
@@ -295,6 +297,10 @@
             this.btnSingleMulti.UseVisualStyleBackColor = true;
             this.btnSingleMulti.Click += new System.EventHandler(this.btnSingleMulti_Click);
             // 
+            // clmShortcut
+            // 
+            this.clmShortcut.Text = "Shortcut";
+            // 
             // frmSound
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -358,6 +364,7 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiBasicKeybinds;
         private System.Windows.Forms.Button btnMute;
         private System.Windows.Forms.Button btnSingleMulti;
+        private System.Windows.Forms.ColumnHeader clmShortcut;
     }
 }
 

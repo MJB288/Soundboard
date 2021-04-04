@@ -56,6 +56,12 @@ namespace Soundboard.Classes
             return ShortcutDictionary[keyCombo];
         }
 
+        public String getShortcutbyFilePath(String filePath)
+        {
+            var shortcutEntry = ShortcutDictionary.FirstOrDefault(dictEntry => dictEntry.Value.Equals(filePath));
+            return shortcutEntry.Key;
+        }
+
         public String[] getGroupNames()
         {
             return SoundFiles.Keys.ToArray();
